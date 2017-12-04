@@ -22,8 +22,8 @@ pullData(api_key = " ", table_name = "Phoenix", country = list(),
 Real time event data
 }
 \description{
-The main function to extract subdata from the UTD Event data server by country names and time ranges.
-             The API key is required. Please contact the developer to get the API key.
+This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
+             The API key is required. Please contact the developer (\url{https://github.com/Sayeedsalam/spec-event-data-server}) to get the API key.
 }
 \examples{
 pullData(api_key=" ", table_name="Phoenix", country=list("USA","MEX","SYR","CHN"),
