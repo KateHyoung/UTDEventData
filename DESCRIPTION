@@ -1,0 +1,15 @@
+Package: UTDEventData
+Type: Package
+Title: The University of Texas at Dallas Event Data Server  
+Version: 0.1.0
+Author: Dr. Patrick T. Brandt <pbrandt@utdallas.edu>, 
+        Dr. Vito D'Orazio <dorazio@utdallas.edu>, 
+        Micheal J. Shoemate <michael.shoemate@utdallas.edu>, 
+        Jared Looper <jrl140030@utdallas.edu>,
+        Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
+Maintainer: Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
+Description: Search, extract and format event data from the real-time event data server at the University Texas at Dallas 
+License: UTD 
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
