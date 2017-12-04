@@ -4,8 +4,8 @@
 #############    Date: 11/30/2017              ##################
 #################################################################
 #' Extracting event data from the UTD real-time Event database
-#' @description The main function to extract subdata from the UTD Event data server by country names and time ranges.
-#'              The API key is required. Please contact the developer to get the API key.
+#' @description This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
+#'              The API key is required. Please contact the developer (\url{https://github.com/Sayeedsalam/spec-event-data-server}) to get the API key.
 #'
 #' @return Real time event data
 #' @export
