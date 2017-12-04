@@ -13,8 +13,8 @@ There are three functions in the package.
 ## Installation
 
 ```
-library(devtools)
-install_github("UTDEventData")
+install.packages("devtools")
+devtools::install_github("KateHyoung/UTDEventData")
 ```
 
 ## Authors  
