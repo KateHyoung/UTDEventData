@@ -8,7 +8,7 @@
 #'  start="20171101", end="20171112")
 #' @param api_key The UTD API key provided by the developer
 #' @param table_name The name of data table you want to have.
-#' @param country List of countries you want to look for with ISO ALPHA-3 Code.
+#' @param country List of countries you want to look for with ISO ALPHA-3 Code. e.g. list=("USA","CAN")
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
 

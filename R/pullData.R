@@ -12,7 +12,7 @@
 #' @examples pullData(api_key=" ", table_name="Phoenix", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
 #' @param api_key The UTD API key provided by the developer
-#' @param table_name The name of data table you want to have.
+#' @param table_name The name of data table you want to have. e.g. list=("USA","CAN")
 #' @param country List of countries you want to look for with ISO ALPHA-3 Code.
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
