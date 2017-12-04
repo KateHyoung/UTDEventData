@@ -4,13 +4,13 @@
 \name{Table-class}
 \alias{Table-class}
 \alias{Table}
-\title{Extracting event data from the UTD real-time Event database with referenc classes}
+\title{Extracting event data from the UTD real-time Event database with reference classes}
 \arguments{
 \item{api_key}{The UTD API key provided by the developer}
 
 \item{table_name}{The name of data table you want to have.}
 
-\item{country}{List of countries you want to look for with ISO ALPHA-3 Code.}
+\item{country}{List of countries you want to look for with ISO ALPHA-3 Code. e.g. list=("USA","CAN")}
 
 \item{start}{The "YYYYMMDD" format of the first date of a data set.}
 
