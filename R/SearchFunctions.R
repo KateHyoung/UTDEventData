@@ -20,10 +20,11 @@ DataTables<-function (   )
 }
 
 
-#' Search variables in the specified data table
+#' Search variables in a particular data table
 #' @description Searching the list of variablees in the data table a user specifies. It returns the list of variables.
 #' @param table= the string of data table name such as 'Pheonix'
-#' @return All names of variable a data table has
+#' @param lword= a word a user wants to look up in variable list of a data table
+#' @return a list of variables
 #' @export
 #' @examples > tableVar(table="Pheonix")
 #' [1] "code"        "src_actor"       "month"    "tgt_actor"   "country_code"
@@ -33,23 +34,23 @@ DataTables<-function (   )
 #' [21] "tgt_agent"  "longitude"       "url"      "_id"
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
-tableVar <-function(table='table_name', word=' ')  ## adding a choice of variable names
-{ ## wait for the query from Sayeed
+tableVar <-function(table='table_name', lword=' ')
+{                                     ## wait for the query from Sayeed
   if (table=='Phoenix'){
 
-  Phoenix<-c("code" , "src_actor" ,  "month" , "tgt_actor" ,  "country_code"  ,
-                 "year",  "id" , "source", "date8", "src_agent",
-                 "latitude","src_other_agent", "geoname", "quad_class", "source_text",
-                 "root_code", "tgt_other_agent", "day", "target", "goldstein",
-                 "tgt_agent",   "longitude", "url", "_id")
-  # word<-'actor'
-  #
-  # if (!is.null(word)){ c<- match(word, Phoenix, nomatch='no match' , duplicates.ok = TRUE)
-  #         return(Pheonix[c])}
-  #
-  return(Pheonix)}
-  # matches=grep('year', Pheonix, ignore.case = TRUE)}
+    Phoenix<-c("code" , "src_actor" ,  "month" , "tgt_actor" ,  "country_code"  ,
+               "year",  "id" , "source", "date8", "src_agent",
+               "latitude","src_other_agent", "geoname", "quad_class", "source_text",
+               "root_code", "tgt_other_agent", "day", "target", "goldstein",
+               "tgt_agent",   "longitude", "url", "_id")
+
+    if (!is.null(lword)){ w<- grep(lword, Phoenix, ignore.case = TRUE)
+    return(Phoenix[w])}
+
+    return(Phoenix)}
+
 
   else {print("Not available now")
   }
 }
+

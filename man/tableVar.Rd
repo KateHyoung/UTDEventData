@@ -2,15 +2,17 @@
 % Please edit documentation in R/SearchFunctions.R
 \name{tableVar}
 \alias{tableVar}
-\title{Search variables in the specified data table}
+\title{Search variables in a particular data table}
 \usage{
-tableVar(table = "table_name", word = " ")
+tableVar(table = "table_name", lword = " ")
 }
 \arguments{
 \item{table=}{the string of data table name such as 'Pheonix'}
+
+\item{lword=}{a word a user wants to look up in variable list of a data table}
 }
 \value{
-All names of variable a data table has
+a list of variables
 }
 \description{
 Searching the list of variablees in the data table a user specifies. It returns the list of variables.
