@@ -4,27 +4,14 @@
 \name{Table-class}
 \alias{Table-class}
 \alias{Table}
-\title{Extracting event data from the UTD real-time Event database with reference classes}
-\arguments{
-\item{api_key}{The UTD API key provided by the developer}
-
-\item{table_name}{The name of data table you want to have.}
-
-\item{country}{List of countries you want to look for with ISO ALPHA-3 Code. e.g. list=("USA","CAN")}
-
-\item{start}{The "YYYYMMDD" format of the first date of a data set.}
-
-\item{end}{The "YYYYMMDD" format of the end date of a data set.}
-}
-\value{
-Real time event data
-}
+\title{A Reference class for applying an API key to all data extracting functions.}
 \description{
-This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
-             The API key is required. Please contact the developer (\url{https://github.com/Sayeedsalam/spec-event-data-server}) to get the API key.
+A Reference class for applying an API key to all data extracting functions.
 }
+\section{Fields}{
 
-\examples{
-Table$pullData(api_key=" ", table_name="Phoenix", country=list("USA","MEX","SYR","CHN"),
- start="20171101", end="20171112")
-}
+\describe{
+\item{\code{a}}{string of the API key from the developer at UTD}
+}}
+
+
