@@ -24,50 +24,62 @@ DataTables<-function (api_key)
 
 #' Searching the variables in a particular data table
 #' @description Searching the list of variablees in the data table a user specifies. It returns the list of variables.
-#' @param table= the string of data table name such as 'Pheonix'
-#' @param lword= a word  or a letter a user wants to look up in the variable list of a data table
-#' @return a list of variables
+#' @param api_key an API key from the developer at UTD
+#' @param table a specific data table a user want to exploer its variables
+#' @param lword a look-up word for a particular variable name in a data table
+#' @return The variables list in a particular data table
 #' @export
-#' @examples > tableVar("Pheonix", " ") if you want to have the list of all variables in the Phoenix table
-#' [1] "code"        "src_actor"       "month"    "tgt_actor"   "country_code"
-#' [6] "year"        "id"              "source"   "date8"       "src_agent"
-#' [11] "latitude"   "src_other_agent" "geoname"  "quad_class"  "source_text"
-#' [16] "root_code"  "tgt_other_agent" "day"      "target"      "goldstein"
-#' [21] "tgt_agent"  "longitude"       "url"      "_id"
-#' > tableVar("Phoenix", "act") if you want to look up the variables that contains "act" in thier names.
-#' [1] "src_actor" "tgt_actor"
+#' @examples > tableVar(api_key="...", table="phoenix_rt")
+#'  # when searching the variables in Phoenix_RT
+#' [1] " code", "src_actor", "month", "tgt_actor", ....
+#' > tableVar(api_key="...", table="icews", lword="tar")
+#'  # when searhing the variable which includes the word of "tar" in ICEWS
+#' [1] " Target Name"    " Target Sectors, ....
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
-tableVar <-function(table='table_name', lword=' ')
-{                                     ## wait for the query from Sayeed
-  if (table=='Phoenix'){
+tableVar <-function(api_key=' ', table='table_name', lword=' ')
+{
+  # transfroming a string to lower cases
+  tb=tolower(table)
 
-    Phoenix<-c("code" , "src_actor" ,  "month" , "tgt_actor" ,  "country_code"  ,
-               "year",  "id" , "source", "date8", "src_agent",
-               "latitude","src_other_agent", "geoname", "quad_class", "source_text",
-               "root_code", "tgt_other_agent", "day", "target", "goldstein",
-               "tgt_agent",   "longitude", "url", "_id")
+  # searching variables in Phoenix-rt
+  if (tb=='phoenix_rt'){
 
-    if (!is.null(lword)){ w<- grep(lword, Phoenix, ignore.case = TRUE)
-    return(Phoenix[w])}
+    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    # getting variables names
+    VarList <- readLines(url_submit, warn=FALSE)
+    List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+    List<-gsub("u'", "", List);List<-gsub("'","",List)
+    varList<-strsplit(List, ",")[[1]]
 
-    return(Phoenix)}
+     # looking up a word of variables
+       if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+       return(varList[w])}
 
+     else(varList)}
 
-  if (table=='ICEWS'){
-    ICEWS<-c("_id", "Province","Publisher","Target Name", "District", "City",
-             "Country", "CAMEO Code",  "Source Country", "Source Sectors", "Event Date",
-             "Source Name","Source Name", "Intensity", "Story ID","Target Sectors",
-             "Event Text", "Longitude" , "Target Country" , "Sentence Number","Event ID")
+  # searching variables in Icews
+  if (tb=='icews'){
 
-    if (!is.null(lword)){ w<- grep(lword, ICEWS, ignore.case = TRUE)
-    return(ICEWS[w])}
+    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    # getting variables names
+    VarList <- readLines(url_submit, warn=FALSE)
+    List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+    List<-gsub("u'", "", List);List<-gsub("'","",List)
+    varList<-strsplit(List, ",")[[1]]
 
-  return(ICEWS)
-  }
+    # looking up a word of variables
+    if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+    return(varList[w])}
 
-  else {print("Not available now")
-  }
+    else(varList)}
+
+  else{print('Please check the table name!')}
+
 }
+
+
 

@@ -6,12 +6,18 @@
 \alias{Table}
 \title{A Reference class for applying an API key to all data extracting functions.}
 \description{
-A Reference class for applying an API key to all data extracting functions.
+Once a referece class is set, a user does not need to go through an API key
+to call searching functions
 }
 \section{Fields}{
 
 \describe{
-\item{\code{a}}{string of the API key from the developer at UTD}
+\item{\code{api_key}}{An API key from the developer at UTD}
 }}
 
 
+\examples{
+>obj<-Table$new() for creating an object
+>obj$setAPIKey("....")
+>obj$DataTable()
+}

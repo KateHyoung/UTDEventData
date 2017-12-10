@@ -1,5 +1,5 @@
-#'A Hiden function for relabeling query strings of one data format to the other
-#'@param queryString
+#'A hiden function for relabeling query strings of one data format to the other
+#'@param queryString a querying sentence of a data format
 #'@param format a format returned to
 #'@author Micheal J. Shoemate
 

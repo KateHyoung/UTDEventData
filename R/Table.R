@@ -1,8 +1,13 @@
 #' A Reference class for applying an API key to all data extracting functions.
+#'@description  Once a referece class is set, a user does not need to go through an API key
+#'to call searching functions
 #'@export Table
-#'@field a string of the API key from the developer at UTD
-#'@method pullData( ) R functions in the UTDEventData package for
-#'subsetting the real-time data
+#'@import methods
+#'@field api_key An API key from the developer at UTD
+#'@examples >obj<-Table$new() for creating an object
+#'>obj$setAPIKey("....")
+#'>obj$DataTable()
+#'@method pullData(), DataTables()
 Table <- setRefClass("Table",
                      fields = list (api_key = "character"),
                      methods = list(
@@ -54,6 +59,37 @@ Table <- setRefClass("Table",
                          List<-gsub(".*\\[(.*)\\].*", "\\1", TableList)
                          List<-toupper(List)
                          return(List)
+                       },
+                       # searching for a variable list in a data table
+                       tableVar = function(table='table_name')
+                       {
+                         # transfroming a string to lower cases
+                         tb=tolower(table)
+
+                         # searching variables in Phoenix-rt
+                         if (tb=='phoenix_rt'){
+
+                           url = 'http://149.165.156.33:5002/api/fields?datasource='
+                           url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+                           # getting variables names
+                           VarList <- readLines(url_submit, warn=FALSE)
+                           List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+                           List<-gsub("u", "", List)
+                           return(List)}
+
+                         # searching variables in Icews
+                         if (tb=='icews'){
+
+                           url = 'http://149.165.156.33:5002/api/fields?datasource='
+                           url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+                           # getting variables names
+                           VarList <- readLines(url_submit, warn=FALSE)
+                           List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+                           List<-gsub("u", "", List)
+                           return(List)}
+
+                         else{print('Please check the table name!')}
+
                        }
                      ))
 

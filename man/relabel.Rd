@@ -2,15 +2,17 @@
 % Please edit documentation in R/relabel.R
 \name{relabel}
 \alias{relabel}
-\title{A Hiden function for relabeling query strings of one data format to the other}
+\title{A hiden function for relabeling query strings of one data format to the other}
 \usage{
 relabel(queryString, format)
 }
 \arguments{
+\item{queryString}{a querying sentence of a data format}
+
 \item{format}{a format returned to}
 }
 \description{
-A Hiden function for relabeling query strings of one data format to the other
+A hiden function for relabeling query strings of one data format to the other
 }
 \author{
 Micheal J. Shoemate
