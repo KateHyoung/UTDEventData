@@ -1,7 +1,7 @@
 Package: UTDEventData
 Type: Package
 Title: The University of Texas at Dallas Event Data Server  
-Version: 0.1.0
+Version: 0.8.0
 Author: Dr. Patrick T. Brandt <pbrandt@utdallas.edu>, 
         Dr. Vito D'Orazio <dorazio@utdallas.edu>, 
         Micheal J. Shoemate <michael.shoemate@utdallas.edu>, 

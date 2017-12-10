@@ -2,9 +2,9 @@
 % Please edit documentation in R/SearchFunctions.R
 \name{DataTables}
 \alias{DataTables}
-\title{Search data tables in the UTD Event data server}
+\title{Searching data tables in the UTD Event data server}
 \usage{
-DataTables()
+DataTables(api_key)
 }
 \value{
 The name of data table the UTD server has
@@ -12,9 +12,8 @@ The name of data table the UTD server has
 \description{
 Searching data tables in the UTD server.
 It returns the list of data table in the UTD server.
-Currently only Pheonix is available.
+It requires an API key from the developer at UTD.
 }
 \examples{
-> DataTables( )
-[1] "Pheonix" "OK-LN" "ICEWS"
+> DataTables(api_key=" ")
 }

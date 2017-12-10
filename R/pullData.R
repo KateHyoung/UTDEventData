@@ -1,7 +1,7 @@
 #################################################################
 #############    A Main function of subsetting ##################
 #############    Combined by Kate Kim          ##################
-#############    Date: 11/30/2017              ##################
+#############    Date: 12/10/2017              ##################
 #################################################################
 #' Extracting event data from the UTD real-time Event database
 #' @description This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
@@ -12,7 +12,7 @@
 #' @examples pullData(api_key=" ", table_name="Phoenix", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
 #' @param api_key The UTD API key provided by the developer
-#' @param table_name The name of data table you want to have. e.g. list=("USA","CAN")
+#' @param table_name The name of data table you want to have. e.g. list("USA","CAN")
 #' @param country List of countries you want to look for with ISO ALPHA-3 Code.
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.

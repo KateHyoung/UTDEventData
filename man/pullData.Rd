@@ -10,7 +10,7 @@ pullData(api_key = " ", table_name = "Phoenix", country = list(),
 \arguments{
 \item{api_key}{The UTD API key provided by the developer}
 
-\item{table_name}{The name of data table you want to have. e.g. list=("USA","CAN")}
+\item{table_name}{The name of data table you want to have. e.g. list("USA","CAN")}
 
 \item{country}{List of countries you want to look for with ISO ALPHA-3 Code.}
 
