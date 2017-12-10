@@ -61,35 +61,45 @@ Table <- setRefClass("Table",
                          return(List)
                        },
                        # searching for a variable list in a data table
-                       tableVar = function(table='table_name')
-                       {
-                         # transfroming a string to lower cases
+                       tableVar = function(table='table_name',lword=' ')
+                         {# transfroming a string to lower cases
                          tb=tolower(table)
 
-                         # searching variables in Phoenix-rt
-                         if (tb=='phoenix_rt'){
+                       # searching variables in Phoenix-rt
+                       if (tb=='phoenix_rt'){
 
-                           url = 'http://149.165.156.33:5002/api/fields?datasource='
-                           url_submit = paste(url,tb,'&api_key=',api_key,sep='')
-                           # getting variables names
-                           VarList <- readLines(url_submit, warn=FALSE)
-                           List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
-                           List<-gsub("u", "", List)
-                           return(List)}
+                         url = 'http://149.165.156.33:5002/api/fields?datasource='
+                         url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+                         # getting variables names
+                         VarList <- readLines(url_submit, warn=FALSE)
+                         List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+                         List<-gsub("u'", "", List);List<-gsub("'","",List)
+                         varList<-strsplit(List, ",")[[1]]
 
-                         # searching variables in Icews
-                         if (tb=='icews'){
+                         # looking up a word of variables
+                         if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+                         return(varList[w])}
 
-                           url = 'http://149.165.156.33:5002/api/fields?datasource='
-                           url_submit = paste(url,tb,'&api_key=',api_key,sep='')
-                           # getting variables names
-                           VarList <- readLines(url_submit, warn=FALSE)
-                           List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
-                           List<-gsub("u", "", List)
-                           return(List)}
+                         else(varList)}
 
-                         else{print('Please check the table name!')}
+                       # searching variables in Icews
+                       if (tb=='icews'){
 
+                         url = 'http://149.165.156.33:5002/api/fields?datasource='
+                         url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+                         # getting variables names
+                         VarList <- readLines(url_submit, warn=FALSE)
+                         List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+                         List<-gsub("u'", "", List);List<-gsub("'","",List)
+                         varList<-strsplit(List, ",")[[1]]
+
+                         # looking up a word of variables
+                         if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+                         return(varList[w])}
+
+                         else(varList)}
+
+                       else{print('Please check the table name!')}
                        }
                      ))
 

@@ -19,3 +19,11 @@ The variables list in a particular data table
 \description{
 Searching the list of variablees in the data table a user specifies. It returns the list of variables.
 }
+\examples{
+> tableVar(api_key="...", table="phoenix_rt")
+ # when searching the variables in Phoenix_RT
+[1] " code", "src_actor", "month", "tgt_actor", ....
+> tableVar(api_key="...", table="icews", lword="tar")
+ # when searhing the variable which includes the word of "tar" in ICEWS
+[1] " Target Name"    " Target Sectors", ....
+}
