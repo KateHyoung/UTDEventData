@@ -5,7 +5,7 @@
 
 relabel = function(queryString, format) {
 
-  jsonFormat = jsonlite::fromJSON(readLines(paste("~/Documents/UTDEventData/", format, '.json', sep="")));
+  jsonFormat = jsonlite::fromJSON(readLines(paste("~/UTDEventData/R/", format, '.json', sep="")));
   key = names(jsonFormat)
 
   for (i in 1:length(jsonFormat)) {

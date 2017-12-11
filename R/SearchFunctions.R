@@ -60,6 +60,57 @@ tableVar <-function(api_key=' ', table='table_name', lword=' ')
 
      else(varList)}
 
+  # searching variables in cline_Phoenix_nyt
+  if (tb=='cline_phoenix_nyt'){
+
+    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    # getting variables names
+    VarList <- readLines(url_submit, warn=FALSE)
+    List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+    List<-gsub("u'", "", List);List<-gsub("'","",List)
+    varList<-strsplit(List, ",")[[1]]
+
+    # looking up a word of variables
+    if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+    return(varList[w])}
+
+    else(varList)}
+
+  # searching variables in cline_Phoenix_fbis
+  if (tb=='cline_phoenix_fbis'){
+
+    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    # getting variables names
+    VarList <- readLines(url_submit, warn=FALSE)
+    List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+    List<-gsub("u'", "", List);List<-gsub("'","",List)
+    varList<-strsplit(List, ",")[[1]]
+
+    # looking up a word of variables
+    if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+    return(varList[w])}
+
+    else(varList)}
+
+  # searching variables in cline_Phoenix_swb
+  if (tb=='cline_phoenix_swb'){
+
+    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    # getting variables names
+    VarList <- readLines(url_submit, warn=FALSE)
+    List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+    List<-gsub("u'", "", List);List<-gsub("'","",List)
+    varList<-strsplit(List, ",")[[1]]
+
+    # looking up a word of variables
+    if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+    return(varList[w])}
+
+    else(varList)}
+
   # searching variables in Icews
   if (tb=='icews'){
 

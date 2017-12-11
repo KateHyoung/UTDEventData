@@ -24,26 +24,23 @@ Table <- setRefClass("Table",
                          # Convert the data structure into a string
                          # The gsub removes the backslashes, but they get visually re-added when printing to console
                          query_string = gsub("\\", '', rjson::toJSON(query), fixed=TRUE)
-                         if (table_name=="Phoenix") {
+                         url <- 'http://149.165.156.33:5002/api/data?api_key='
+                         url_submit = ''
+                         table_name = tolower(table_name)
+                         if (table_name=="phoenix_rt" || table_name=='cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
                            query_string = relabel(query_string, "phoenix_api")
-
-                           # Request data from API
-                           url <- 'http://149.165.156.33:5002/api/data?api_key='
-                           url_submit <- paste(url, api_key,'&query=', query_string, sep='')
                          }
-                         else if (table_name == "ICEWS") {
+                         else if (table_name == "icews") {
                            query_string = relabel(query_string, "icews_local")
 
-                           # Request data from API
-                           url <- 'http://149.165.156.33:5002/api/data?api_key='
-                           url_submit <- paste(url, api_key,'&query=', query_string, sep='')
                          }
                          else {
                            print("Not available now")
                            return(query_string)
                          }
-
                          # getting data from url formatting
+                         url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
+                         url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
                          retrieved_data <- readLines(url_submit, warn=FALSE)
                          parsed_data <- jsonlite::fromJSON(retrieved_data)$data
                          return(parsed_data)
@@ -62,45 +59,33 @@ Table <- setRefClass("Table",
                        },
                        # searching for a variable list in a data table
                        tableVar = function(table='table_name',lword=' ')
-                         {# transfroming a string to lower cases
+                       {# transfroming a string to lower cases
                          tb=tolower(table)
 
-                       # searching variables in Phoenix-rt
-                       if (tb=='phoenix_rt'){
-
                          url = 'http://149.165.156.33:5002/api/fields?datasource='
-                         url_submit = paste(url,tb,'&api_key=',api_key,sep='')
-                         # getting variables names
-                         VarList <- readLines(url_submit, warn=FALSE)
-                         List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
-                         List<-gsub("u'", "", List);List<-gsub("'","",List)
-                         varList<-strsplit(List, ",")[[1]]
 
-                         # looking up a word of variables
-                         if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
-                         return(varList[w])}
+                         # searching variables in Phoenix-rt
+                         if (tb=='phoenix_rt' || tb=='icews' || tb=='cline_phoenix_swb' || tb=='cline_phoenix_fbis' || tb=='cline_phoenix_nyt'){
 
-                         else(varList)}
+                           url_submit = paste(url,tb,'&api_key=',api_key,sep='')
 
-                       # searching variables in Icews
-                       if (tb=='icews'){
+                           # getting variable names
+                           VarList <- readLines(url_submit, warn=FALSE)
+                           List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+                           List<-gsub("u'", "", List);List<-gsub("'","",List)
+                           varList<-strsplit(List, ",")[[1]]
 
-                         url = 'http://149.165.156.33:5002/api/fields?datasource='
-                         url_submit = paste(url,tb,'&api_key=',api_key,sep='')
-                         # getting variables names
-                         VarList <- readLines(url_submit, warn=FALSE)
-                         List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
-                         List<-gsub("u'", "", List);List<-gsub("'","",List)
-                         varList<-strsplit(List, ",")[[1]]
+                           # looking up a word of variables
+                           if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+                           return(varList[w])}
 
-                         # looking up a word of variables
-                         if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
-                         return(varList[w])}
+                           else(varList)
 
-                         else(varList)}
+                          }
+                         else{print('Please check the table name!')
+                           return(list())}
 
-                       else{print('Please check the table name!')}
+
+
                        }
                      ))
-
-
