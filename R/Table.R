@@ -64,7 +64,7 @@ Table <- setRefClass("Table",
 
                          url = 'http://149.165.156.33:5002/api/fields?datasource='
 
-                         # searching variables in Phoenix-rt
+                         # searching variables in different data tables
                          if (tb=='phoenix_rt' || tb=='icews' || tb=='cline_phoenix_swb' || tb=='cline_phoenix_fbis' || tb=='cline_phoenix_nyt'){
 
                            url_submit = paste(url,tb,'&api_key=',api_key,sep='')
