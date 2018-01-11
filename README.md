@@ -14,7 +14,6 @@ There are three functions in the package.
 ## Installation
 
 ```
-install.packages("devtools")
 devtools::install_github("KateHyoung/UTDEventData")
 ```
 
