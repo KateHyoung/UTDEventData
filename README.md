@@ -27,5 +27,5 @@ Jared Looper <jrl140030@utdallas.edu>
 Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>  
 
 ## License
-The University of Texas at Dallas 
+The University of Texas at Dallas <br/>
 This package is supported by the RIDIR project funed by the National Science Foundatioin under Grant No. SBE-SMA-1539302.
