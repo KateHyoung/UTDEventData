@@ -1,6 +1,8 @@
 #'A hiden function for relabeling query strings of one data format to the other
 #'@param queryString a querying sentence of a data format
-#'@param format a format returned to
+#'@param format a format returned
+#'@import jsonlite
+#'@keywords internal
 #'@author Micheal J. Shoemate
 
 relabel = function(queryString, format) {

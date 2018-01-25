@@ -2,30 +2,34 @@
 % Please edit documentation in R/pullData.R
 \name{pullData}
 \alias{pullData}
-\title{Extracting event data from the UTD real-time Event database}
+\title{Extracting event data from the UTD real-time event data server.}
 \usage{
-pullData(api_key = " ", table_name = "Phoenix", country = list(),
-  start = " ", end = " ")
+pullData(api_key = " ", table_name = " ", country = list(), start = " ",
+  end = " ")
 }
 \arguments{
-\item{api_key}{The UTD API key provided by the developer}
+\item{api_key}{An API key provided by the server manager at UTD.}
 
-\item{table_name}{The name of data table you want to have. e.g. list("USA","CAN")}
+\item{table_name}{The name of data table you want to have. You may find available data tables from DataTables( )}
 
-\item{country}{List of countries you want to look for with ISO ALPHA-3 Code.}
+\item{country}{List of countries you want to look for with the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format.\cr
+e.g. list("USA","CAN")}
 
 \item{start}{The "YYYYMMDD" format of the first date of a data set.}
 
 \item{end}{The "YYYYMMDD" format of the end date of a data set.}
 }
 \value{
-Real time event data
+Real-time event data
 }
 \description{
 This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
-             The API key is required. Please contact the developer (\url{https://github.com/Sayeedsalam/spec-event-data-server}) to get the API key.
+             The API key is required and can be obtained after filling out the form in the UTD event data sign-up website (\url{http://149.165.156.33:5002/signup}).
+             Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+             You can also use this function through the reference class, \code{Table()}.
+             Please find the help document of the \code{Table()} function for more details on its usage.
 }
 \examples{
-pullData(api_key=" ", table_name="Phoenix", country=list("USA","MEX","SYR","CHN"),
+pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
  start="20171101", end="20171112")
 }

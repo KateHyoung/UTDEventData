@@ -10,6 +10,8 @@ There are three functions in the package.
 - TableVar( ): for looking up the variables in a specified data table
 - pullData( ): for extracting a data set with contries and time range information
 
+This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key. 
+<http://149.165.156.33:5002/signup>
 
 ## Installation
 
@@ -26,3 +28,4 @@ Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
 
 ## License
 The University of Texas at Dallas 
+This package is supported by the RIDIR project funed by the National Science Foundatioin under Grant No. SBE-SMA-1539302.

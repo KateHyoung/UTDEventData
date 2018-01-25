@@ -1,23 +1,27 @@
 #################################################################
 #############    A Main function of subsetting ##################
 #############    Combined by Kate Kim          ##################
-#############    Date: 12/10/2017              ##################
+#############    Last update: 1/18/2018        ##################
 #################################################################
-#' Extracting event data from the UTD real-time Event database
+#' Extracting event data from the UTD real-time event data server.
 #' @description This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
-#'              The API key is required. Please contact the developer (\url{https://github.com/Sayeedsalam/spec-event-data-server}) to get the API key.
-#'
-#' @return Real time event data
+#'              The API key is required and can be obtained after filling out the form in the UTD event data sign-up website (\url{http://149.165.156.33:5002/signup}).
+#'              Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+#'              You can also use this function through the reference class, \code{Table()}.
+#'              Please find the help document of the \code{Table()} function for more details on its usage.
+#' @return Real-time event data
+#' @import jsonlite
 #' @export
-#' @examples pullData(api_key=" ", table_name="Phoenix", country=list("USA","MEX","SYR","CHN"),
+#' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
-#' @param api_key The UTD API key provided by the developer
-#' @param table_name The name of data table you want to have. e.g. list("USA","CAN")
-#' @param country List of countries you want to look for with ISO ALPHA-3 Code.
+#' @param api_key An API key provided by the server manager at UTD.
+#' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
+#' @param country List of countries you want to look for with the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format.\cr
+#'                e.g. list("USA","CAN")
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
 
-pullData<-function(api_key=" ", table_name="Phoenix", country=list(), start=" ", end=" "){
+pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" "){
 
     country_constraint = list('<country_code>'= list('$in'= country))
 

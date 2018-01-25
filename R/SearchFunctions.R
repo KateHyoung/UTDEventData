@@ -1,15 +1,18 @@
-#' Searching data tables in the UTD Event data server
-#' @description Searching data tables in the UTD server.
-#' It returns the list of data table in the UTD server.
-#' It requires an API key from the developer at UTD.
-#' @return The name of data table the UTD server has
+#' Searching data tables in the UTD event data server
+#' @description Searching available data tables in the event data server.
+#' It returns the list of data tables in the UTD server and requires an API key.
+#' The API key can be obtained after filling out the form in the UTD event data sign-up website
+#' (http://149.165.156.33:5002/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+#' You can also use this function through the reference class, \code{Table()}.
+#' Please find the help document of the \code{Table()} function for more details on its usage.
+#' @return The list of data table the UTD server has
 #' @export
 #' @examples > DataTables(api_key=" ")
 ## function for indicating a specific data table in MongoDB
-## Current updated date: 12/10/2017
+## Currently updated on 1/18/2018
 ## Kate Kim
 ## this returns all data tables the UTD database has
-DataTables<-function (api_key)
+DataTables<-function (api_key=" ")
 {
   # constructing a url
   url = 'http://149.165.156.33:5002/api/datasources?api_key='
@@ -23,10 +26,17 @@ DataTables<-function (api_key)
 
 
 #' Searching the variables in a particular data table
-#' @description Searching the list of variablees in the data table a user specifies. It returns the list of variables.
+#' @description Searching the list of variables in the data table a user specifies.
+#' It returns variables names and requires an API key. \cr
+#' You can also look up a particular word for variabla names such as "day", "month", or "src" so that you can find whether or not a
+#' specified data table has the certain variables you need. \cr
+#' The API key can be obtained after filling out the form in the UTD event data sign-up website
+#' (http://149.165.156.33:5002/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+#' You can also use this function through the reference class, \code{Table()}.
+#' Please find the help document of the \code{Table()} function for more details on its usage.
 #' @param api_key an API key from the developer at UTD
 #' @param table a specific data table a user want to exploer its variables
-#' @param lword a look-up word for a particular variable name in a data table
+#' @param lword a look-up word for a particular variable name you need
 #' @return The variables list in a particular data table
 #' @export
 #' @examples > tableVar(api_key="...", table="phoenix_rt")
@@ -38,7 +48,7 @@ DataTables<-function (api_key)
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
-tableVar <-function(api_key=' ', table='table_name', lword=' ')
+tableVar <-function(api_key=' ', table=' ', lword=' ')
 {
   # transfroming a string to lower cases
   tb=tolower(table)

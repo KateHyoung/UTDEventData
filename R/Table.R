@@ -1,13 +1,23 @@
-#' A Reference class for applying an API key to all data extracting functions.
-#'@description  Once a referece class is set, a user does not need to go through an API key
-#'to call searching functions
-#'@export Table
+#' A reference class to apply a given API key to extracting functions in this package
+#'
+#'@description  Once a referece class is set, a user does not need to repeatedly put an API key into a function.
+#'An API key can be obtained after filling out the form in the UTD event data sign-up website (\url{http://149.165.156.33:5002/signup}).
+#'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
+#'@name Table
 #'@import methods
 #'@field api_key An API key from the developer at UTD
-#'@examples >obj<-Table$new() for creating an object
-#'>obj$setAPIKey("....")
-#'>obj$DataTable()
-#'@method pullData(), DataTables()
+#'@export Table
+#'@exportClass Table
+#'@examples # Creating an object
+#'> obj<-Table$new()
+#'
+#'# Setting an object of an API key
+#'> obj$setAPIKey("....")
+#'
+#'# Once the object of an API is set, a user does not need to repeat type the API key to
+#'use the subsetting functions
+#'> obj$DataTable()  # returns the available data tables in the UTD server
+
 Table <- setRefClass("Table",
                      fields = list (api_key = "character"),
                      methods = list(
@@ -15,6 +25,15 @@ Table <- setRefClass("Table",
                          api_key <<- key
                        },
                        pullData = function(table_name, country, start, end) {
+                         "This is the main function to extract subdata from
+                        the UTD Event data server by country names and time ranges.
+                          \\subsection{Parameters}{\\itemize{
+                         \\item{\\code{table_name} a data table a user wants.}
+                         \\item{\\code{country} a list of countires with the ISO code format.}
+                         \\item{\\code{start} a string format of yyyymmdd as a starting date of a data set}
+                         \\item{\\code{end} a string format of yyymmdd as aend date of a data set}
+                       }}
+                         \\subsection{Return Value}{real-time data}"
                          country_constraint = list('<country_code>'= list('$in'= country))
 
                          date_constraint = list('<date>'=list('$gte'=start,'$lte'=end))
@@ -48,6 +67,8 @@ Table <- setRefClass("Table",
                        # Searching for other data tables
                        DataTables=function (  )
                        {
+                         "This function returns the names of data tables.
+                        \\subsection{Return Value}{a list of a data table}"
                          # constructing a url
                          url = 'http://149.165.156.33:5002/api/datasources?api_key='
                          url_submit = paste(url,api_key,sep='')
@@ -59,7 +80,15 @@ Table <- setRefClass("Table",
                        },
                        # searching for a variable list in a data table
                        tableVar = function(table='table_name',lword=' ')
-                       {# transfroming a string to lower cases
+                       {
+                         "This function returns the variable list a spcified data set.
+                        \\subsection{Parameters}{\\itemize{
+                         \\item{\\code{table} data table name a user wants.}
+                         \\item{\\code{lword} a look-up word of variable names.}
+                       }}
+                         \\subsection{Return Value}{a list of variables in a data table}"
+
+                         # transfroming a string to lower cases
                          tb=tolower(table)
 
                          url = 'http://149.165.156.33:5002/api/fields?datasource='
