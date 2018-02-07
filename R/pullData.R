@@ -36,10 +36,10 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     url_submit = ''
     table_name = tolower(table_name)
     if (table_name=="phoenix_rt" || table_name=='cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
-      query_string = relabel(query_string, "phoenix_api")
+      query_string = relabel(query_string, "phoenix_rt")
     }
     else if (table_name == "icews") {
-      query_string = relabel(query_string, "icews_local")
+      query_string = relabel(query_string, "icews")
 
     }
     else {

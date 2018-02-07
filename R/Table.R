@@ -5,7 +5,7 @@
 #'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 #'@name Table
 #'@import methods
-#'@field api_key An API key from the developer at UTD
+#'@field api_key An API key obtained from the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}
 #'@export Table
 #'@exportClass Table
 #'@examples # Creating an object
@@ -14,9 +14,13 @@
 #'# Setting an object of an API key
 #'> obj$setAPIKey("....")
 #'
-#'# Once the object of an API is set, a user does not need to repeat type the API key to
-#'use the subsetting functions
+#'# Once the object of an API is set, a user no need to repeat typing
+#'an API key to use the subsetting functions
 #'> obj$DataTable()  # returns the available data tables in the UTD server
+#'
+#'# when a user wants to subset real-time data ('phoenix_rt) from 20171101
+#'to 20171102 on MEX(Mexico)
+#'> obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
 Table <- setRefClass("Table",
                      fields = list (api_key = "character"),
@@ -31,9 +35,9 @@ Table <- setRefClass("Table",
                          \\item{\\code{table_name} a data table a user wants.}
                          \\item{\\code{country} a list of countires with the ISO code format.}
                          \\item{\\code{start} a string format of yyyymmdd as a starting date of a data set}
-                         \\item{\\code{end} a string format of yyymmdd as aend date of a data set}
+                         \\item{\\code{end} a string format of yyymmdd as an end date of a data set}
                        }}
-                         \\subsection{Return Value}{real-time data}"
+                         \\subsection{Return Value}{real-time data or subseted data}"
                          country_constraint = list('<country_code>'= list('$in'= country))
 
                          date_constraint = list('<date>'=list('$gte'=start,'$lte'=end))
@@ -47,10 +51,10 @@ Table <- setRefClass("Table",
                          url_submit = ''
                          table_name = tolower(table_name)
                          if (table_name=="phoenix_rt" || table_name=='cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
-                           query_string = relabel(query_string, "phoenix_api")
+                           query_string = relabel(query_string, "phoenix_rt")
                          }
                          else if (table_name == "icews") {
-                           query_string = relabel(query_string, "icews_local")
+                           query_string = relabel(query_string, "icews")
 
                          }
                          else {
@@ -113,8 +117,5 @@ Table <- setRefClass("Table",
                           }
                          else{print('Please check the table name!')
                            return(list())}
-
-
-
                        }
                      ))

@@ -12,7 +12,7 @@ Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD 
 \section{Fields}{
 
 \describe{
-\item{\code{api_key}}{An API key from the developer at UTD}
+\item{\code{api_key}}{An API key obtained from the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}}
 }}
 
 \section{Methods}{
@@ -27,9 +27,9 @@ Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD 
   \item{\code{table_name} a data table a user wants.}
   \item{\code{country} a list of countires with the ISO code format.}
   \item{\code{start} a string format of yyyymmdd as a starting date of a data set}
-  \item{\code{end} a string format of yyymmdd as aend date of a data set}
+  \item{\code{end} a string format of yyymmdd as an end date of a data set}
 }}
-  \subsection{Return Value}{real-time data}}
+  \subsection{Return Value}{real-time data or subseted data}}
 
 \item{\code{tableVar(table = "table_name", lword = " ")}}{This function returns the variable list a spcified data set.
  \subsection{Parameters}{\itemize{
@@ -46,7 +46,11 @@ Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD 
 # Setting an object of an API key
 > obj$setAPIKey("....")
 
-# Once the object of an API is set, a user does not need to repeat type the API key to
-use the subsetting functions
+# Once the object of an API is set, a user no need to repeat typing
+an API key to use the subsetting functions
 > obj$DataTable()  # returns the available data tables in the UTD server
+
+# when a user wants to subset real-time data ('phoenix_rt) from 20171101
+to 20171102 on MEX(Mexico)
+> obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 }
