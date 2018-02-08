@@ -153,6 +153,7 @@ f2 <- function() {
                       \"format\": \".\"
                       },
                       \"<date>\": {
+                      \"name\": \"Event Date\",
                       \"format\": \"^\\\\d{4}-\\\\d{2}-\\\\d{2}$\"
                       },
                       \"<src_name>\": {
@@ -203,7 +204,7 @@ f2 <- function() {
                       \"name\": \"Province\",
                       \"format\": \".*\"
                       },
-                      \"<country>\": {
+                      \"<country_code>\": {
                       \"name\": \"Country\",
                       \"format\": \".*\"
                       },
