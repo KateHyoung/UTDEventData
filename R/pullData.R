@@ -8,16 +8,18 @@
 #'              The API key is required and can be obtained after filling out the form in the UTD event data sign-up website (\url{http://149.165.156.33:5002/signup}).
 #'              Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #'              You can also use this function through the reference class, \code{Table()}.
-#'              Please find the help document of the \code{Table()} function for more details on its usage.
+#'              Please find the help document of the \code{Table()} function for more details for its usage.
 #' @return Real-time event data
 #' @import jsonlite
+#' @import countrycode
 #' @export
 #' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
 #' @param api_key An API key provided by the server manager at UTD.
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
-#' @param country List of countries you want to look for with the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format.\cr
-#'                e.g. list("USA","CAN")
+#' @param country List of countries. We recomend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
+#' the full country name is also working in this function.\cr
+#'      e.g. Either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working!
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
 
@@ -34,12 +36,12 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     if(ISO == TRUE) {
       if(table_name == "icews")
         for(i in 1:length(country))
-          country[[i]] = countrycode::countrycode(country[[i]],"country.name","iso3c")
+          country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
     }
     else {
        if(table_name != "icews")
          for(i in 1:length(country))
-          country[[i]] = countrycode::countrycode(country[[i]],"iso3c","country.name")
+          country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c")
     }
 
     if(table_name == "icews") {

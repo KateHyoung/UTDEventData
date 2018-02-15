@@ -38,7 +38,31 @@ Table <- setRefClass("Table",
                          \\item{\\code{end} a string format of yyymmdd as an end date of a data set}
                        }}
                          \\subsection{Return Value}{real-time data or subseted data}"
-                         country_constraint = list('<country_code>'= list('$in'= country))
+                             ISO = TRUE
+
+                              for(i in 1:length(country))
+                                 if(nchar(country[i]) != 3) {
+                             ISO = FALSE
+                             break
+                               }
+
+                             if(ISO == TRUE) {
+                                if(table_name == "icews")
+                                  for(i in 1:length(country))
+                                  country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
+                                  }
+                             else {
+                                if(table_name != "icews")
+                                for(i in 1:length(country))
+                               country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c")
+                                  }
+
+                             if(table_name == "icews") {
+                                 start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
+                                 end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
+                                   }
+
+                          country_constraint = list('<country_code>'= list('$in'= country))
 
                          date_constraint = list('<date>'=list('$gte'=start,'$lte'=end))
 
@@ -53,17 +77,13 @@ Table <- setRefClass("Table",
                          if (table_name=="phoenix_rt" || table_name=='cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
                            query_string = relabel(query_string, "phoenix_rt")
                          }
-                         else if (table_name == "icews") {
+                         else if(table_name == "icews") {
                            query_string = relabel(query_string, "icews")
-
-                         }
-                         else {
-                           print("Not available now")
-                           return(query_string)
                          }
                          # getting data from url formatting
                          url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
                          url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
+                         url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
                          retrieved_data <- readLines(url_submit, warn=FALSE)
                          parsed_data <- jsonlite::fromJSON(retrieved_data)$data
                          return(parsed_data)
