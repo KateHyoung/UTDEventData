@@ -21,7 +21,7 @@ the full country name is also working in this function.\cr
 \item{end}{The "YYYYMMDD" format of the end date of a data set.}
 }
 \value{
-Real-time event data
+extracted event data from a specifed data table
 }
 \description{
 This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
