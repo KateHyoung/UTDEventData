@@ -9,7 +9,7 @@
 #'              Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #'              You can also use this function through the reference class, \code{Table()}.
 #'              Please find the help document of the \code{Table()} function for more details for its usage.
-#' @return Real-time event data
+#' @return extracted event data from a specifed data table
 #' @import jsonlite
 #' @import countrycode
 #' @export
