@@ -11,7 +11,7 @@
 #'              Please find the help document of the \code{Table()} function for more details for its usage.
 #' @return extracted event data from a specifed data table
 #' @import jsonlite
-#' @import countrycode
+#' @importFrom countrycode countrycode
 #' @export
 #' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
