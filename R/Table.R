@@ -5,7 +5,6 @@
 #'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 #'@name Table
 #'@import methods
-#'@import countrycode
 #'@field api_key An API key obtained from the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}
 #'@export Table
 #'@exportClass Table
