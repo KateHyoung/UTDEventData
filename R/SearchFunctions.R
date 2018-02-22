@@ -9,17 +9,17 @@
 #' The details of data tables are illustrated in the linked websites. \cr
 #' \itemize{
 #' \item {Phoenix_RT:} {Real-time data from Oct. 2017 to today, please see more details in \href{http://openeventdata.org/}{Open Event Data Alliance}}.\cr
-#' \item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Sep. 2016, please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
-#' \item {phoenix NYT:} {accumulated from 1945 to 2005}
-#' \item {Phoenix FBIS:} {accumulated from 1995 to 2004}
-#' \item {Phoenix SWB:} {accumulated from 1979 to 2015, the Information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Sep. 2016. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
+#' \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {Phoenix FBIS:} {accumulated from 1995 to 2004, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #'  }
 #' @return The list of data table the UTD server has
 #' @export
 #' @examples > DataTables(api_key=" ")
 #'  [1] "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 ## function for indicating a specific data table in MongoDB
-## Currently updated on 1/18/2018
+## Currently updated on 2/21/2018
 ## Kate Kim
 ## this returns all data tables the UTD database has
 DataTables<-function (api_key=" ")

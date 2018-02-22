@@ -19,7 +19,7 @@
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
 #' @param country List of countries. We recomend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 #' the full country name is also working in this function.\cr
-#'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working.
+#'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
 
@@ -30,6 +30,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     for(i in 1:length(country))
       if(nchar(country[i]) != 3) {
         ISO = FALSE
+        country[[i]] = gsub("(?<=^| )([a-z])", "\\U\\1", tolower(country[[i]]), perl = T)
         break
       }
 
@@ -42,7 +43,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
        if(table_name != "icews")
          for(i in 1:length(country))
           country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c")
-    }
+         }
 
     if(table_name == "icews") {
       start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")

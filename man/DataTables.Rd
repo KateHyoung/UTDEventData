@@ -20,10 +20,10 @@ Please find the help document of the \code{Table()} function for more details on
 The details of data tables are illustrated in the linked websites. \cr
 \itemize{
 \item {Phoenix_RT:} {Real-time data from Oct. 2017 to today, please see more details in \href{http://openeventdata.org/}{Open Event Data Alliance}}.\cr
-\item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Sep. 2016, please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
-\item {phoenix NYT:} {accumulated from 1945 to 2005}
-\item {Phoenix FBIS:} {accumulated from 1995 to 2004}
-\item {Phoenix SWB:} {accumulated from 1979 to 2015, the Information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+\item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Sep. 2016. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
+\item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+\item {Phoenix FBIS:} {accumulated from 1995 to 2004, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+\item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
  }
 }
 \examples{
