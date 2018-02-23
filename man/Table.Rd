@@ -6,7 +6,7 @@
 \title{A reference class to apply a given API key to extracting functions in this package}
 \description{
 Once a referece class is set, a user does not need to repeatedly put an API key into a function.
-An API key can be obtained after filling out the form in the UTD event data sign-up website (\url{http://149.165.156.33:5002/signup}).
+An API key can be obtained after filling out the form in the UTD event data sign-up website (\url{http://eventdata.utdallas.edu/signup}).
 Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 }
 \section{Fields}{

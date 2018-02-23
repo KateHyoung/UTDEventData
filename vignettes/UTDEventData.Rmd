@@ -1,25 +1,57 @@
 ---
-title: "UTDEventData"
+title: "UTDEventData: Extracting and aggregating event data from the UTD server"
 author: 
-- Dr. Patrick T. Brandt <pbrandt@utdallas.edu>
-- Dr. Vito D'Orazio <dorazio@utdallas.edu>
-- Micheal J. Shoemate <michael.shoemate@utdallas.edu>
-- Jared Looper <jrl140030@utdallas.edu>
-- Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
+- name: "Dr. Patrick T. Brandt"
+  affiliation: &utd the University of Texass at Dallas
+  email: pbrandt@utdallas.edu
+- name: "Dr. Vito D'Orazio"
+  affiliation: *utd
+  email: dorazio@utdallas.edu
+- name: "Hyoungah (Kate) Kim"
+  affiliation: *utd
+  email: hyoungah.kim@utdallas.edu
+- name: "Jared Looper" 
+  affiliation: *utd
+  email: jrl140030@utdallas.edu
+- name: "Micheal J. Shoemate" 
+  affiliation: *utd
+  email: michael.shoemate@utdallas.edu
+
+package: UTDEventData
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{UTDEventData}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown(css.files = c('custom.css'))
 ```
+
+## Introduction
+This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it.
+If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>) at UTD.  
+
+This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <http://eventdata.utdallas.edu/signup>. 
+
+You can install the package from the UTDEVentData github page in R with the following syntex.
+```{r, eval = FALSE}
+devtools::install_github("KateHyoung/UTDEventData")
+```
+
+
+The UTD Event Data server has the five different event data sets. 
+
+Data Table         | Timeline          |  Further Information
+-------------------| :----------------:|--------------------
+Phoenix RT         | Oct. 2017 - Today | [OEDA](http://openeventdata.org/)
+ICEWS              | 1995 - Sep.2016   | [ICEWS Dataverse](https://dataverse.harvard.edu/dataverse/icews)
+Cline Phoenix NYT  | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)
+Cline Phoenix FBIS | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)
+Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)
+
+Table: Data Table Information 
 
 Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
 
@@ -31,22 +63,11 @@ Vignettes are long form documentation commonly included in packages. Because the
 
 Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
 
-## Styles
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
 
 ## Figures
 
 The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
 
 You can enable figure captions by `fig_caption: yes` in YAML:
 

@@ -1,13 +1,9 @@
-## ----setup, include = FALSE----------------------------------------------
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+## ----style, echo = FALSE, results = 'asis'---------------------------------
+BiocStyle::markdown(css.files = c('custom.css'))
 
-## ---- fig.show='hold'----------------------------------------------------
-plot(1:10)
-plot(10:1)
+## ---- eval = FALSE---------------------------------------------------------
+#  devtools::install_github("KateHyoung/UTDEventData")
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'-------------------------------------------
 knitr::kable(head(mtcars, 10))
 

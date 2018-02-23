@@ -25,7 +25,7 @@ extracted event data from a specifed data table
 }
 \description{
 This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
-             The API key is required and can be obtained after filling out the form in the UTD event data sign-up website (\url{http://149.165.156.33:5002/signup}).
+             The API key is required and can be obtained after filling out the form in the UTD event data sign-up website (\url{http://eventdata.utdallas.edu/signup}).
              Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
              You can also use this function through the reference class, \code{Table()}.
              Please find the help document of the \code{Table()} function for more details for its usage.
