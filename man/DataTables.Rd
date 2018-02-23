@@ -13,7 +13,7 @@ The list of data table the UTD server has
 Searching available data tables in the event data server.
 It returns the list of data tables in the UTD server and requires an API key.
 The API key can be obtained after filling out the form in the UTD event data sign-up website
-(http://149.165.156.33:5002/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+(http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 You can also use this function through the reference class, \code{Table()}.
 Please find the help document of the \code{Table()} function for more details on its usage.\cr
 

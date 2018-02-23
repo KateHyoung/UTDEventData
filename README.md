@@ -11,7 +11,7 @@ There are three functions in the package.
 - pullData( ): for extracting a data set with contries and time range information
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key. 
-<http://149.165.156.33:5002/signup>
+<http://eventdata.utdallas.edu/signup>
 
 ## Installation
 

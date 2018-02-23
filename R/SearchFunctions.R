@@ -2,7 +2,7 @@
 #' @description Searching available data tables in the event data server.
 #' It returns the list of data tables in the UTD server and requires an API key.
 #' The API key can be obtained after filling out the form in the UTD event data sign-up website
-#' (http://149.165.156.33:5002/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+#' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #' You can also use this function through the reference class, \code{Table()}.
 #' Please find the help document of the \code{Table()} function for more details on its usage.\cr
 #'
@@ -41,7 +41,7 @@ DataTables<-function (api_key=" ")
 #' You can also look up a particular word for variabla names such as "day", "month", or "src" so that you can find whether or not a
 #' specified data table has the certain variables you need. \cr
 #' The API key can be obtained after filling out the form in the UTD event data sign-up website
-#' (http://149.165.156.33:5002/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+#' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #' You can also use this function through the reference class, \code{Table()}.
 #' Please find the help document of the \code{Table()} function for more details on its usage.
 #' @param api_key an API key from the developer at UTD
