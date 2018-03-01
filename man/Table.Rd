@@ -22,21 +22,21 @@ Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD 
 \subsection{Return Value}{a list of a data table}}
 
 \item{\code{pullData(table_name, country, start, end)}}{This is the main function to extract subdata from
- the UTD Event data server by country names and time ranges.
-   \subsection{Parameters}{\itemize{
-  \item{\code{table_name} a data table a user wants.}
-  \item{\code{country} a list of countires with the ISO code format or full names.}
-  \item{\code{start} a string format of yyyymmdd as a starting date of a data set}
-  \item{\code{end} a string format of yyymmdd as an end date of a data set}
+the UTD Event data server by country names and time ranges.
+\subsection{Parameters}{\itemize{
+\item{\code{table_name} a data table a user wants.}
+\item{\code{country} a list of countires with the ISO code format or full names.}
+\item{\code{start} a string format of yyyymmdd as a starting date of a data set}
+\item{\code{end} a string format of yyymmdd as an end date of a data set}
 }}
-  \subsection{Return Value}{real-time data or subseted data}}
+\subsection{Return Value}{real-time data or subseted data}}
 
 \item{\code{tableVar(table = "table_name", lword = " ")}}{This function returns the variable list a spcified data set.
- \subsection{Parameters}{\itemize{
-  \item{\code{table} data table name a user wants.}
-  \item{\code{lword} a look-up word of variable names.}
+\subsection{Parameters}{\itemize{
+\item{\code{table} data table name a user wants.}
+\item{\code{lword} a look-up word of variable names.}
 }}
-  \subsection{Return Value}{a list of variables in a data table}}
+\subsection{Return Value}{a list of variables in a data table}}
 }}
 
 \examples{

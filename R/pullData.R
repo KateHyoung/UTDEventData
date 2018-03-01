@@ -85,4 +85,3 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     parsed_data <- jsonlite::fromJSON(retrieved_data)$data
     return(parsed_data)
   }
-

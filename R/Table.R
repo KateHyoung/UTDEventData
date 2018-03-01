@@ -30,39 +30,41 @@ Table <- setRefClass("Table",
                        },
                        pullData = function(table_name, country, start, end) {
                          "This is the main function to extract subdata from
-                        the UTD Event data server by country names and time ranges.
-                          \\subsection{Parameters}{\\itemize{
+                         the UTD Event data server by country names and time ranges.
+                         \\subsection{Parameters}{\\itemize{
                          \\item{\\code{table_name} a data table a user wants.}
                          \\item{\\code{country} a list of countires with the ISO code format or full names.}
                          \\item{\\code{start} a string format of yyyymmdd as a starting date of a data set}
                          \\item{\\code{end} a string format of yyymmdd as an end date of a data set}
-                       }}
+                         }}
                          \\subsection{Return Value}{real-time data or subseted data}"
-                             ISO = TRUE
+                         ISO = TRUE
 
-                              for(i in 1:length(country))
-                                 if(nchar(country[i]) != 3) {
+                         for(i in 1:length(country))
+                           if(nchar(country[i]) != 3) {
                              ISO = FALSE
+                             country[[i]] = gsub("(?<=^| )([a-z])", "\\U\\1", tolower(country[[i]]), perl = T)
                              break
-                               }
+                           }
 
-                             if(ISO == TRUE) {
-                                if(table_name == "icews")
-                                  for(i in 1:length(country))
-                                  country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
-                                  }
-                             else {
-                                if(table_name != "icews")
-                                for(i in 1:length(country))
+                         if(ISO == TRUE) {
+                           if(table_name == "icews"| table_name== 'cline_phoenix_swb' | table_name=="cline_phoenix_nyt"| table_name=='cline_phoenix_fbis')
+                             for(i in 1:length(country))
+                               country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
+                         }
+
+                         else {
+                           if(table_name != "icews")
+                             for(i in 1:length(country))
                                country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c")
-                                  }
+                         }
 
-                             if(table_name == "icews") {
-                                 start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
-                                 end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
-                                   }
+                         if(table_name == "icews") {
+                           start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
+                           end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
+                         }
 
-                          country_constraint = list('<country_code>'= list('$in'= country))
+                         country_constraint = list('<country_code>'= list('$in'= country))
 
                          date_constraint = list('<date>'=list('$gte'=start,'$lte'=end))
 
@@ -92,7 +94,7 @@ Table <- setRefClass("Table",
                        DataTables=function (  )
                        {
                          "This function returns the names of data tables.
-                        \\subsection{Return Value}{a list of a data table}"
+                         \\subsection{Return Value}{a list of a data table}"
                          # constructing a url
                          url = 'http://149.165.156.33:5002/api/datasources?api_key='
                          url_submit = paste(url,api_key,sep='')
@@ -106,10 +108,10 @@ Table <- setRefClass("Table",
                        tableVar = function(table='table_name',lword=' ')
                        {
                          "This function returns the variable list a spcified data set.
-                        \\subsection{Parameters}{\\itemize{
+                         \\subsection{Parameters}{\\itemize{
                          \\item{\\code{table} data table name a user wants.}
                          \\item{\\code{lword} a look-up word of variable names.}
-                       }}
+                         }}
                          \\subsection{Return Value}{a list of variables in a data table}"
 
                          # transfroming a string to lower cases
@@ -134,7 +136,7 @@ Table <- setRefClass("Table",
 
                            else(varList)
 
-                          }
+                         }
                          else{print('Please check the table name!')
                            return(list())}
                        }
