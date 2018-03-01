@@ -33,4 +33,10 @@ This is the main function to extract subdata from the UTD Event data server by c
 \examples{
 pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
  start="20171101", end="20171112")
+
+ ## Another way to avoid repeating an API key into the function
+ k<-'api key...'
+ subset1<-pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
+ subset2<-pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
+ subset3<-pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
 }

@@ -15,6 +15,12 @@
 #' @export
 #' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
+#'
+#'  ## Another way to avoid repeating an API key into the function
+#'  k<-'api key...'
+#'  subset1<-pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
+#'  subset2<-pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
+#'  subset3<-pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
 #' @param api_key An API key provided by the server manager at UTD.
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
 #' @param country List of countries. We recomend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
@@ -35,7 +41,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       }
 
     if(ISO == TRUE) {
-      if(table_name == "icews")
+      if(table_name == "icews"| table_name== 'cline_phoenix_swb' | table_name=="cline_phoenix_nyt"| table_name=='cline_phoenix_fbis')
         for(i in 1:length(country))
           country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
     }
@@ -62,8 +68,11 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     url <- 'http://149.165.156.33:5002/api/data?api_key='
     url_submit = ''
     table_name = tolower(table_name)
-    if (table_name=="phoenix_rt" || table_name=='cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
+    if (table_name=="phoenix_rt" ) {
       query_string = relabel(query_string, "phoenix_rt")
+    }
+    else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
+      query_string = relabel(query_string, "cline")
     }
     else if(table_name == "icews") {
       query_string = relabel(query_string, "icews")
