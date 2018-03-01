@@ -32,7 +32,7 @@ Table <- setRefClass("Table",
                          "This is the main function to extract subdata from
                          the UTD Event data server by country names and time ranges.
                          \\subsection{Parameters}{\\itemize{
-                         \\item{\\code{table_name} a data table a user wants.}
+                         \\item{\\code{table_name} a name of data table.}
                          \\item{\\code{country} a list of countires with the ISO code format or full names.}
                          \\item{\\code{start} a string format of yyyymmdd as a starting date of a data set}
                          \\item{\\code{end} a string format of yyymmdd as an end date of a data set}
@@ -76,7 +76,7 @@ Table <- setRefClass("Table",
                          url <- 'http://149.165.156.33:5002/api/data?api_key='
                          url_submit = ''
                          table_name = tolower(table_name)
-                         if (table_name=="phoenix_rt") {
+                         if (table_name=="phoenix_rt" ) {
                            query_string = relabel(query_string, "phoenix_rt")
                          }
                          else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
