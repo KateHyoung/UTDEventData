@@ -76,8 +76,11 @@ Table <- setRefClass("Table",
                          url <- 'http://149.165.156.33:5002/api/data?api_key='
                          url_submit = ''
                          table_name = tolower(table_name)
-                         if (table_name=="phoenix_rt" || table_name=='cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
+                         if (table_name=="phoenix_rt") {
                            query_string = relabel(query_string, "phoenix_rt")
+                         }
+                         else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
+                           query_string = relabel(query_string, "cline")
                          }
                          else if(table_name == "icews") {
                            query_string = relabel(query_string, "icews")

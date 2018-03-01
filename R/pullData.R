@@ -45,6 +45,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
         for(i in 1:length(country))
           country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
     }
+
     else {
        if(table_name != "icews")
          for(i in 1:length(country))
