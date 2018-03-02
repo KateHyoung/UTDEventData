@@ -24,7 +24,7 @@ Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD 
 \item{\code{pullData(table_name, country, start, end)}}{This is the main function to extract subdata from
 the UTD Event data server by country names and time ranges.
 \subsection{Parameters}{\itemize{
-\item{\code{table_name} a data table a user wants.}
+\item{\code{table_name} a name of data table.}
 \item{\code{country} a list of countires with the ISO code format or full names.}
 \item{\code{start} a string format of yyyymmdd as a starting date of a data set}
 \item{\code{end} a string format of yyymmdd as an end date of a data set}
