@@ -41,7 +41,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       }
 
     if(ISO == TRUE) {
-      if(table_name == "icews"| table_name== 'cline_phoenix_swb' | table_name=="cline_phoenix_nyt"| table_name=='cline_phoenix_fbis')
+      if(table_name == "icews"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt" || table_name=='cline_phoenix_fbis')
         for(i in 1:length(country))
           country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
     }
