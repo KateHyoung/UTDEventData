@@ -1,7 +1,7 @@
 #'A hiden function for relabeling query strings of one data format to the other
 #'@param queryString a querying sentence of a data format
 #'@param format a format returned
-#'@import jsonlite
+#'@importFrom jsonlite fromJSON
 #'@keywords internal
 #'@author Micheal J. Shoemate
 
@@ -20,7 +20,7 @@ relabel = function(queryString, format) {
 
 #'A hiden function for relabeling query strings of one data format to the other
 #'@param format a format returned
-#'@import jsonlite
+#'@importFrom jsonlite fromJSON
 #'@keywords internal
 
 loadFormat <- function(format) {
@@ -33,7 +33,7 @@ loadFormat <- function(format) {
 }
 
 #'A hiden function for relabeling query strings of one data format to the other
-#'@import jsonlite
+#'@importFrom jsonlite fromJSON
 #'@keywords internal
 
 ### phoenix_rt
@@ -145,7 +145,7 @@ f1 <- function() {
 }
 
 #'A hiden function for relabeling query strings of one data format to the other
-#'@import jsonlite
+#'@importFrom jsonlite fromJSON
 #'@keywords internal
 ##### icews
 f2 <- function() {
@@ -235,7 +235,7 @@ f2 <- function() {
 }
 
 #'A hiden function for relabeling query strings of one data format to the other
-#'@import jsonlite
+#'@importFrom jsonlite fromJSON
 #'@keywords internal
 f3 <- function() {
   jsontext = jsonlite::fromJSON("{

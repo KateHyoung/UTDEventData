@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2018-02-23" />
+<meta name="date" content="2018-03-08" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -118,7 +118,7 @@ $(document).ready(function () {
 <p class="author-name">Dr. Patrick T. Brandt<span class="affil-mark">1*</span>, Dr. Vito D'Orazio<span class="affil-mark">1**</span>, Hyoungah (Kate) Kim<span class="affil-mark">1***</span>, Jared Looper<span class="affil-mark">1****</span> and Micheal J. Shoemate<span class="affil-mark">1*****</span></p>
 <p class="author-affiliation"><span class="affil-mark">1</span>the University of Texass at Dallas</p>
 <p class="author-email"><span class="affil-mark">*</span><a href="mailto:pbrandt@utdallas.edu">pbrandt@utdallas.edu</a><br><span class="affil-mark">**</span><a href="mailto:dorazio@utdallas.edu">dorazio@utdallas.edu</a><br><span class="affil-mark">***</span><a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a><br><span class="affil-mark">****</span><a href="mailto:jrl140030@utdallas.edu">jrl140030@utdallas.edu</a><br><span class="affil-mark">*****</span><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></p>
-<h4 class="date"><em>2018-02-23</em></h4>
+<h4 class="date"><em>2018-03-08</em></h4>
 <h4 class="package">Package</h4>
 <p>UTDEventData 0.8.0</p>
 
@@ -127,35 +127,28 @@ $(document).ready(function () {
 <h1>Contents</h1>
 <div id="TOC">
 <ul>
-<li><a href="#introduction"><span class="toc-section-number">0.1</span> Introduction</a></li>
-<li><a href="#vignette-info"><span class="toc-section-number">0.2</span> Vignette Info</a></li>
-<li><a href="#figures"><span class="toc-section-number">0.3</span> Figures</a></li>
-<li><a href="#more-examples"><span class="toc-section-number">0.4</span> More Examples</a></li>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#functions"><span class="toc-section-number">2</span> Functions</a><ul>
+<li><a href="#searching-functions"><span class="toc-section-number">2.1</span> Searching functions</a></li>
+<li><a href="#subsetting-function"><span class="toc-section-number">2.2</span> Subsetting function</a></li>
+<li><a href="#reference-class-for-appying-an-api-key-to-the-functions"><span class="toc-section-number">2.3</span> Reference class for appying an API key to the functions</a></li>
+</ul></li>
+<li><a href="#aggregation-functions"><span class="toc-section-number">3</span> Aggregation functions</a></li>
+<li><a href="#further-information-of-event-data-at-utd"><span class="toc-section-number">4</span> Further information of Event data at UTD</a><ul>
+<li><a href="#spec-real-time-server"><span class="toc-section-number">4.1</span> Spec-real-time server</a></li>
+</ul></li>
 </ul>
 </div>
 
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelector("h1").className = "title";
-});
-</script>
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-  var links = document.links;  
-  for (var i = 0, linksLength = links.length; i < linksLength; i++)
-    if (links[i].hostname != window.location.hostname)
-      links[i].target = '_blank';
-});
-</script>
-<div id="introduction" class="section level2">
-<h2><span class="header-section-number">0.1</span> Introduction</h2>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <p>This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
 <p>This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
-<p>You can install the package from the UTDEVentData github page in R with the following syntex.</p>
+<p>You can install the package from the UTDEVentData github page in R with the following syntax.</p>
 <pre class="r"><code>devtools::install_github(&quot;KateHyoung/UTDEventData&quot;)</code></pre>
 <p>The UTD Event Data server has the five different event data sets.</p>
 <table>
-<caption><span class="caption-title">Data Table Information</caption></span><br>
+<caption><span id="tab:dt">Table 1: </span><span class="caption-title">Data Table Information</caption></span><br>
 <thead>
 <tr class="header">
 <th>Data Table</th>
@@ -191,193 +184,84 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<p>Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The <code>html_vignette</code> output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The <code>html_vignette</code> format:</p>
+<p>The web links of each table provides the details of database and their entities and attributes.</p>
+<p>The codes/functions in this package have been tested in the following versions of:</p>
 <ul>
-<li>Never uses retina figures</li>
-<li>Has a smaller default figure size</li>
-<li>Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style</li>
+<li>Microsoft Open R 3.4.0</li>
+<li>R-3.4.3 for Windows (32/64 bit)</li>
 </ul>
 </div>
-<div id="vignette-info" class="section level2">
-<h2><span class="header-section-number">0.2</span> Vignette Info</h2>
-<p>Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
+<div id="functions" class="section level1">
+<h1><span class="header-section-number">2</span> Functions</h1>
+<div id="searching-functions" class="section level2">
+<h2><span class="header-section-number">2.1</span> Searching functions</h2>
+<p>There are two main searching functions in this package for users to look up the name of data table and the list of variables each data table contains.</p>
+<p><code>DataTables()</code> returns the all data table names in the UTD server.</p>
+<pre class="r"><code># Direct way as inputing an API key
+DataTables(api_key = &quot; &quot;)
+&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;
+
+# Save an API key as a string value and use it so as not to repeat typing the key string in other functions
+k&lt;-&quot;...api key....&quot;
+DataTables(k)
+&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</code></pre>
+<p><code>tableVar()</code> returns the list of variables in a particulr data table a user specified in the function. For example, the variables in the PHOENIX real-time data can be obtained with the following code.</p>
+<pre class="r"><code>tableVar(api_key=&quot;...&quot;, table=&quot;phoenix_rt&quot;)
+
+# with the saved API key to avoid the repeation of API key typing 
+k&lt;-&quot;...api key....&quot;
+tableVar(k, &quot;phoenix_rt&quot;)
+
+tableVar(k, &quot;icews&quot;)
+
+tableVar(k, &quot;cline_Phoenix_swb&quot;)</code></pre>
+<p>This function is not case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by <code>Table()</code> should be specified in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
+<p>This function has another feature as enable a user to look up a particular variable. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
+<pre class="r"><code>tableVar(api_key=&quot;...&quot;, table=&quot;icews&quot;, lword=&quot;target&quot;)
+
+k &lt;- &quot;..api key...&quot;
+tableVar(k, table=&quot;icews&quot;, lword=&quot;target&quot;)
+&quot; Target Name&quot;    &quot; Target Sectors&quot;, ....</code></pre>
 </div>
-<div id="figures" class="section level2">
-<h2><span class="header-section-number">0.3</span> Figures</h2>
-<p>The figure sizes have been customised so that you can easily put two images side-by-side.</p>
-<p>You can enable figure captions by <code>fig_caption: yes</code> in YAML:</p>
-<pre><code>output:
-  rmarkdown::html_vignette:
-    fig_caption: yes</code></pre>
-<p>Then you can use the chunk option <code>fig.cap = &quot;Your figure caption.&quot;</code> in <strong>knitr</strong>.</p>
+<div id="subsetting-function" class="section level2">
+<h2><span class="header-section-number">2.2</span> Subsetting function</h2>
+<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table <a href="#tab:dt">1</a>. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result. The format of time range is “YYYYMMDD.”<br />
+The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.<br />
+The following code is the possible examples you may use to obtain a subset of data.</p>
+<pre class="r"><code>pullData(api_key=&quot; &quot;, table_name=&quot;Phoenix_rt&quot;, country=list(&quot;USA&quot;,&quot;MEX&quot;,&quot;SYR&quot;,&quot;CHN&quot;), start=&quot;20171101&quot;, end=&quot;20171112&quot;)
+
+## When you avoid repeating an API key into the function
+k&lt;-'api key...'
+subset1 &lt;- pullData(k, &quot;phoenix_rt&quot;, list('canada','China'), '20171101', '20171102')
+subset2 &lt;- pullData(k, &quot;icews&quot;, list('can', 'usa'), '20010101','20010110')
+subset3 &lt;- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')</code></pre>
 </div>
-<div id="more-examples" class="section level2">
-<h2><span class="header-section-number">0.4</span> More Examples</h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<label for="sidenote-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="sidenote-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> A footnote here.</span>, and tables, e.g. using <code>knitr::kable()</code>.</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th align="right">mpg</th>
-<th align="right">cyl</th>
-<th align="right">disp</th>
-<th align="right">hp</th>
-<th align="right">drat</th>
-<th align="right">wt</th>
-<th align="right">qsec</th>
-<th align="right">vs</th>
-<th align="right">am</th>
-<th align="right">gear</th>
-<th align="right">carb</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Mazda RX4</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.620</td>
-<td align="right">16.46</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td>Mazda RX4 Wag</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.875</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td>Datsun 710</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">108.0</td>
-<td align="right">93</td>
-<td align="right">3.85</td>
-<td align="right">2.320</td>
-<td align="right">18.61</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td>Hornet 4 Drive</td>
-<td align="right">21.4</td>
-<td align="right">6</td>
-<td align="right">258.0</td>
-<td align="right">110</td>
-<td align="right">3.08</td>
-<td align="right">3.215</td>
-<td align="right">19.44</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>Hornet Sportabout</td>
-<td align="right">18.7</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">175</td>
-<td align="right">3.15</td>
-<td align="right">3.440</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td>Valiant</td>
-<td align="right">18.1</td>
-<td align="right">6</td>
-<td align="right">225.0</td>
-<td align="right">105</td>
-<td align="right">2.76</td>
-<td align="right">3.460</td>
-<td align="right">20.22</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>Duster 360</td>
-<td align="right">14.3</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">245</td>
-<td align="right">3.21</td>
-<td align="right">3.570</td>
-<td align="right">15.84</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td>Merc 240D</td>
-<td align="right">24.4</td>
-<td align="right">4</td>
-<td align="right">146.7</td>
-<td align="right">62</td>
-<td align="right">3.69</td>
-<td align="right">3.190</td>
-<td align="right">20.00</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td>Merc 230</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">140.8</td>
-<td align="right">95</td>
-<td align="right">3.92</td>
-<td align="right">3.150</td>
-<td align="right">22.90</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td>Merc 280</td>
-<td align="right">19.2</td>
-<td align="right">6</td>
-<td align="right">167.6</td>
-<td align="right">123</td>
-<td align="right">3.92</td>
-<td align="right">3.440</td>
-<td align="right">18.30</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-</tbody>
-</table>
-<p>Also a quote using <code>&gt;</code>:</p>
-<blockquote>
-<p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
-</blockquote>
+<div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level2">
+<h2><span class="header-section-number">2.3</span> Reference class for appying an API key to the functions</h2>
+<p>The pacakge has a reference class, named <code>Table()</code> for users not to repeat the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly put an API key into a function. Some basic usage is as follows;</p>
+<pre class="r"><code># Creating an object
+obj&lt;-Table$new()
+
+# Setting an object of an API key
+obj$setAPIKey(&quot;....&quot;)
+obj$DataTables()  # returns the available data tables in the UTD server
+obj$tableVar(&quot;cline_Phoenix_NYT&quot;)
+
+# when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
+obj$pullData(&quot;Phoenix_rt&quot;, list(&quot;MEX&quot;),start=&quot;20171101&quot;, end=&quot;20171102&quot;)</code></pre>
+<p>You can apply a reference class on the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code>.</p>
+</div>
+</div>
+<div id="aggregation-functions" class="section level1">
+<h1><span class="header-section-number">3</span> Aggregation functions</h1>
+</div>
+<div id="further-information-of-event-data-at-utd" class="section level1">
+<h1><span class="header-section-number">4</span> Further information of Event data at UTD</h1>
+<div id="spec-real-time-server" class="section level2">
+<h2><span class="header-section-number">4.1</span> Spec-real-time server</h2>
+<p><a href="https://github.com/Sayeedsalam/spec-event-data-server">Github page for the API access on JetStream at UTD</a><br />
+This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The query is expressed in JSON format.</p>
+</div>
 </div>
 
 

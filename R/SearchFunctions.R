@@ -15,9 +15,10 @@
 #' \item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #'  }
 #' @return The list of data table the UTD server has
+#' @param api_key an API key provided by the UTD server manager
 #' @export
-#' @examples > DataTables(api_key=" ")
-#'  [1] "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+#' @examples DataTables(api_key=" ")
+#'  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 ## function for indicating a specific data table in MongoDB
 ## Currently updated on 2/21/2018
 ## Kate Kim
@@ -49,12 +50,12 @@ DataTables<-function (api_key=" ")
 #' @param lword a look-up word for a particular variable name you need
 #' @return The variables list in a particular data table
 #' @export
-#' @examples > tableVar(api_key="...", table="phoenix_rt")
+#' @examples tableVar(api_key="...", table="phoenix_rt")
 #'  # when searching the variables in Phoenix_RT
-#' [1] " code", "src_actor", "month", "tgt_actor", ....
-#' > tableVar(api_key="...", table="icews", lword="tar")
+#' " code", "src_actor", "month", "tgt_actor", ....
+#' tableVar(api_key="...", table="icews", lword="tar")
 #'  # when searhing the variable which includes the word of "tar" in ICEWS
-#' [1] " Target Name"    " Target Sectors", ....
+#' " Target Name"    " Target Sectors", ....
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has

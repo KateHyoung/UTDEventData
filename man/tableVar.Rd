@@ -27,10 +27,10 @@ You can also use this function through the reference class, \code{Table()}.
 Please find the help document of the \code{Table()} function for more details on its usage.
 }
 \examples{
-> tableVar(api_key="...", table="phoenix_rt")
+tableVar(api_key="...", table="phoenix_rt")
  # when searching the variables in Phoenix_RT
-[1] " code", "src_actor", "month", "tgt_actor", ....
-> tableVar(api_key="...", table="icews", lword="tar")
+" code", "src_actor", "month", "tgt_actor", ....
+tableVar(api_key="...", table="icews", lword="tar")
  # when searhing the variable which includes the word of "tar" in ICEWS
-[1] " Target Name"    " Target Sectors", ....
+" Target Name"    " Target Sectors", ....
 }

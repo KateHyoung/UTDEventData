@@ -6,6 +6,9 @@
 \usage{
 DataTables(api_key = " ")
 }
+\arguments{
+\item{api_key}{an API key provided by the UTD server manager}
+}
 \value{
 The list of data table the UTD server has
 }
@@ -27,6 +30,6 @@ The details of data tables are illustrated in the linked websites. \cr
  }
 }
 \examples{
-> DataTables(api_key=" ")
- [1] "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+DataTables(api_key=" ")
+ "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 }

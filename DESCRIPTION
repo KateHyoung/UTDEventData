@@ -11,7 +11,8 @@ Maintainer: Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
 Description: Search, extract and format event data from the real-time event data server at the University Texas at Dallas 
 Imports: 
     countrycode,
-    jsonlite
+    jsonlite,
+    rjson
 License: UTD, NSF(SBE-SMA-1539302)
 Encoding: UTF-8
 LazyData: true

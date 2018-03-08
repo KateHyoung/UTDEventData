@@ -4,23 +4,20 @@
 #'An API key can be obtained after filling out the form in the UTD event data sign-up website (\url{http://eventdata.utdallas.edu/signup}).
 #'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 #'@name Table
-#'@import methods
 #'@field api_key An API key obtained from the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}
 #'@export Table
 #'@exportClass Table
 #'@examples # Creating an object
-#'> obj<-Table$new()
+#'obj<-Table$new()
 #'
 #'# Setting an object of an API key
-#'> obj$setAPIKey("....")
+#'obj$setAPIKey("....")
 #'
-#'# Once the object of an API is set, a user no need to repeat typing
-#'an API key to use the subsetting functions
-#'> obj$DataTable()  # returns the available data tables in the UTD server
+#'# Once the object of an API is set, a user no need to repeat typing an API key to use the subsetting functions
+#'obj$DataTable()  # returns the available data tables in the UTD server
 #'
-#'# when a user wants to subset real-time data ('phoenix_rt) from 20171101
-#'to 20171102 on MEX(Mexico)
-#'> obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
+#'# when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
+#'obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
 Table <- setRefClass("Table",
                      fields = list (api_key = "character"),

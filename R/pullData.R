@@ -10,17 +10,18 @@
 #'              You can also use this function through the reference class, \code{Table()}.
 #'              Please find the help document of the \code{Table()} function for more details for its usage.
 #' @return extracted event data from a specifed data table
-#' @import jsonlite
+#' @importFrom jsonlite fromJSON
 #' @importFrom countrycode countrycode
+#' @importFrom rjson toJSON
 #' @export
 #' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112")
 #'
 #'  ## Another way to avoid repeating an API key into the function
-#'  k<-'api key...'
-#'  subset1<-pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
-#'  subset2<-pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
-#'  subset3<-pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
+#'  k <- '...api key...'
+#'  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
+#'  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
+#'  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
 #' @param api_key An API key provided by the server manager at UTD.
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
 #' @param country List of countries. We recomend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
