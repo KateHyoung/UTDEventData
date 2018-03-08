@@ -31,5 +31,5 @@ The details of data tables are illustrated in the linked websites. \cr
 }
 \examples{
 DataTables(api_key=" ")
- "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+ # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 }

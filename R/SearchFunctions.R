@@ -18,7 +18,7 @@
 #' @param api_key an API key provided by the UTD server manager
 #' @export
 #' @examples DataTables(api_key=" ")
-#'  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+#'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 ## function for indicating a specific data table in MongoDB
 ## Currently updated on 2/21/2018
 ## Kate Kim
@@ -50,12 +50,12 @@ DataTables<-function (api_key=" ")
 #' @param lword a look-up word for a particular variable name you need
 #' @return The variables list in a particular data table
 #' @export
-#' @examples tableVar(api_key="...", table="phoenix_rt")
-#'  # when searching the variables in Phoenix_RT
-#' " code", "src_actor", "month", "tgt_actor", ....
+#' @examples
+#' # when searching the variables in Phoenix_RT
+#' tableVar(api_key="...", table="phoenix_rt")
+#'
+#' # when searhing the variable which includes the word of "tar" in ICEWS
 #' tableVar(api_key="...", table="icews", lword="tar")
-#'  # when searhing the variable which includes the word of "tar" in ICEWS
-#' " Target Name"    " Target Sectors", ....
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
