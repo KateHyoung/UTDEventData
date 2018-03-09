@@ -21,7 +21,7 @@
 #'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #'
 #'  k <- "api_key"
-#'  DataTables(k)  # This code will return the samve result with the previous code
+#'  DataTables(k)  # This code will return the same outcome with the previous code
 
 ## function for indicating a specific data table in MongoDB
 ## Currently updated on 2/21/2018

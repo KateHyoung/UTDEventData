@@ -34,5 +34,5 @@ DataTables(api_key=" ")
  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
  k <- "api_key"
- DataTables(k)  # This code will return the samve result with the previous code
+ DataTables(k)  # This code will return the same outcome with the previous code
 }
