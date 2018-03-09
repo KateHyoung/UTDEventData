@@ -19,6 +19,10 @@
 #' @export
 #' @examples DataTables(api_key=" ")
 #'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+#'
+#'  k <- "api_key"
+#'  DataTables(k)  # This code will return the samve result with the previous code
+
 ## function for indicating a specific data table in MongoDB
 ## Currently updated on 2/21/2018
 ## Kate Kim
@@ -56,6 +60,11 @@ DataTables<-function (api_key=" ")
 #'
 #' # when searhing the variable which includes the word of "tar" in ICEWS
 #' tableVar(api_key="...", table="icews", lword="tar")
+#'
+#' # The way with creating a string value of an API
+#' k <- "api_key"
+#' tableVar(k, table="phoeni_rt")
+#' tableVar(k, table="icews", lword="tar")
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has

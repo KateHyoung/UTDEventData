@@ -32,4 +32,9 @@ tableVar(api_key="...", table="phoenix_rt")
 
 # when searhing the variable which includes the word of "tar" in ICEWS
 tableVar(api_key="...", table="icews", lword="tar")
+
+# The way with creating a string value of an API
+k <- "api_key"
+tableVar(k, table="phoeni_rt")
+tableVar(k, table="icews", lword="tar")
 }
