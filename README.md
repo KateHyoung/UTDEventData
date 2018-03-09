@@ -16,7 +16,11 @@ This package requires you to have an API key to access to the UTD data server. P
 ## Installation
 
 ```
-devtools::install_github("KateHyoung/UTDEventData")
+# without the vignette
+devtools::install_github("KateHyoung/UTDEventData") 
+
+# with the vignette
+devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
 
 ## Authors  
