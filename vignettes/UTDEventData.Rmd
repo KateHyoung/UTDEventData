@@ -144,11 +144,12 @@ You can apply a reference class on the functions of `DataTables()`, `TableVar()`
 
 
 
-# Further information of Event data at UTD
+# Further information of the Event Data server at UTD
 
 ## Spec-real-time server
 [Github page for the API access on JetStream at UTD](https://github.com/Sayeedsalam/spec-event-data-server)  
 This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The query is expressed in JSON format. 
 
-
+[Jetstream user guide](https://portal.xsede.org/jetstream)
+You can find the user guide of Jetstream and the information fo generic working system in the linked webpage. 
 

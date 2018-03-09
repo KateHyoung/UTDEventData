@@ -22,6 +22,8 @@ devtools::install_github("KateHyoung/UTDEventData")
 # with the vignette
 devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
+*Note: you be need to install the Biostyles package when you have the vignette.*
+*Please visit the [BiocStyle](https://bioconductor.org/packages/release/bioc/html/BiocStyle.html) website and read its details if you have an issue on the installation.*
 
 ## Authors  
 Dr. Patrick T. Brandt <pbrandt@utdallas.edu>  
@@ -32,4 +34,4 @@ Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
 
 ## License
 The University of Texas at Dallas <br/>
-This package is supported by the RIDIR project funed by the National Science Foundatioin under Grant No. SBE-SMA-1539302.
+This package is supported by the RIDIR project funded by National Science Foundatioin, Grant No. SBE-SMA-1539302.
