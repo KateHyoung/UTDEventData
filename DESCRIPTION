@@ -2,6 +2,7 @@ Package: UTDEventData
 Type: Package
 Title: The University of Texas at Dallas Event Data Server  
 Version: 0.8.0
+Date: 2018-02-16 
 Author: Dr. Patrick T. Brandt <pbrandt@utdallas.edu>, 
         Dr. Vito D'Orazio <dorazio@utdallas.edu>, 
         Micheal J. Shoemate <michael.shoemate@utdallas.edu>, 
@@ -13,9 +14,9 @@ Imports:
     countrycode,
     jsonlite,
     rjson
-License: UTD, NSF(SBE-SMA-1539302)
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Suggests: BiocStyle, knitr, rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

@@ -1,10 +1,7 @@
-## ----style, echo = FALSE, results = 'asis', eval=FALSE---------------------
-#  BiocStyle::markdown(css.files = c('custom.css'))
-
-## ---- eval = FALSE---------------------------------------------------------
+## ---- eval = FALSE-------------------------------------------------------
 #  devtools::install_github("KateHyoung/UTDEventData")
 
-## ----eval = FALSE----------------------------------------------------------
+## ----eval = FALSE--------------------------------------------------------
 #  # Direct way as inputing an API key
 #  DataTables(api_key = " ")
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
@@ -14,7 +11,7 @@
 #  DataTables(k)
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
-## ---- eval = FALSE---------------------------------------------------------
+## ---- eval = FALSE-------------------------------------------------------
 #  tableVar(api_key="...", table="phoenix_rt")
 #  
 #  # with the saved API key to avoid the repeation of API key typing
@@ -25,14 +22,14 @@
 #  
 #  tableVar(k, "cline_Phoenix_swb")
 
-## ---- eval = FALSE---------------------------------------------------------
+## ---- eval = FALSE-------------------------------------------------------
 #  tableVar(api_key="...", table="icews", lword="target")
 #  
 #  k <- "..api key..."
 #  tableVar(k, table="icews", lword="target")
 #  " Target Name"    " Target Sectors", ....
 
-## ---- eval = FALSE---------------------------------------------------------
+## ---- eval = FALSE-------------------------------------------------------
 #  pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"), start="20171101", end="20171112")
 #  
 #  ## When you avoid repeating an API key into the function
@@ -41,7 +38,7 @@
 #  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
 #  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
 
-## ---- eval=FALSE-----------------------------------------------------------
+## ---- eval=FALSE---------------------------------------------------------
 #  # Creating an object
 #  obj<-Table$new()
 #  
