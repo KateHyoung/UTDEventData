@@ -9,7 +9,7 @@ tableVar(api_key = " ", table = " ", lword = " ")
 \arguments{
 \item{api_key}{an API key from the developer at UTD}
 
-\item{table}{a specific data table a user want to exploer its variables}
+\item{table}{a specific data table a user wants to explore its variables}
 
 \item{lword}{a look-up word for a particular variable name you need}
 }

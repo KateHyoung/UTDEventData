@@ -50,3 +50,10 @@
 #  # when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
 #  obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
+## ---- eval = FALSE-------------------------------------------------------
+#  # citations for Cline Phoenix Event data
+#  citeData(table_name = "cline_Phoenix_swb")
+#  
+#  # citations for ICEWS or UTD real-time data
+#  citeData(table_name = "Phoenix_rt")
+

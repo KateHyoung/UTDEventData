@@ -12,7 +12,7 @@ pullData(api_key = " ", table_name = " ", country = list(), start = " ",
 
 \item{table_name}{The name of data table you want to have. You may find available data tables from DataTables( )}
 
-\item{country}{List of countries. We recomend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
+\item{country}{List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 the full country name is also working in this function.\cr
      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.}
 

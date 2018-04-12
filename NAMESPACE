@@ -2,6 +2,7 @@
 
 export(DataTables)
 export(Table)
+export(citeData)
 export(pullData)
 export(tableVar)
 exportClasses(Table)

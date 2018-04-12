@@ -136,6 +136,18 @@ obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ```
 You can apply a reference class on the functions of `DataTables()`, `TableVar()`, and `pullData()`. 
 
+# Data citation function
+
+`citeData()` function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to his/her documents, and a Bibtex type for Latex users. If the function has the input of Clines's data, the retuns will be two citations for Clines Phoenix Event Data and UTD Event data. The input of table names is not case-sensitive, but you should have full data table names for the function input. 
+
+```{r, eval = FALSE}
+# citations for Cline Phoenix Event data
+citeData(table_name = "cline_Phoenix_swb")
+
+# citations for ICEWS or UTD real-time data 
+citeData(table_name = "Phoenix_rt")
+```
+
 
 # Aggregation functions
 

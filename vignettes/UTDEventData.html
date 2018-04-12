@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-04-03" />
+<meta name="date" content="2018-04-12" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,7 +88,7 @@ the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-04-03</em></h4>
+<h4 class="date"><em>2018-04-12</em></h4>
 
 
 
@@ -203,6 +203,15 @@ obj<span class="op">$</span><span class="kw">tableVar</span>(<span class="st">&q
 obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;MEX&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171102&quot;</span>)</code></pre></div>
 <p>You can apply a reference class on the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code>.</p>
 </div>
+</div>
+<div id="data-citation-function" class="section level1">
+<h1>Data citation function</h1>
+<p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to his/her documents, and a Bibtex type for Latex users. If the function has the input of Clines’s data, the retuns will be two citations for Clines Phoenix Event Data and UTD Event data. The input of table names is not case-sensitive, but you should have full data table names for the function input.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># citations for Cline Phoenix Event data</span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
+
+<span class="co"># citations for ICEWS or UTD real-time data </span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;Phoenix_rt&quot;</span>)</code></pre></div>
 </div>
 <div id="aggregation-functions" class="section level1">
 <h1>Aggregation functions</h1>
