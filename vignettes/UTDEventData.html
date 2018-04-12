@@ -97,7 +97,11 @@ the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <p>This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
 <p>This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
 <p>You can install the package from the UTDEVentData github page in R with the following syntax.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># installing the package without the vignette</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>)
+
+<span class="co"># installing the package with the vignette</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>The UTD Event Data server has the five different event data sets.</p>
 <table>
 <caption>Data Table Information</caption>

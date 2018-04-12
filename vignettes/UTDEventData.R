@@ -1,5 +1,9 @@
 ## ---- eval = FALSE-------------------------------------------------------
+#  # installing the package without the vignette
 #  devtools::install_github("KateHyoung/UTDEventData")
+#  
+#  # installing the package with the vignette
+#  devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # Direct way as inputing an API key

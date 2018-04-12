@@ -34,7 +34,11 @@ This package requires you to have an API key to access to the UTD data server. P
 
 You can install the package from the UTDEVentData github page in R with the following syntax.
 ```{r, eval = FALSE}
+# installing the package without the vignette
 devtools::install_github("KateHyoung/UTDEventData")
+
+# installing the package with the vignette
+devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
 
 
