@@ -30,7 +30,7 @@
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
 
-pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" "){
+pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
 
     ISO = TRUE
 
@@ -85,6 +85,14 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
     retrieved_data <- readLines(url_submit, warn=FALSE)
     parsed_data <- jsonlite::fromJSON(retrieved_data)$data
-    return(parsed_data)
 
-  }
+    if (citation) {
+      return(list(data=parsed_data, citation=citeData(table_name)))
+      # return(parsed_data);
+      # citeData(table_name)
+    }
+
+    else {
+      return(parsed_data)
+    }
+}

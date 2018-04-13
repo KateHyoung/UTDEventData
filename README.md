@@ -6,6 +6,7 @@ If you have questions in using the package, please contact Kate Kim (<hyoungah.k
 There are three functions in the package.
 
 - Table: a reference class 
+- citeData( ): for citing the package and data tables in the UTD server for publications
 - DataTable( ): for looking up the data table at UTD data 
 - TableVar( ): for looking up the variables in a specified data table
 - pullData( ): for extracting a data set with contries and time range information
