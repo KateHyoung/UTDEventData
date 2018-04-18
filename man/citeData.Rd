@@ -2,7 +2,7 @@
 % Please edit documentation in R/citeData.R
 \name{citeData}
 \alias{citeData}
-\title{Properly citing Data tables in the UTD Event data server}
+\title{Properly citing data tables in the UTD Event data server for publications.}
 \usage{
 citeData(table_name = "")
 }
@@ -14,12 +14,14 @@ case-sensitive.}
 The texts of propor citations for publication in text and Bibtex formats
 }
 \description{
-This function returns the citation texts of data sets a user extracts
+This function returns the citation texts in text and Bibtex formats of data sets a user extracts
 by the UTDEventData package with a data table name.
 }
 \examples{
 # citations for Cline Phoenix Event data
-citeData(table_name = "cline_Phoenix_swb")
-# citations for ICEWS or UTD real-time data
-citeData(table_name = "Phoenix_rt")
+citeData("cline_Phoenix_swb")
+# citations for ICEWS
+citeData("icews")
+# citation for real-time phoenix data
+citeData("phoenix_rt")
 }

@@ -5,7 +5,7 @@
 \title{Extracting event data from the UTD real-time event data server.}
 \usage{
 pullData(api_key = " ", table_name = " ", country = list(), start = " ",
-  end = " ")
+  end = " ", citation = TRUE)
 }
 \arguments{
 \item{api_key}{An API key provided by the server manager at UTD.}
@@ -19,6 +19,9 @@ the full country name is also working in this function.\cr
 \item{start}{The "YYYYMMDD" format of the first date of a data set.}
 
 \item{end}{The "YYYYMMDD" format of the end date of a data set.}
+
+\item{citation}{The option for printing a package citation at the end of data retrival.
+The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
 }
 \value{
 extracted event data from a specifed data table
@@ -39,4 +42,7 @@ pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","C
  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
+
+ ## Data retreval without the citation
+ pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)
 }

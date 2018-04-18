@@ -22,6 +22,9 @@
 #'  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
 #'  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
 #'  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
+#'
+#'  ## Data retreval without the citation
+#'  pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)
 #' @param api_key An API key provided by the server manager at UTD.
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
 #' @param country List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
@@ -29,6 +32,8 @@
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
 #' @param start The "YYYYMMDD" format of the first date of a data set.
 #' @param end The "YYYYMMDD" format of the end date of a data set.
+#' @param citation The option for printing a package citation at the end of data retrival.
+#' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
 
 pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
 
@@ -87,9 +92,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     parsed_data <- jsonlite::fromJSON(retrieved_data)$data
 
     if (citation) {
-      return(list(data=parsed_data, citation=citeData(table_name)))
-      # return(parsed_data);
-      # citeData(table_name)
+      return(list(data=parsed_data, citation=citation("UTDEventData")))
     }
 
     else {

@@ -34,13 +34,16 @@
 #  " Target Name"    " Target Sectors", ....
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"), start="20171101", end="20171112")
+#  pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"), start="20171101", end="20171112", citation = TRUE)
 #  
 #  ## When you avoid repeating an API key into the function
 #  k<-'api key...'
 #  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
 #  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
 #  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
+#  
+#  # without citation
+#  pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', citation = FALSE)
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  # Creating an object
@@ -58,6 +61,9 @@
 #  # citations for Cline Phoenix Event data
 #  citeData(table_name = "cline_Phoenix_swb")
 #  
-#  # citations for ICEWS or UTD real-time data
+#  # citations for UTD real-time data
 #  citeData(table_name = "Phoenix_rt")
+#  
+#  # citations for ICEWS
+#  citeData(table_name = "ICEWS")
 

@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-04-12" />
+<meta name="date" content="2018-04-18" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,7 +88,7 @@ the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-04-12</em></h4>
+<h4 class="date"><em>2018-04-18</em></h4>
 
 
 
@@ -103,8 +103,8 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <span class="co"># installing the package with the vignette</span>
 devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>The UTD Event Data server has the five different event data sets.</p>
+<pre><code>  Table 1:  Data Table Information           </code></pre>
 <table>
-<caption>Data Table Information</caption>
 <thead>
 <tr class="header">
 <th>Data Table</th>
@@ -181,16 +181,20 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 </div>
 <div id="subsetting-function" class="section level2">
 <h2>Subsetting function</h2>
-<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table @ref(tab:dt). If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result. The format of time range is “YYYYMMDD.”<br />
+<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result. Please confirm the format of time range, which is “YYYYMMDD.”<br />
 The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.<br />
-The following code is the possible examples you may use to obtain a subset of data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pullData</span>(<span class="dt">api_key=</span><span class="st">&quot; &quot;</span>, <span class="dt">table_name=</span><span class="st">&quot;Phoenix_rt&quot;</span>, <span class="dt">country=</span><span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;MEX&quot;</span>,<span class="st">&quot;SYR&quot;</span>,<span class="st">&quot;CHN&quot;</span>), <span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171112&quot;</span>)
+The function returns the citation texts of publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosig “FALSE” in the option.</p>
+<p>The following code is the possible examples you may use to obtain a subset of data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pullData</span>(<span class="dt">api_key=</span><span class="st">&quot; &quot;</span>, <span class="dt">table_name=</span><span class="st">&quot;Phoenix_rt&quot;</span>, <span class="dt">country=</span><span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;MEX&quot;</span>,<span class="st">&quot;SYR&quot;</span>,<span class="st">&quot;CHN&quot;</span>), <span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171112&quot;</span>, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
 ## When you avoid repeating an API key into the function
 k&lt;-<span class="st">'api key...'</span>
 subset1 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>)
 subset2 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;icews&quot;</span>, <span class="kw">list</span>(<span class="st">'can'</span>, <span class="st">'usa'</span>), <span class="st">'20010101'</span>,<span class="st">'20010110'</span>)
-subset3 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">'cline_Phoenix_NYT'</span>,<span class="kw">list</span>(<span class="st">'South Korea'</span>,<span class="st">'canada'</span>), <span class="st">'19551105'</span>,<span class="st">'19581215'</span>)</code></pre></div>
+subset3 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">'cline_Phoenix_NYT'</span>,<span class="kw">list</span>(<span class="st">'South Korea'</span>,<span class="st">'canada'</span>), <span class="st">'19551105'</span>,<span class="st">'19581215'</span>)
+
+<span class="co"># without citation</span>
+<span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
 </div>
 <div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level2">
 <h2>Reference class for appying an API key to the functions</h2>
@@ -207,15 +211,18 @@ obj<span class="op">$</span><span class="kw">tableVar</span>(<span class="st">&q
 obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;MEX&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171102&quot;</span>)</code></pre></div>
 <p>You can apply a reference class on the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code>.</p>
 </div>
-</div>
-<div id="data-citation-function" class="section level1">
-<h1>Data citation function</h1>
+<div id="data-citation-function" class="section level2">
+<h2>Data citation function</h2>
 <p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to his/her documents, and a Bibtex type for Latex users. If the function has the input of Clines’s data, the retuns will be two citations for Clines Phoenix Event Data and UTD Event data. The input of table names is not case-sensitive, but you should have full data table names for the function input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># citations for Cline Phoenix Event data</span>
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
 
-<span class="co"># citations for ICEWS or UTD real-time data </span>
-<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;Phoenix_rt&quot;</span>)</code></pre></div>
+<span class="co"># citations for UTD real-time data </span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;Phoenix_rt&quot;</span>)
+
+<span class="co"># citations for ICEWS  </span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;ICEWS&quot;</span>)</code></pre></div>
+</div>
 </div>
 <div id="aggregation-functions" class="section level1">
 <h1>Aggregation functions</h1>
