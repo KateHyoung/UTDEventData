@@ -85,13 +85,13 @@ DataTables(k)
 ```{r, eval = FALSE}
 tableVar(api_key="...", table="phoenix_rt")
 
-# with the saved API key to avoid the repeation of API key typing 
+# By using the saved API key to avoid the repeation of API key typing 
 k<-"...api key...."
-tableVar(k, "phoenix_rt")
+tableVar(k, "Phoenix_rt")
 
-tableVar(k, "icews")
+tableVar(k, "Icews")
 
-tableVar(k, "cline_Phoenix_swb")
+tableVar(k, "Cline_Phoenix_swb")
 ```
 
 This function is not case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by `Table()` should be specified in the function. For instance, `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but `"cline_phenix"` will return noting. 
@@ -110,9 +110,11 @@ tableVar(k, table="icews", lword="target")
 ## Subsetting function
 
 `pullData()` returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return `list()` as its result. 
+
 Please confirm the format of time range, which is "YYYYMMDD."     
 The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.  
-The function returns the citation texts of publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosig "FALSE" in the option. 
+
+The function returns the citation texts of publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosig "FALSE" in the 'citation' option. 
 
 The following code is the possible examples you may use to obtain a subset of data. 
 
@@ -150,7 +152,7 @@ You can apply a reference class on the functions of `DataTables()`, `TableVar()`
 
 ## Data citation function
 
-`citeData()` function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to his/her documents, and a Bibtex type for Latex users. If the function has the input of Clines's data, the retuns will be two citations for Clines Phoenix Event Data and UTD Event data. The input of table names is not case-sensitive, but you should have full data table names for the function input. 
+`citeData()` function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for \Latex users. The input of table names is case-insensitive, but you should have full data table names for the function input. 
 
 ```{r, eval = FALSE}
 # citations for Cline Phoenix Event data
