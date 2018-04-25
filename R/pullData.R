@@ -1,7 +1,7 @@
 #################################################################
 #############    A Main function of subsetting ##################
 #############    Combined by Kate Kim          ##################
-#############    Last update: 3/12/2018        ##################
+#############    Last update: 4/18/2018        ##################
 #################################################################
 #' Extracting event data from the UTD real-time event data server.
 #' @description This is the main function to extract subdata from the UTD Event data server by country names and time ranges.

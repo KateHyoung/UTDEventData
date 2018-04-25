@@ -40,7 +40,13 @@ citeData <- function(table_name = "") {
   }
 
   else if(tn == 'phoenix_rt'){
-    print("The citation is in preparation and coming soon.")
+    full <- "Brandt, Patrick T., Vito D’Orazio, Jennifer Holmes, Latifur Khan, Vincent Ng. 2018. “Phoenix real time event data.” University of Texas Dallas, http://eventdata.utdallas.edu"
+    title <- "Phoenix real time event data"
+    author <- "Brandt, Patrick T.; “D’Orazio, Vito; Holmes, Jennifer; Khan, Latifur; Ng, Vincent"
+    year <- "2018"
+    note <- "University of Texas Dallas"
+    url <- "http://eventdata.utdallas.edu"
+    cat("For a publication citation: \n\n  ", full, "\n\nFor a Bibtex entry: \n\n @Manual{, \n title={", title, "}, \n author={", author, "},\n year={",year,"},\n note={",note,"}, \n url={",url,"},\n}", sep = "")
   }
 
   else {

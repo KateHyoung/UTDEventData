@@ -60,6 +60,8 @@ The codes/functions in this package have been tested in the following versions o
 
   - Microsoft Open R 3.4.0 
   - R-3.4.3 for Windows (32/64 bit)
+  - OS X 10.12.2
+  - R-2.4.3 for Mac
 
 # Functions
 ## Searching functions
