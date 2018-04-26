@@ -166,13 +166,13 @@ k&lt;-<span class="st">&quot;...api key....&quot;</span>
 <p><code>tableVar()</code> returns the list of variables in a particulr data table a user specified in the function. For example, the variables in the PHOENIX real-time data can be obtained with the following code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;phoenix_rt&quot;</span>)
 
-<span class="co"># with the saved API key to avoid the repeation of API key typing </span>
+<span class="co"># By using the saved API key to avoid the repeation of API key typing </span>
 k&lt;-<span class="st">&quot;...api key....&quot;</span>
-<span class="kw">tableVar</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>)
+<span class="kw">tableVar</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>)
 
-<span class="kw">tableVar</span>(k, <span class="st">&quot;icews&quot;</span>)
+<span class="kw">tableVar</span>(k, <span class="st">&quot;Icews&quot;</span>)
 
-<span class="kw">tableVar</span>(k, <span class="st">&quot;cline_Phoenix_swb&quot;</span>)</code></pre></div>
+<span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
 <p>This function is not case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by <code>Table()</code> should be specified in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
 <p>This function has another feature as enable a user to look up a particular variable. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
@@ -183,9 +183,10 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 </div>
 <div id="subsetting-function" class="section level2">
 <h2>Subsetting function</h2>
-<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result. Please confirm the format of time range, which is “YYYYMMDD.”<br />
-The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.<br />
-The function returns the citation texts of publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosig “FALSE” in the option.</p>
+<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result.</p>
+<p>Please confirm the format of time range, which is “YYYYMMDD.”<br />
+The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.</p>
+<p>The function returns the citation texts of publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosig “FALSE” in the ‘citation’ option.</p>
 <p>The following code is the possible examples you may use to obtain a subset of data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pullData</span>(<span class="dt">api_key=</span><span class="st">&quot; &quot;</span>, <span class="dt">table_name=</span><span class="st">&quot;Phoenix_rt&quot;</span>, <span class="dt">country=</span><span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;MEX&quot;</span>,<span class="st">&quot;SYR&quot;</span>,<span class="st">&quot;CHN&quot;</span>), <span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171112&quot;</span>, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
@@ -215,7 +216,7 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 </div>
 <div id="data-citation-function" class="section level2">
 <h2>Data citation function</h2>
-<p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to his/her documents, and a Bibtex type for Latex users. If the function has the input of Clines’s data, the retuns will be two citations for Clines Phoenix Event Data and UTD Event data. The input of table names is not case-sensitive, but you should have full data table names for the function input.</p>
+<p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for users. The input of table names is case-insensitive, but you should have full data table names for the function input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># citations for Cline Phoenix Event data</span>
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
 

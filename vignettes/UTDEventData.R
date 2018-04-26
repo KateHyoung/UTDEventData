@@ -18,13 +18,13 @@
 ## ---- eval = FALSE-------------------------------------------------------
 #  tableVar(api_key="...", table="phoenix_rt")
 #  
-#  # with the saved API key to avoid the repeation of API key typing
+#  # By using the saved API key to avoid the repeation of API key typing
 #  k<-"...api key...."
-#  tableVar(k, "phoenix_rt")
+#  tableVar(k, "Phoenix_rt")
 #  
-#  tableVar(k, "icews")
+#  tableVar(k, "Icews")
 #  
-#  tableVar(k, "cline_Phoenix_swb")
+#  tableVar(k, "Cline_Phoenix_swb")
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  tableVar(api_key="...", table="icews", lword="target")
