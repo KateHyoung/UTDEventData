@@ -168,7 +168,7 @@ citeData(table_name = "ICEWS")
 
 # Aggregation functions
 
-The aggretation functions in the package help users to extract and aggreated data with advanced creteia as utilizing all varaibles data tables contain. While the  `pullData()` function provides limited options such as country names and time ranges, these functions provide users more options of aggreations with latitute and longitude of event locations and source and targets indications of specified events. By using vectorized subqueries with specific functions, user can construct aggreation queries with the combinations of aggregation functions. To achieve correct aggregated data, user must acquaint each function's usage illustrated in the help pages. The details how individual function works individually and connectedlty with other functions are illustrated in help pages and this document.
+The aggretation functions in the package help users to extract and aggreated data with advanced creteia as utilizing all varaibles data tables contain. While the  `pullData()` function provides limited options such as country names and time ranges, these functions provide users more options of aggreations with latitute and longitude of event locations and source and targets indications of specified events. By using vectorized subqueries with specific functions, user can construct aggreation queries with the combinations of aggregation functions. To obtain aggregated data, user must acquaint each function's usage illustrated in the help pages. The details how individual function works individually and connectedlty with other functions as illustrated in the help pages and this document.
 
 **Note: The documentation of aggregation functions is preparing now**
 
