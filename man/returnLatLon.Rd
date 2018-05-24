@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnLatLon}
 \alias{returnLatLon}
-\title{Creating a vector of location boundaries with longitudes and lattidues}
+\title{Creating the location boundaries with longitudes and lattidues}
 \usage{
 returnLatLon(lat1, lat2, lon1, lon2)
 }
@@ -22,5 +22,5 @@ A vector of queary syntax of latidues and longitudes
 This function returns a vector of query syntax for geo-locations
 }
 \examples{
-q <- returnLatLon(-80,30,20,100)
+q <- returnLatLon(-80,30,20,80)
 }

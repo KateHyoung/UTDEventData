@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-05-17" />
+<meta name="date" content="2018-05-24" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -70,25 +70,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 class="title toc-ignore">UTDEventData: Extracting and aggregating event data from the UTD server</h1>
 <h4 class="author"><em>Dr. Patrick T. Brandt</em></h4>
 <address class="author_afil">
-the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:pbrandt@utdallas.edu">pbrandt@utdallas.edu</a></a>
+The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:pbrandt@utdallas.edu">pbrandt@utdallas.edu</a></a>
 </address>
 <h4 class="author"><em>Dr. Vito D’Orazio</em></h4>
 <address class="author_afil">
-the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:dorazio@utdallas.edu">dorazio@utdallas.edu</a></a>
+The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:dorazio@utdallas.edu">dorazio@utdallas.edu</a></a>
 </address>
 <h4 class="author"><em>Hyoungah (Kate) Kim</em></h4>
 <address class="author_afil">
-the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a></a>
+The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a></a>
 </address>
 <h4 class="author"><em>Jared Looper</em></h4>
 <address class="author_afil">
-the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:jrl140030@utdallas.edu">jrl140030@utdallas.edu</a></a>
+The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:jrl140030@utdallas.edu">jrl140030@utdallas.edu</a></a>
 </address>
 <h4 class="author"><em>Micheal J. Shoemate</em></h4>
 <address class="author_afil">
-the University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
+The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-05-17</em></h4>
+<h4 class="date"><em>2018-05-24</em></h4>
 
 
 
@@ -146,13 +146,8 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <li>Microsoft Open R 3.4.0</li>
 <li>R-3.4.3 for Windows (32/64 bit)</li>
 <li>OS X 10.12.2</li>
-<li>R-2.4.3 for Mac</li>
+<li>R-2.4.3 for Mac   # Functions   ## Searching functions</li>
 </ul>
-</div>
-<div id="functions" class="section level1">
-<h1>Functions</h1>
-<div id="searching-functions" class="section level2">
-<h2>Searching functions</h2>
 <p>There are two main searching functions in this package for users to look up the name of data table and the list of variables each data table contains.</p>
 <p><code>DataTables()</code> returns the all data table names in the UTD server.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Direct way as inputing an API key</span>
@@ -180,9 +175,10 @@ k&lt;-<span class="st">&quot;...api key....&quot;</span>
 k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 <span class="st">&quot; Target Name&quot;</span>    <span class="st">&quot; Target Sectors&quot;</span>, ....</code></pre></div>
+<p> </p>
 </div>
-<div id="subsetting-function" class="section level2">
-<h2>Subsetting function</h2>
+<div id="subsetting-function" class="section level1">
+<h1>Subsetting function</h1>
 <p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result.</p>
 <p>Please confirm the format of time range, which is “YYYYMMDD.”<br />
 The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.</p>
@@ -198,7 +194,6 @@ subset3 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span 
 
 <span class="co"># without citation</span>
 <span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
-</div>
 <div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level2">
 <h2>Reference class for appying an API key to the functions</h2>
 <p>The pacakge has a reference class, named <code>Table()</code> for users not to repeat the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly put an API key into a function. Some basic usage is as follows;</p>
@@ -213,9 +208,11 @@ obj<span class="op">$</span><span class="kw">tableVar</span>(<span class="st">&q
 <span class="co"># when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)</span>
 obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;MEX&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171102&quot;</span>)</code></pre></div>
 <p>You can apply a reference class on the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code>.</p>
+<p> </p>
 </div>
-<div id="data-citation-function" class="section level2">
-<h2>Data citation function</h2>
+</div>
+<div id="data-citation-function" class="section level1">
+<h1>Data citation function</h1>
 <p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for users. The input of table names is case-insensitive, but you should have full data table names for the function input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># citations for Cline Phoenix Event data</span>
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
@@ -225,17 +222,47 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 
 <span class="co"># citations for ICEWS  </span>
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;ICEWS&quot;</span>)</code></pre></div>
-</div>
+<p> </p>
 </div>
 <div id="aggregation-functions" class="section level1">
 <h1>Aggregation functions</h1>
-<p>The aggretation functions in the package help users to extract and aggreated data with advanced creteia as utilizing all varaibles data tables contain. While the <code>pullData()</code> function provides limited options such as country names and time ranges, these functions provide users more options of aggreations with latitute and longitude of event locations and source and targets indications of specified events. By using vectorized subqueries with specific functions, user can construct aggreation queries with the combinations of aggregation functions. To obtain aggregated data, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
-<p> <br />
- </p>
-<p> <br />
- </p>
-<p> <br />
- </p>
+<p>The aggregation functions in the package help users to extract and aggreated data with extendable queries as users want. While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the aggregation functions provide users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using saved queries blocks with specific functions, user can retrieve data with constructed aggreation queries as combining aggregation functions in this package. To obtain aggregated data, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
+<p>The aggregation functions in the package consist of three groups. The first group of aggregation functions is creating qeury blocks of user’s interests. The aggregating query blocks are the basis of aggregations information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with a regural expression function. The second group of aggregtaion functions is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. The third part of aggregation functions is requesting data based on the query a user creates with the combination of query blocks and linking functions.</p>
+<div id="query-block-functions" class="section level2">
+<h2>Query block functions</h2>
+<p><code>returnCountries()</code> is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint</span>
+ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
+<p><code>returnTimes()</code> is the function that generates a query to return all events between specified time ranges. The format of input time should be “YYYYMMDD” in the order of start and end of a time range. A user mush indentify a data table in the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generates a query to return all events between the dates July 27, 1980, and December 10, 2004</span>
+time &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(table_name,  <span class="st">&quot;19800727&quot;</span>, <span class="st">&quot;20041210&quot;</span>)</code></pre></div>
+<p><code>returnLatLon()</code> returns the geo-location boundary a user specif with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of latitudes and minimum and maximum values of longtigudes for a target boundary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80</span>
+q &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">30</span>,<span class="dv">20</span>,<span class="dv">80</span>)</code></pre></div>
+<p>The <code>returnDyad()</code> function creates a query of particular dyads of actors of countreis involved in political events. In the function, a user must specify a table name and source and target countries repectively. ISO3 codes for country names is recomended as function inputs, but full names of countries also work in this funtion. These inputs are not case-sensitive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query that a source country is Syria and a target country is the United States</span>
+dyad &lt;-<span class="st"> </span><span class="kw">returnDayd</span>(table_name, <span class="st">&quot;SYR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</code></pre></div>
+<p><code>returnRegExp()</code> returns a regular expression with variables in the API data table. To use this function, a user must understand the variable in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name in the data table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
+others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, table_name,<span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)</code></pre></div>
+</div>
+<div id="connectivive-functions" class="section level2">
+<h2>Connectivive functions</h2>
+<p>These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators <strong>“and”</strong> and <strong>“or”</strong> respectively.</p>
+<p><code>andList()</code> is the function that returns subset of two or more query lists. The stored queries should be specified in the <code>list()</code> format in the function.</p>
+<p><code>orList()</code> returns a union of two or more query lists in a set thoery. The stored queries should be specified in the <code>list()</code> format in the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as q or f</span>
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,f))
+<span class="co"># subset with two or more stored query blocks such as q or f</span>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(q,f))</code></pre></div>
+</div>
+<div id="data-request-function" class="section level2">
+<h2>Data request function</h2>
+<p>The data are retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests the API server to obtain the data in the structured format in R. A user should specified an API key, a data table, and a lists of queries in the <code>list()</code> format.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
+<span class="kw">sendQuery</span>(api_key, tabl_name, and_query)</code></pre></div>
+<p> </p>
+</div>
 </div>
 <div id="further-information-of-the-event-data-server-at-utd" class="section level1">
 <h1>Further information of the Event Data server at UTD</h1>

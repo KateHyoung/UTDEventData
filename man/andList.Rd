@@ -2,21 +2,21 @@
 % Please edit documentation in R/AggFunctions.R
 \name{andList}
 \alias{andList}
-\title{Obtaining an AND syntax to use two and more query vectors}
+\title{Obtaining an AND syntax to use two and more query lists}
 \usage{
 andList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of other query vectors}
+\item{query_prep}{A list of other queris stored}
 }
 \value{
 AND query syntax
 }
 \description{
-This function retuns the syntax to combine several query vectors
+This function retuns the syntax to combine several query lists
 }
 \examples{
-# If you want to subset with two or more query vectors such as q or f,
+# If you want to subset with two or more stored query blocks such as q or f,
 or_query <- orList(list(q,f))
 
 }

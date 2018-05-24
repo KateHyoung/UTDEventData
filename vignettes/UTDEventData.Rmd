@@ -2,7 +2,7 @@
 title: "UTDEventData: Extracting and aggregating event data from the UTD server"
 author: 
 - name: "Dr. Patrick T. Brandt"
-  affiliation: &utd the University of Texass at Dallas
+  affiliation: &utd The University of Texass at Dallas
   email: pbrandt@utdallas.edu
 - name: "Dr. Vito D'Orazio"
   affiliation: *utd
@@ -62,8 +62,9 @@ The codes/functions in this package have been tested in the following versions o
   - R-3.4.3 for Windows (32/64 bit)
   - OS X 10.12.2
   - R-2.4.3 for Mac
-
+&nbsp;
 # Functions
+&nbsp;
 ## Searching functions
 
 There are two main searching functions in this package for users to look up the name of data table and the list of variables each data table contains.  
@@ -107,7 +108,9 @@ tableVar(k, table="icews", lword="target")
 ```
 
 
-## Subsetting function
+&nbsp;
+
+# Subsetting function
 
 `pullData()` returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return `list()` as its result. 
 
@@ -150,7 +153,9 @@ obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ```
 You can apply a reference class on the functions of `DataTables()`, `TableVar()`, and `pullData()`. 
 
-## Data citation function
+&nbsp;
+
+# Data citation function
 
 `citeData()` function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for \Latex users. The input of table names is case-insensitive, but you should have full data table names for the function input. 
 
@@ -165,18 +170,78 @@ citeData(table_name = "Phoenix_rt")
 citeData(table_name = "ICEWS")
 ```
 
+&nbsp;
 
 # Aggregation functions
 
-The aggretation functions in the package help users to extract and aggreated data with advanced creteia as utilizing all varaibles data tables contain. While the  `pullData()` function provides limited options such as country names and time ranges, these functions provide users more options of aggreations with latitute and longitude of event locations and source and targets indications of specified events. By using vectorized subqueries with specific functions, user can construct aggreation queries with the combinations of aggregation functions. To obtain aggregated data, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section. 
+The aggregation functions in the package help users to extract and aggreated data with extendable queries as users want. While `pullData()` function provides limited query options such as country names and time ranges of a data set, the aggregation functions provide users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using saved queries blocks with specific functions, user can retrieve data with constructed aggreation queries as combining aggregation functions in this package. To obtain aggregated data, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.  
 
-&nbsp;  
-&nbsp;
+The aggregation functions in the package consist of three groups. The first group of aggregation functions is creating qeury blocks of user's interests. The aggregating query blocks are the basis of aggregations information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with a regural expression function. The second group of aggregtaion functions is connective functions of query blocks such as `orList()` and `andList()`. The third part of aggregation functions is requesting data based on the query a user creates with the combination of query blocks and linking functions.   
 
-&nbsp;  
-&nbsp;
+## Query block functions
 
-&nbsp;  
+`returnCountries()` is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive. 
+
+```{r, eval = FALSE}
+# generating a query of the United States and Canada as a country restraint
+ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+```   
+
+`returnTimes()` is the function that generates a query to return all events between specified time ranges. The format of input time should be "YYYYMMDD" in the order of start and end of a time range. A user mush indentify a data table in the function. 
+
+```{r, eval = FALSE}
+# generates a query to return all events between the dates July 27, 1980, and December 10, 2004
+time <- returnCounries(table_name,  "19800727", "20041210")
+``` 
+
+`returnLatLon()` returns the geo-location boundary a user specif with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by `lat1, lat2, log1, log2`. They are respectively the minimum and maximum values of latitudes and minimum and maximum values of longtigudes for a target boundary. 
+
+```{r, eval = FALSE}
+# generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
+q <- returnLatLon(-80,30,20,80)
+```
+
+The `returnDyad()` function creates a query of particular dyads of actors of countreis involved in political events. In the function, a user must specify a table name and source and target countries repectively. ISO3 codes for country names is recomended as function inputs, but full names of countries also work in this funtion. These inputs are not case-sensitive. 
+
+```{r, eval = FALSE}
+# genrate a query that a source country is Syria and a target country is the United States
+dyad <- returnDayd(table_name, "SYR", "USA")
+```
+
+`returnRegExp()` returns a regular expression with variables in the API data table. To use this function, a user must understand the variable in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name in the data table. 
+
+```{r, eval = FALSE}
+# genrate a query for all source actors that involved in governments in events
+others <- returnRegExp( api_key, table_name,"GOV","Source Name")
+```
+
+
+## Connectivive functions 
+
+These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, `andList()` and `orList()`, work as logical operators **"and"** and **"or"** respectively.  
+
+`andList()` is the function that returns subset of two or more query lists. The stored queries should be specified in the `list()` format in the function. 
+
+`orList()` returns a union of two or more query lists in a set thoery. The stored queries should be specified in the `list()` format in the function. 
+
+```{r, eval = FALSE}
+# combine stored query blocks such as q or f
+and_query <- andList(list(q,f))
+# subset with two or more stored query blocks such as q or f
+or_query <- orList(list(q,f))
+```
+
+
+
+## Data request function
+
+The data are retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests the API server to obtain the data in the structured format in R. A user should specified an API key, a data table, and a lists of queries in the `list()` format. 
+
+```{r, eval = FALSE}
+# request a data set with the list of created queries 
+sendQuery(api_key, tabl_name, and_query)
+```
+
 &nbsp;
 
 # Further information of the Event Data server at UTD

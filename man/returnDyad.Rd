@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnDyad}
 \alias{returnDyad}
-\title{Creating a vector of the dayd countries of source and target actors}
+\title{Creating a list of the dayd countries of source and target actors}
 \usage{
 returnDyad(table_name, source, target)
 }
@@ -10,12 +10,12 @@ returnDyad(table_name, source, target)
 \item{table_name}{a name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{target}{The name of a target country either an ISO code or full a country name}
+\item{target}{The name of a target country either an ISO code or a country name}
 
-\item{soure}{The name of a source country either an ISO code or full a country name}
+\item{soure}{The name of a source country either an ISO code or a country name}
 }
 \value{
-A vector of queary syntax of source and target countries
+A queary syntax of source and target countries
 }
 \description{
 This function returns a vector of query syntax for a dayd information

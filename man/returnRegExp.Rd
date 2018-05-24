@@ -9,10 +9,10 @@ returnRegExp(api_key = "", table_name = "", pattern = "", field = "")
 \arguments{
 \item{api_key}{An API key provided by a UTD server manager}
 
-\item{table_name}{a name of a data table a user specifies. Your input is NOT
+\item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{pattern}{A pattern of a data table}
+\item{pattern}{A pattern of an actor in events}
 
 \item{field}{A field of a data table}
 }
@@ -23,7 +23,7 @@ JSON query syntax
 This function retuns general query syntax for sepcfied data table
 }
 \examples{
-# If want to get all source actors who are government actors
+# when a user wants to get all source actors related to governments
 f <- returnRegExp( k, "icews","GOV","Source Name")
 
 }

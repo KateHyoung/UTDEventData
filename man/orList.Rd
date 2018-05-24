@@ -2,21 +2,21 @@
 % Please edit documentation in R/AggFunctions.R
 \name{orList}
 \alias{orList}
-\title{Obtaining an OR syntax to use two and more query vectors}
+\title{Obtaining an OR syntax to use two and more query lists}
 \usage{
 orList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of other query vectors}
+\item{query_prep}{A list of other queris stored}
 }
 \value{
 Or query syntax
 }
 \description{
-This function retuns the syntax to combine several query vectors
+This function retuns the syntax to combine several query lists
 }
 \examples{
-# If you want to combine other query vectors such as q or f,
+# If you want to combine stored query blocks such as q or f,
 and_query <- andList(list(q,f))
 
 }

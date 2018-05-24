@@ -67,3 +67,33 @@
 #  # citations for ICEWS
 #  citeData(table_name = "ICEWS")
 
+## ---- eval = FALSE-------------------------------------------------------
+#  # generating a query of the United States and Canada as a country restraint
+#  ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # generates a query to return all events between the dates July 27, 1980, and December 10, 2004
+#  time <- returnCounries(table_name,  "19800727", "20041210")
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
+#  q <- returnLatLon(-80,30,20,80)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # genrate a query that a source country is Syria and a target country is the United States
+#  dyad <- returnDayd(table_name, "SYR", "USA")
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # genrate a query for all source actors that involved in governments in events
+#  others <- returnRegExp( api_key, table_name,"GOV","Source Name")
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # combine stored query blocks such as q or f
+#  and_query <- andList(list(q,f))
+#  # subset with two or more stored query blocks such as q or f
+#  or_query <- orList(list(q,f))
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # request a data set with the list of created queries
+#  sendQuery(api_key, tabl_name, and_query)
+

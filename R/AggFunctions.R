@@ -66,15 +66,15 @@ returnTimes <- function(table_name, start, end) {
   return(list('<date>'=list('$gte'=start,'$lte'=end)))
 }
 
-#' Creating a vector of the dayd countries of source and target actors
+#' Creating a list of the dayd countries of source and target actors
 #' @description This function returns a vector of query syntax for a dayd information
-#' @return A vector of queary syntax of source and target countries
+#' @return A queary syntax of source and target countries
 #' @export
 #' @importFrom countrycode countrycode
 #' @param table_name a name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param soure The name of a source country either an ISO code or full a country name
-#' @param target The name of a target country either an ISO code or full a country name
+#' @param soure The name of a source country either an ISO code or a country name
+#' @param target The name of a target country either an ISO code or a country name
 #' @examples  When you have a dyad query of Syria and the United State
 #' dyad <- returnDayd("pheonix_rt", "SYR", "USA")
 returnDyad <- function(table_name,source,target) {
@@ -102,7 +102,7 @@ returnDyad <- function(table_name,source,target) {
   return(query)
 }
 
-#' Creating a vector of location boundaries with longitudes and lattidues
+#' Creating the location boundaries with longitudes and lattidues
 #' @description This function returns a vector of query syntax for geo-locations
 #' @return A vector of queary syntax of latidues and longitudes
 #' @export
@@ -110,7 +110,7 @@ returnDyad <- function(table_name,source,target) {
 #' @param lat2 the maximum value of latitidue of a target boundary
 #' @param log1 the minimum value of longitude of a target boundary
 #' @param log2 the maximum value of longitude of a target boundary
-#' @examples q <- returnLatLon(-80,30,20,100)
+#' @examples q <- returnLatLon(-80,30,20,80)
 returnLatLon <- function(lat1, lat2, lon1, lon2) {
   return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lat2)))
 }
@@ -120,11 +120,11 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' @return JSON query syntax
 #' @export
 #' @param api_key An API key provided by a UTD server manager
-#' @param table_name a name of a data table a user specifies. Your input is NOT
+#' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param pattern A pattern of a data table
+#' @param pattern A pattern of an actor in events
 #' @param field A field of a data table
-#' @examples # If want to get all source actors who are government actors
+#' @examples # when a user wants to get all source actors related to governments
 #' f <- returnRegExp( k, "icews","GOV","Source Name")
 #'
 returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
@@ -135,24 +135,24 @@ returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = ""
   }
 }
 
-#' Obtaining an OR syntax to use two and more query vectors
-#' @description This function retuns the syntax to combine several query vectors
+#' Obtaining an OR syntax to use two and more query lists
+#' @description This function retuns the syntax to combine several query lists
 #' @return Or query syntax
 #' @export
-#' @param query_prep A list of other query vectors
-#' @examples # If you want to combine other query vectors such as q or f,
+#' @param query_prep A list of other queris stored
+#' @examples # If you want to combine stored query blocks such as q or f,
 #' and_query <- andList(list(q,f))
 #'
 orList <- function(query_prep = list()) {
   return(list('$or'=query_prep))
 }
 
-#' Obtaining an AND syntax to use two and more query vectors
-#' @description This function retuns the syntax to combine several query vectors
+#' Obtaining an AND syntax to use two and more query lists
+#' @description This function retuns the syntax to combine several query lists
 #' @return AND query syntax
 #' @export
-#' @param query_prep A list of other query vectors
-#' @examples # If you want to subset with two or more query vectors such as q or f,
+#' @param query_prep A list of other queris stored
+#' @examples # If you want to subset with two or more stored query blocks such as q or f,
 #' or_query <- orList(list(q,f))
 #'
 andList <- function(query_prep = list()) {
