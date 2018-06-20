@@ -27,6 +27,7 @@ vignette: >
 ---
 
 # Introduction
+
 This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it.
 If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>) at UTD.  
 
@@ -110,7 +111,7 @@ tableVar(k, table="icews", lword="target")
 
 &nbsp;
 
-# Subsetting function
+# Subsetting function I
 
 `pullData()` returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return `list()` as its result. 
 
@@ -172,11 +173,11 @@ citeData(table_name = "ICEWS")
 
 &nbsp;
 
-# Aggregation functions
+# Subsetting functions II
 
-The aggregation functions in the package help users to extract and aggreated data with extendable queries as users want. While `pullData()` function provides limited query options such as country names and time ranges of a data set, the aggregation functions provide users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using saved queries blocks with specific functions, user can retrieve data with constructed aggreation queries as combining aggregation functions in this package. To obtain aggregated data, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.  
+The package contains another way to subset a data set from the API server. These  functions require users to have an API key to obtain data but provide more options in subsetting criteria.  For instance, While `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria.  The query blocks can be crated and stored by the functions in the package. To obtain data avoid error massages, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.  
 
-The aggregation functions in the package consist of three groups. The first group of aggregation functions is creating qeury blocks of user's interests. The aggregating query blocks are the basis of aggregations information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with a regural expression function. The second group of aggregtaion functions is connective functions of query blocks such as `orList()` and `andList()`. The third part of aggregation functions is requesting data based on the query a user creates with the combination of query blocks and linking functions.   
+The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user's interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with the regular expression function, `returnRegExp()`. The second group of the subsetting function II is connective functions of query blocks such as `orList()` and `andList()`. These functions play a role like a logical operatior in combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server. 
 
 ## Query block functions
 
@@ -218,7 +219,7 @@ others <- returnRegExp( api_key, table_name,"GOV","Source Name")
 
 ## Connectivive functions 
 
-These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, `andList()` and `orList()`, work as logical operators **"and"** and **"or"** respectively.  
+These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, `andList()` and `orList()`, work as logical operators, **"and"** and **"or"**, respectively.  
 
 `andList()` is the function that returns subset of two or more query lists. The stored queries should be specified in the `list()` format in the function. 
 
@@ -235,7 +236,9 @@ or_query <- orList(list(q,f))
 
 ## Data request function
 
-The data are retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests the API server to obtain the data in the structured format in R. A user should specified an API key, a data table, and a lists of queries in the `list()` format. 
+A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by `list()`  in the function as shown in the following example code. 
+
+Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks can bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for subsetting. `pullData()` works more efficiently than `sendQuery()`.  
 
 ```{r, eval = FALSE}
 # request a data set with the list of created queries 

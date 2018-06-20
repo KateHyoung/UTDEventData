@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-05-24" />
+<meta name="date" content="2018-06-19" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,7 +88,7 @@ The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-05-24</em></h4>
+<h4 class="date"><em>2018-06-19</em></h4>
 
 
 
@@ -177,8 +177,8 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <span class="st">&quot; Target Name&quot;</span>    <span class="st">&quot; Target Sectors&quot;</span>, ....</code></pre></div>
 <p> </p>
 </div>
-<div id="subsetting-function" class="section level1">
-<h1>Subsetting function</h1>
+<div id="subsetting-function-i" class="section level1">
+<h1>Subsetting function I</h1>
 <p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result.</p>
 <p>Please confirm the format of time range, which is “YYYYMMDD.”<br />
 The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.</p>
@@ -224,10 +224,10 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;ICEWS&quot;</span>)</code></pre></div>
 <p> </p>
 </div>
-<div id="aggregation-functions" class="section level1">
-<h1>Aggregation functions</h1>
-<p>The aggregation functions in the package help users to extract and aggreated data with extendable queries as users want. While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the aggregation functions provide users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using saved queries blocks with specific functions, user can retrieve data with constructed aggreation queries as combining aggregation functions in this package. To obtain aggregated data, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
-<p>The aggregation functions in the package consist of three groups. The first group of aggregation functions is creating qeury blocks of user’s interests. The aggregating query blocks are the basis of aggregations information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with a regural expression function. The second group of aggregtaion functions is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. The third part of aggregation functions is requesting data based on the query a user creates with the combination of query blocks and linking functions.</p>
+<div id="subsetting-functions-ii" class="section level1">
+<h1>Subsetting functions II</h1>
+<p>The package contains another way to subset a data set from the API server. These functions require users to have an API key to obtain data but provide more options in subsetting criteria. For instance, While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria. The query blocks can be crated and stored by the functions in the package. To obtain data avoid error massages, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
+<p>The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user’s interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with the regular expression function, <code>returnRegExp()</code>. The second group of the subsetting function II is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. These functions play a role like a logical operatior in combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server.</p>
 <div id="query-block-functions" class="section level2">
 <h2>Query block functions</h2>
 <p><code>returnCountries()</code> is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive.</p>
@@ -248,7 +248,7 @@ others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_k
 </div>
 <div id="connectivive-functions" class="section level2">
 <h2>Connectivive functions</h2>
-<p>These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators <strong>“and”</strong> and <strong>“or”</strong> respectively.</p>
+<p>These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
 <p><code>andList()</code> is the function that returns subset of two or more query lists. The stored queries should be specified in the <code>list()</code> format in the function.</p>
 <p><code>orList()</code> returns a union of two or more query lists in a set thoery. The stored queries should be specified in the <code>list()</code> format in the function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as q or f</span>
@@ -258,7 +258,8 @@ or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span clas
 </div>
 <div id="data-request-function" class="section level2">
 <h2>Data request function</h2>
-<p>The data are retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests the API server to obtain the data in the structured format in R. A user should specified an API key, a data table, and a lists of queries in the <code>list()</code> format.</p>
+<p>A data set can be retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by <code>list()</code> in the function as shown in the following example code.</p>
+<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks can bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
 <span class="kw">sendQuery</span>(api_key, tabl_name, and_query)</code></pre></div>
 <p> </p>
