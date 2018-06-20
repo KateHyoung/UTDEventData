@@ -96,4 +96,28 @@
 ## ---- eval = FALSE-------------------------------------------------------
 #  # request a data set with the list of created queries
 #  sendQuery(api_key, tabl_name, and_query)
+#  
+#  # examples of subsetting functions
+#  
+#  # creating query blocks
+#  # a country constrain of CHN and USA
+#  k <- 'api_key'
+#  ctr <- returnCountries("phoenix_rt",list("CHN", "USA"))
+#  
+#  # the time range between 2017-11-1 and 2017-11-5
+#  time <- returnTimes("phoenix_rt","20171101","20171105")
+#  
+#  # A boolean logic, or, with the two query blocks
+#  or_query <- orList(list(ctr, time))
+#  # request a data set to the API server
+#  d1 <- sendQuery(k,"phoenix_rt",or_query)
+#  
+#  # A boolean logic, and, with the two query blocks
+#  and_query <- andList(list(ctr, time))
+#  d2 <- sendQuery(k,"phoenix_rt",and_query)
+#  
+#  # When a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time table
+#  rgex<- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
+#  q <- andList(list(ctr, rgex))
+#  data  <- sendQuery(k,"phoenix_rt",q)
 

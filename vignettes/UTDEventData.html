@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-06-19" />
+<meta name="date" content="2018-06-20" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,7 +88,7 @@ The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-06-19</em></h4>
+<h4 class="date"><em>2018-06-20</em></h4>
 
 
 
@@ -261,7 +261,32 @@ or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span clas
 <p>A data set can be retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by <code>list()</code> in the function as shown in the following example code.</p>
 <p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks can bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
-<span class="kw">sendQuery</span>(api_key, tabl_name, and_query)</code></pre></div>
+<span class="kw">sendQuery</span>(api_key, tabl_name, and_query)
+
+<span class="co"># examples of subsetting functions</span>
+
+<span class="co"># creating query blocks</span>
+<span class="co"># a country constrain of CHN and USA</span>
+k &lt;-<span class="st"> 'api_key'</span>
+ctr &lt;-<span class="st"> </span><span class="kw">returnCountries</span>(<span class="st">&quot;phoenix_rt&quot;</span>,<span class="kw">list</span>(<span class="st">&quot;CHN&quot;</span>, <span class="st">&quot;USA&quot;</span>))
+
+<span class="co"># the time range between 2017-11-1 and 2017-11-5</span>
+time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;phoenix_rt&quot;</span>,<span class="st">&quot;20171101&quot;</span>,<span class="st">&quot;20171105&quot;</span>)
+
+<span class="co"># A boolean logic, or, with the two query blocks</span>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(ctr, time))
+<span class="co"># request a data set to the API server</span>
+d1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,or_query)
+
+<span class="co"># A boolean logic, and, with the two query blocks</span>
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, time))
+d2 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,and_query)
+
+<span class="co"># When a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time table</span>
+rgex&lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>,<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;src_agent&quot;</span>)
+q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, rgex))
+data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q)</code></pre></div>
+<p>Users can create thier own query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> and can combine them according to thier interest in order to obtain prefered data sets.</p>
 <p> </p>
 </div>
 </div>
