@@ -271,6 +271,16 @@ data  <- sendQuery(k,"phoenix_rt",q)
 
 Users can create thier own query blocks with the other functions such as `returnLocation()` and `returnDyad()` and can combine them according to thier interest in order to obtain prefered data sets. 
 
+### The `sendQuery()` issue for a Windows operation system 
+The aforementioned issue is related to a memory alloation in user's R system. If a sizible data set is extracted beyond its allocted momery, the error messay may returns. If it is the case, please check your RAM momeory and increase its limit as follows; 
+```{r, eval = FALSE}
+# check your memory limit only in the Windows system
+memory.limit()
+# increase its size
+memory.size(max=120000)   ## then d1 can be obtained.
+```
+
+
 &nbsp;
 
 # Further information of the Event Data server at UTD

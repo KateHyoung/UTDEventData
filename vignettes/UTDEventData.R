@@ -121,3 +121,9 @@
 #  q <- andList(list(ctr, rgex))
 #  data  <- sendQuery(k,"phoenix_rt",q)
 
+## ---- eval = FALSE-------------------------------------------------------
+#  # check your memory limit only in the Windows system
+#  memory.limit()
+#  # increase its size
+#  memory.size(max=120000)   ## then d1 can be obtained.
+
