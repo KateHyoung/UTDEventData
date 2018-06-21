@@ -35,15 +35,15 @@ This package requires you to have an API key to access to the UTD data server. P
 
 You can install the package from the UTDEVentData github page in R with the following syntax.
 ```{r, eval = FALSE}
-# installing the package without the vignette
+# install the package without the vignette
 devtools::install_github("KateHyoung/UTDEventData")
 
-# installing the package with the vignette
+# install the package with the vignette
 devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
 
 
-The UTD Event Data server has the five different event data sets. 
+The UTD Event Data server has the five different event data tables. 
 
       Table 1:  Data Table Information           
 Data Table         | Timeline          |  Further Information
@@ -57,7 +57,8 @@ Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.i
 
 The web links of each table provides the details of database and their entities and attributes. 
 
-The codes/functions in this package have been tested in the following versions of:
+### Machine enviroments this package has tested
+The codes/functions in this documentation have been tested in the following versions of:
 
   - Microsoft Open R 3.4.0 
   - R-3.4.3 for Windows (32/64 bit)
@@ -274,15 +275,14 @@ data  <- sendQuery(k,"phoenix_rt",q)
 
 Users can create thier own query blocks with the other functions such as `returnLocation()` and `returnDyad()` and can combine them according to thier interest in order to obtain prefered data sets. 
 
-### The `sendQuery()` issue for a Windows operation system 
-The aforementioned issue is related to a memory alloation in user's R system. If a sizible data set is extracted beyond its allocted momery, the error messay may returns. If it is the case, please check your RAM momeory and increase its limit as follows; 
+### The `sendQuery()` issue
+The aforementioned issue in  `sendQuery()` occurs only in Windows system computers and is related to a memory alloation in user's R system. If a sizible data set is extracted beyond its allocted momery, the error message may returns. If it is the case, please check your RAM momeory and increase its limit as follows; 
 ```{r, eval = FALSE}
 # check your memory limit only in the Windows system
 memory.limit()
 # increase its size
-memory.size(max=120000)   ## then d1 can be obtained.
+memory.size(max=120000)   ## then data can be obtained
 ```
-
 
 &nbsp;
 

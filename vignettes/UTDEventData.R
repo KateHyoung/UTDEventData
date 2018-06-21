@@ -1,8 +1,8 @@
 ## ---- eval = FALSE-------------------------------------------------------
-#  # installing the package without the vignette
+#  # install the package without the vignette
 #  devtools::install_github("KateHyoung/UTDEventData")
 #  
-#  # installing the package with the vignette
+#  # install the package with the vignette
 #  devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 
 ## ----eval = FALSE--------------------------------------------------------
@@ -125,5 +125,5 @@
 #  # check your memory limit only in the Windows system
 #  memory.limit()
 #  # increase its size
-#  memory.size(max=120000)   ## then d1 can be obtained.
+#  memory.size(max=120000)   ## then data can be obtained
 
