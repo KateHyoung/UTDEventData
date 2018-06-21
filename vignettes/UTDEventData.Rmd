@@ -63,9 +63,12 @@ The codes/functions in this package have been tested in the following versions o
   - R-3.4.3 for Windows (32/64 bit)
   - OS X 10.12.2
   - R-2.4.3 for Mac
+  
+  
 &nbsp;
+
 # Functions
-&nbsp;
+
 ## Searching functions
 
 There are two main searching functions in this package for users to look up the name of data table and the list of variables each data table contains.  
@@ -111,7 +114,7 @@ tableVar(k, table="icews", lword="target")
 
 &nbsp;
 
-# Subsetting function I
+## Subsetting function I
 
 `pullData()` returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return `list()` as its result. 
 
@@ -136,7 +139,7 @@ pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', citati
 ```
 
 
-## Reference class for appying an API key to the functions 
+### Reference class for appying an API key to the functions 
 
 The pacakge has a reference class, named `Table()` for users not to repeat the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly put an API key into a function. Some basic usage is as follows;
 
@@ -156,7 +159,7 @@ You can apply a reference class on the functions of `DataTables()`, `TableVar()`
 
 &nbsp;
 
-# Data citation function
+## Data citation function
 
 `citeData()` function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for \Latex users. The input of table names is case-insensitive, but you should have full data table names for the function input. 
 
@@ -173,13 +176,13 @@ citeData(table_name = "ICEWS")
 
 &nbsp;
 
-# Subsetting functions II
+## Subsetting functions II
 
 The package contains another way to subset a data set from the API server. These  functions require users to have an API key to obtain data but provide more options in subsetting criteria.  For instance, While `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria.  The query blocks can be crated and stored by the functions in the package. To obtain data avoid error massages, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.  
 
 The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user's interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with the regular expression function, `returnRegExp()`. The second group of the subsetting function II is connective functions of query blocks such as `orList()` and `andList()`. These functions play a role like a logical operatior in combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server. 
 
-## Query block functions
+### Query block functions
 
 `returnCountries()` is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive. 
 

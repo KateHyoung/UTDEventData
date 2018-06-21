@@ -146,8 +146,14 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <li>Microsoft Open R 3.4.0</li>
 <li>R-3.4.3 for Windows (32/64 bit)</li>
 <li>OS X 10.12.2</li>
-<li>R-2.4.3 for Mac   # Functions   ## Searching functions</li>
+<li>R-2.4.3 for Mac</li>
 </ul>
+<p> </p>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<div id="searching-functions" class="section level2">
+<h2>Searching functions</h2>
 <p>There are two main searching functions in this package for users to look up the name of data table and the list of variables each data table contains.</p>
 <p><code>DataTables()</code> returns the all data table names in the UTD server.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Direct way as inputing an API key</span>
@@ -177,8 +183,8 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <span class="st">&quot; Target Name&quot;</span>    <span class="st">&quot; Target Sectors&quot;</span>, ....</code></pre></div>
 <p> </p>
 </div>
-<div id="subsetting-function-i" class="section level1">
-<h1>Subsetting function I</h1>
+<div id="subsetting-function-i" class="section level2">
+<h2>Subsetting function I</h2>
 <p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result.</p>
 <p>Please confirm the format of time range, which is “YYYYMMDD.”<br />
 The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.</p>
@@ -194,8 +200,8 @@ subset3 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span 
 
 <span class="co"># without citation</span>
 <span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level2">
-<h2>Reference class for appying an API key to the functions</h2>
+<div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level3">
+<h3>Reference class for appying an API key to the functions</h3>
 <p>The pacakge has a reference class, named <code>Table()</code> for users not to repeat the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly put an API key into a function. Some basic usage is as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating an object</span>
 obj&lt;-Table<span class="op">$</span><span class="kw">new</span>()
@@ -211,8 +217,8 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 <p> </p>
 </div>
 </div>
-<div id="data-citation-function" class="section level1">
-<h1>Data citation function</h1>
+<div id="data-citation-function" class="section level2">
+<h2>Data citation function</h2>
 <p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for users. The input of table names is case-insensitive, but you should have full data table names for the function input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># citations for Cline Phoenix Event data</span>
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
@@ -224,12 +230,12 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;ICEWS&quot;</span>)</code></pre></div>
 <p> </p>
 </div>
-<div id="subsetting-functions-ii" class="section level1">
-<h1>Subsetting functions II</h1>
+<div id="subsetting-functions-ii" class="section level2">
+<h2>Subsetting functions II</h2>
 <p>The package contains another way to subset a data set from the API server. These functions require users to have an API key to obtain data but provide more options in subsetting criteria. For instance, While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria. The query blocks can be crated and stored by the functions in the package. To obtain data avoid error massages, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
 <p>The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user’s interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with the regular expression function, <code>returnRegExp()</code>. The second group of the subsetting function II is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. These functions play a role like a logical operatior in combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server.</p>
-<div id="query-block-functions" class="section level2">
-<h2>Query block functions</h2>
+<div id="query-block-functions" class="section level3">
+<h3>Query block functions</h3>
 <p><code>returnCountries()</code> is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint</span>
 ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
@@ -245,6 +251,7 @@ dyad &lt;-<span class="st"> </span><span class="kw">returnDayd</span>(table_name
 <p><code>returnRegExp()</code> returns a regular expression with variables in the API data table. To use this function, a user must understand the variable in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name in the data table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
 others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, table_name,<span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)</code></pre></div>
+</div>
 </div>
 <div id="connectivive-functions" class="section level2">
 <h2>Connectivive functions</h2>
