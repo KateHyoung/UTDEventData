@@ -191,3 +191,34 @@ sendQuery <- function(api_key = "", table_name = "", query = list()) {
   parsed_data <- jsonlite::fromJSON(retrieved_data)$data
   return(parsed_data)
 }
+
+#' Calculating a size of data a user wants to extract
+#' @description This function retruns a data size in a string format
+#' @return A data size in bytes
+#' @importFrom rjson toJSON
+#' @export
+#' @param api_key An API key provided by a server manager at UTD
+#' @param table_name A name of a data table a user specifies. Your input is NOT
+#' case-sensitive.
+#' @param query List of queries a user builds with othter aggretation functions.
+#' @examples getQuerysize(api_key,"Phoenix_rt", query_list)
+getQuerysize <- function(api_key = "", table_name = "", query = list()) {
+  if(is.null(query)) {
+    print("The query is empty.")
+    return(list())
+  }
+  query_string = rjson::toJSON(query)
+  query_string = gsub("\\", '', query_string, fixed=TRUE)
+  url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
+  url_submit = ''
+  table_name = tolower(table_name)
+  query_string = relabel(query_string,table_name)
+  url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
+  url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
+  url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
+  print(url_submit)
+  size = readLines(url_submit, warn=FALSE)
+  size = unlist(strsplit(t, split = ':', fixed=TRUE))[2]
+  size = gsub('}', "", size)
+  cat("Its size is:", size, "bytes")
+}
