@@ -216,7 +216,6 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
-  print(url_submit)
   size = readLines(url_submit, warn=FALSE)
   size = unlist(strsplit(size, split = ':', fixed=TRUE))[2]
   size = gsub('}', "", size)
