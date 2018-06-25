@@ -202,7 +202,7 @@ sendQuery <- function(api_key = "", table_name = "", query = list()) {
 #' case-sensitive.
 #' @param query List of queries a user builds with othter aggretation functions.
 #' @examples getQuerysize(api_key,"Phoenix_rt", query_list)
-getQuerysize <- function(api_key = "", table_name = "", query = list()) {
+getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
