@@ -187,12 +187,22 @@ sendQuery <- function(api_key = "", table_name = "", query = list()) {
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
-  retrieved_data <- readLines(url_submit, warn=FALSE)
+  # Apply tryCatch for large data
+  tryCatch({
+    retrieved_data <- readLines(url_submit, warn=FALSE)},
+    error = function(e){
+      message("Error. Consider to increae memory limits. Use getQuerySize() to see the data size estimate.")
+      message(e)},
+    warning = function(w) {
+      message("Warning. Consider to increae memory limits. Use getQuerySize() to see the data size estimate.")
+      message(w)}
+  )
+  # end tryCatch
   parsed_data <- jsonlite::fromJSON(retrieved_data)$data
   return(parsed_data)
 }
 
-#' Calculating a size of data a user wants to extract
+#' Calculating a size of data a user requests to the API server
 #' @description This function retruns a data size in a string format
 #' @return A data size in bytes
 #' @importFrom rjson toJSON
@@ -216,6 +226,7 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
+  print(url_submit)
   size = readLines(url_submit, warn=FALSE)
   size = unlist(strsplit(size, split = ':', fixed=TRUE))[2]
   size = gsub('}', "", size)
