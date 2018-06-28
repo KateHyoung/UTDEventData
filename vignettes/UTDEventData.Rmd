@@ -242,7 +242,7 @@ or_query <- orList(list(q,f))
 
 A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by `list()`  in the function as shown in the following example code. 
 
-Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks can bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for subsetting. `pullData()` works more efficiently than `sendQuery()`.  
+Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for subsetting. `pullData()` works more efficiently than `sendQuery()`.  
 
 ```{r, eval = FALSE}
 # request a data set with the list of created queries 
@@ -275,13 +275,23 @@ data  <- sendQuery(k,"phoenix_rt",q)
 
 Users can create thier own query blocks with the other functions such as `returnLocation()` and `returnDyad()` and can combine them according to thier interest in order to obtain prefered data sets. 
 
-### The `sendQuery()` issue
-The aforementioned issue in  `sendQuery()` occurs only in Windows system computers and is related to a memory alloation in user's R system. If a sizible data set is extracted beyond its allocted momery, the error message may returns. If it is the case, please check your RAM momeory and increase its limit as follows; 
+### An error message from `sendQuery()` 
+The aforementioned issue in  `sendQuery()` can occur when the size of requested data is greather than computer's memory. The error message suggests a solution to increase memory size of a user's computer with the original error note R program returns. 
+
+This issue is more requently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data and machine' RAM, a user may need to increae its maximum. 
+please check the following examples
+
 ```{r, eval = FALSE}
+# estimate the data size you want to extract
+getQuerySize('api_key', 'table_name',query objecct)
+
+# if the error message is noted, estimate the data a user has requested
+getQuerySize(k, 'phoenix_rt', q)
+
 # check your memory limit only in the Windows system
 memory.limit()
-# increase its size
-memory.size(max=120000)   ## then data can be obtained
+# increase its size if you need 
+memory.size(max=120000)   
 ```
 
 &nbsp;

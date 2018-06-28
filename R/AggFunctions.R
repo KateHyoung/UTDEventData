@@ -192,17 +192,14 @@ sendQuery <- function(api_key = "", table_name = "", query = list()) {
     retrieved_data <- readLines(url_submit, warn=FALSE)},
     error = function(e){
       message("Error. Consider to increae memory limits. Use getQuerySize() to see the data size estimate.")
-      message(e)},
-    warning = function(w) {
-      message("Warning. Consider to increae memory limits. Use getQuerySize() to see the data size estimate.")
-      message(w)}
+      message(e)}
   )
-  # end tryCatch
+# end tryCatch
   parsed_data <- jsonlite::fromJSON(retrieved_data)$data
   return(parsed_data)
 }
 
-#' Calculating a size of data a user requests to the API server
+#' Estimating a size of data a user requests to the API server
 #' @description This function retruns a data size in a string format
 #' @return A data size in bytes
 #' @importFrom rjson toJSON

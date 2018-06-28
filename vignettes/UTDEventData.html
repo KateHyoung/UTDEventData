@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-06-21" />
+<meta name="date" content="2018-06-28" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,7 +88,7 @@ The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-06-21</em></h4>
+<h4 class="date"><em>2018-06-28</em></h4>
 
 
 
@@ -269,7 +269,7 @@ or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span clas
 <div id="data-request-function" class="section level2">
 <h2>Data request function</h2>
 <p>A data set can be retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by <code>list()</code> in the function as shown in the following example code.</p>
-<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks can bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
+<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
 <span class="kw">sendQuery</span>(api_key, tabl_name, and_query)
 
@@ -297,13 +297,20 @@ rgex&lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k, <span 
 q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, rgex))
 data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q)</code></pre></div>
 <p>Users can create thier own query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> and can combine them according to thier interest in order to obtain prefered data sets.</p>
-<div id="the-sendquery-issue" class="section level3">
-<h3>The <code>sendQuery()</code> issue</h3>
-<p>The aforementioned issue in <code>sendQuery()</code> occurs only in Windows system computers and is related to a memory alloation in user’s R system. If a sizible data set is extracted beyond its allocted momery, the error message may returns. If it is the case, please check your RAM momeory and increase its limit as follows;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check your memory limit only in the Windows system</span>
+<div id="an-error-message-from-sendquery" class="section level3">
+<h3>An error message from <code>sendQuery()</code></h3>
+<p>The aforementioned issue in <code>sendQuery()</code> can occur when the size of requested data is greather than computer’s memory. The error message suggests a solution to increase memory size of a user’s computer with the original error note R program returns.</p>
+<p>This issue is more requently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, a user may need to increae its maximum. please check the following examples</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
+<span class="kw">getQuerySize</span>(<span class="st">'api_key'</span>, <span class="st">'table_name'</span>,query objecct)
+
+<span class="co"># if the error message is noted, estimate the data a user has requested</span>
+<span class="kw">getQuerySize</span>(k, <span class="st">'phoenix_rt'</span>, q)
+
+<span class="co"># check your memory limit only in the Windows system</span>
 <span class="kw">memory.limit</span>()
-<span class="co"># increase its size</span>
-<span class="kw">memory.size</span>(<span class="dt">max=</span><span class="dv">120000</span>)   ## then data can be obtained</code></pre></div>
+<span class="co"># increase its size if you need </span>
+<span class="kw">memory.size</span>(<span class="dt">max=</span><span class="dv">120000</span>)   </code></pre></div>
 <p> </p>
 </div>
 </div>

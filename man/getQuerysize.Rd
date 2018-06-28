@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{getQuerySize}
 \alias{getQuerySize}
-\title{Calculating a size of data a user requests to the API server}
+\title{Estimating a size of data a user requests to the API server}
 \usage{
 getQuerySize(api_key = "", table_name = "", query = list())
 }

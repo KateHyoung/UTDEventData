@@ -122,8 +122,14 @@
 #  data  <- sendQuery(k,"phoenix_rt",q)
 
 ## ---- eval = FALSE-------------------------------------------------------
+#  # estimate the data size you want to extract
+#  getQuerySize('api_key', 'table_name',query objecct)
+#  
+#  # if the error message is noted, estimate the data a user has requested
+#  getQuerySize(k, 'phoenix_rt', q)
+#  
 #  # check your memory limit only in the Windows system
 #  memory.limit()
-#  # increase its size
-#  memory.size(max=120000)   ## then data can be obtained
+#  # increase its size if you need
+#  memory.size(max=120000)
 
