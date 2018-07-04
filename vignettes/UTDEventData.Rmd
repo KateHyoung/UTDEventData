@@ -28,7 +28,7 @@ vignette: >
 
 # Introduction
 
-This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it.
+This R package helps a user to extract a data set from the UTD Event Data server. The project of the UTDEventData R package is in progress and has been upadated day by day. Your comments, feedback, and suggestions are welcome to develop it.
 If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>) at UTD.  
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <http://eventdata.utdallas.edu/signup>. 
@@ -57,7 +57,7 @@ Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.i
 
 The web links of each table provides the details of database and their entities and attributes. 
 
-### Machine enviroments this package has tested
+### computer enviroments this package has tested
 The codes/functions in this documentation have been tested in the following versions of:
 
   - Microsoft Open R 3.4.0 
@@ -102,7 +102,7 @@ tableVar(k, "Cline_Phoenix_swb")
 
 This function is not case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by `Table()` should be specified in the function. For instance, `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but `"cline_phenix"` will return noting. 
 
-This function has another feature as enable a user to look up a particular variable. For example, one who may wonder the ICEWS data have a variable named "target" can type the string of the certain variable as follows;
+This function has another feature as being enable a user to look up a particular variable (attribute) in a data table. For example, one who may wonder the ICEWS data have a variable named "target" can type the string of the certain variable as follows;
 
 ```{r, eval = FALSE }
 tableVar(api_key="...", table="icews", lword="target")
@@ -179,13 +179,13 @@ citeData(table_name = "ICEWS")
 
 ## Subsetting functions II
 
-The package contains another way to subset a data set from the API server. These  functions require users to have an API key to obtain data but provide more options in subsetting criteria.  For instance, While `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria.  The query blocks can be crated and stored by the functions in the package. To obtain data avoid error massages, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.  
+The package provides another way to obtain subsets from the API server. These  functions require users to have an API key to obtain data but provide more options in subsetting criteria.  For instance, While `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more discretion of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations. and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria.  The query blocks can be crated and stored by its specific functions in the package. To obtain data avoid error massages, user must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.  
 
-The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user's interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with the regular expression function, `returnRegExp()`. The second group of the subsetting function II is connective functions of query blocks such as `orList()` and `andList()`. These functions play a role like a logical operatior in combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server. 
+The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user's interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any variable (attributes) in an API data table with the regular expression function, `returnRegExp()`. The second group of the subsetting function II is connective functions of query blocks such as `orList()` and `andList()`. These functions play a role like a logical operatior on combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server. 
 
 ### Query block functions
 
-`returnCountries()` is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive. 
+`returnCountries()` is the function that creates the list of countreis names. The function requires users to specify a data table name and country names. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are case-insensitive. 
 
 ```{r, eval = FALSE}
 # generating a query of the United States and Canada as a country restraint
@@ -230,19 +230,20 @@ These functions play a role to connecting several queries created by query block
 `orList()` returns a union of two or more query lists in a set thoery. The stored queries should be specified in the `list()` format in the function. 
 
 ```{r, eval = FALSE}
-# combine stored query blocks such as q or f
-and_query <- andList(list(q,f))
-# subset with two or more stored query blocks such as q or f
-or_query <- orList(list(q,f))
+# combine stored query blocks such as 'time' or 'q' created before
+and_query <- andList(list(q,time))
+
+# subset with two or more stored query blocks such as 'q' or 'dyad'
+or_query <- orList(list(q,dyad))
 ```
 
 
 
 ## Data request function
 
-A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by `list()`  in the function as shown in the following example code. 
+A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API server. A user should input an API key, a data table, and a list of queries created by `andList()` or `orList()`  in the function as shown in the following example code. 
 
-Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for subsetting. `pullData()` works more efficiently than `sendQuery()`.  
+
 
 ```{r, eval = FALSE}
 # request a data set with the list of created queries 
@@ -273,13 +274,17 @@ q <- andList(list(ctr, rgex))
 data  <- sendQuery(k,"phoenix_rt",q)
 ```
 
-Users can create thier own query blocks with the other functions such as `returnLocation()` and `returnDyad()` and can combine them according to thier interest in order to obtain prefered data sets. 
+Users can create thier own query blocks with the other functions such as `returnLocation()` and `returnDyad()`. They can combine them according to thier interest in order to obtain prefered data sets. 
+
+Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`.  
+
 
 ### An error message from `sendQuery()` 
-The aforementioned issue in  `sendQuery()` can occur when the size of requested data is greather than computer's memory. The error message suggests a solution to increase memory size of a user's computer with the original error note R program returns. 
+The aforementioned issue in  `sendQuery()` can occur when the size of requested data is greather than computer's memory. The error message will suggest a solution such as increasing a memory size of a user's computer with the original error note the R program returns. 
 
-This issue is more requently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data and machine' RAM, a user may need to increae its maximum. 
-please check the following examples
+This issue is more frequently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data and machine' RAM, he/she may need to increae its maximum. 
+
+please see the following examples
 
 ```{r, eval = FALSE}
 # estimate the data size you want to extract
@@ -300,7 +305,7 @@ memory.size(max=120000)
 
 ## Spec-real-time server
 [Github page for the API access on Jetstream at UTD](https://github.com/Sayeedsalam/spec-event-data-server)  
-This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The query is expressed in JSON format. 
+This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The queries are expressed in JSON format. 
 
 ## Jetstream
 [Jetstream user guide](https://portal.xsede.org/jetstream)  
