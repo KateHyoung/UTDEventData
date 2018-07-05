@@ -305,7 +305,7 @@ q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw"
 data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q, <span class="dt">citation =</span> <span class="ot">FALSE</span>) <span class="co"># no citation</span>
 
 <span class="co"># to view the data</span>
-<span class="co"># the option for citation was off, package's citation was not printed. </span>
+<span class="co"># because the option for citation was off, package's citation was not printed. </span>
 <span class="kw">head</span>(data, <span class="dv">10</span>) </code></pre></div>
 <p>Users can create thier own query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code>. They can combine them according to thier interest in order to obtain prefered data sets.</p>
 <p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>

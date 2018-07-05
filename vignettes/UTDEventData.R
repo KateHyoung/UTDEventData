@@ -129,7 +129,7 @@
 #  data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
 #  
 #  # to view the data
-#  # the option for citation was off, package's citation was not printed.
+#  # because the option for citation was off, package's citation was not printed.
 #  head(data, 10)
 
 ## ---- eval = FALSE-------------------------------------------------------
