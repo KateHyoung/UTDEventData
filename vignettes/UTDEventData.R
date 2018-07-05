@@ -88,14 +88,15 @@
 #  others <- returnRegExp( api_key, table_name,"GOV","Source Name")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # combine stored query blocks such as q or f
-#  and_query <- andList(list(q,f))
-#  # subset with two or more stored query blocks such as q or f
-#  or_query <- orList(list(q,f))
+#  # combine stored query blocks such as 'time' or 'q' created before
+#  and_query <- andList(list(q,time))
+#  
+#  # subset with two or more stored query blocks such as 'q' or 'dyad'
+#  or_query <- orList(list(q,dyad))
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # request a data set with the list of created queries
-#  sendQuery(api_key, tabl_name, and_query)
+#  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 #  
 #  # examples of subsetting functions
 #  
@@ -109,17 +110,27 @@
 #  
 #  # A boolean logic, or, with the two query blocks
 #  or_query <- orList(list(ctr, time))
-#  # request a data set to the API server
-#  d1 <- sendQuery(k,"phoenix_rt",or_query)
+#  # request a data set to the API server with the package citation
+#  d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
+#  
+#  # to view the subset
+#  head(d1$data, 10)
 #  
 #  # A boolean logic, and, with the two query blocks
 #  and_query <- andList(list(ctr, time))
-#  d2 <- sendQuery(k,"phoenix_rt",and_query)
+#  d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
+#  
+#  # to view the subset
+#  head(d2$data, 10)
 #  
 #  # When a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time table
 #  rgex<- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
 #  q <- andList(list(ctr, rgex))
-#  data  <- sendQuery(k,"phoenix_rt",q)
+#  data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
+#  
+#  # to view the data
+#  # the option for citation was off, package's citation was not printed.
+#  head(data, 10)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # estimate the data size you want to extract

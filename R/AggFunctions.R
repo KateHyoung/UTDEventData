@@ -171,8 +171,10 @@ andList <- function(query_prep = list()) {
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
 #' @param query List of queries a user builds with othter aggretation functions.
+#' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
+#' @param citation The option for printing a package citation at the end of data retrival.
 #' @examples sendQuery(api_key,"icews",and_query)
-sendQuery <- function(api_key = "", table_name = "", query = list()) {
+sendQuery <- function(api_key = "", table_name = "", query = list(), citation = TRUE){
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
@@ -194,9 +196,17 @@ sendQuery <- function(api_key = "", table_name = "", query = list()) {
       message("Error. Consider to increae memory limits. Use getQuerySize() to see the data size estimate.")
       message(e)}
   )
-# end tryCatch
+  # end tryCatch
   parsed_data <- jsonlite::fromJSON(retrieved_data)$data
-  return(parsed_data)
+
+  # package citation
+  if (citation) {
+    return(list(data=parsed_data, citation=citation("UTDEventData")))
+  }
+
+  else {
+    return(parsed_data)
+  }
 }
 
 #' Estimating a size of data a user requests to the API server

@@ -243,11 +243,11 @@ or_query <- orList(list(q,dyad))
 
 A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API server. A user should input an API key, a data table, and a list of queries created by `andList()` or `orList()`  in the function as shown in the following example code. 
 
-
+The function returns the citation texts of publication and Bibtex formats at the end of the extracted data. If you do not want to have it, please turn off the option by choosig "FALSE" in the 'citation' option.
 
 ```{r, eval = FALSE}
 # request a data set with the list of created queries 
-sendQuery(api_key, tabl_name, and_query)
+sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 
 # examples of subsetting functions
 
@@ -261,17 +261,27 @@ time <- returnTimes("phoenix_rt","20171101","20171105")
 
 # A boolean logic, or, with the two query blocks
 or_query <- orList(list(ctr, time))
-# request a data set to the API server
-d1 <- sendQuery(k,"phoenix_rt",or_query)
+# request a data set to the API server with the package citation
+d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
+
+# to view the subset
+head(d1$data, 10)
 
 # A boolean logic, and, with the two query blocks
 and_query <- andList(list(ctr, time))
-d2 <- sendQuery(k,"phoenix_rt",and_query)
+d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
+
+# to view the subset
+head(d2$data, 10)
 
 # When a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time table
 rgex<- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
 q <- andList(list(ctr, rgex))
-data  <- sendQuery(k,"phoenix_rt",q)
+data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
+
+# to view the data
+# the option for citation was off, package's citation was not printed. 
+head(data, 10) 
 ```
 
 Users can create thier own query blocks with the other functions such as `returnLocation()` and `returnDyad()`. They can combine them according to thier interest in order to obtain prefered data sets. 

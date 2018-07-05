@@ -4,7 +4,8 @@
 \alias{sendQuery}
 \title{Sending queries to the API server}
 \usage{
-sendQuery(api_key = "", table_name = "", query = list())
+sendQuery(api_key = "", table_name = "", query = list(),
+  citation = TRUE)
 }
 \arguments{
 \item{api_key}{An API key provided by a server manager at UTD}
@@ -12,7 +13,10 @@ sendQuery(api_key = "", table_name = "", query = list())
 \item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{query}{List of queries a user builds with othter aggretation functions.}
+\item{query}{List of queries a user builds with othter aggretation functions.
+The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
+
+\item{citation}{The option for printing a package citation at the end of data retrival.}
 }
 \value{
 A data set with the R-package citation

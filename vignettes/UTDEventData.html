@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-06-28" />
+<meta name="date" content="2018-07-05" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,13 +88,13 @@ The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-06-28</em></h4>
+<h4 class="date"><em>2018-07-05</em></h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
+<p>This R package helps a user to extract a data set from the UTD Event Data server. The project of the UTDEventData R package is in progress and has been upadated day by day. Your comments, feedback, and suggestions are welcome to develop it. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
 <p>This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
 <p>You can install the package from the UTDEVentData github page in R with the following syntax.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install the package without the vignette</span>
@@ -141,8 +141,8 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 </tbody>
 </table>
 <p>The web links of each table provides the details of database and their entities and attributes.</p>
-<div id="machine-enviroments-this-package-has-tested" class="section level3">
-<h3>Machine enviroments this package has tested</h3>
+<div id="computer-enviroments-this-package-has-tested" class="section level3">
+<h3>computer enviroments this package has tested</h3>
 <p>The codes/functions in this documentation have been tested in the following versions of:</p>
 <ul>
 <li>Microsoft Open R 3.4.0</li>
@@ -178,7 +178,7 @@ k&lt;-<span class="st">&quot;...api key....&quot;</span>
 
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
 <p>This function is not case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by <code>Table()</code> should be specified in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
-<p>This function has another feature as enable a user to look up a particular variable. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
+<p>This function has another feature as being enable a user to look up a particular variable (attribute) in a data table. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 
 k &lt;-<span class="st"> &quot;..api key...&quot;</span>
@@ -235,11 +235,11 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 </div>
 <div id="subsetting-functions-ii" class="section level2">
 <h2>Subsetting functions II</h2>
-<p>The package contains another way to subset a data set from the API server. These functions require users to have an API key to obtain data but provide more options in subsetting criteria. For instance, While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more destcritions of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria. The query blocks can be crated and stored by the functions in the package. To obtain data avoid error massages, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
-<p>The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user’s interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any vriable in an API table with the regular expression function, <code>returnRegExp()</code>. The second group of the subsetting function II is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. These functions play a role like a logical operatior in combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server.</p>
+<p>The package provides another way to obtain subsets from the API server. These functions require users to have an API key to obtain data but provide more options in subsetting criteria. For instance, While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more discretion of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations. and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria. The query blocks can be crated and stored by its specific functions in the package. To obtain data avoid error massages, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
+<p>The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user’s interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any variable (attributes) in an API data table with the regular expression function, <code>returnRegExp()</code>. The second group of the subsetting function II is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. These functions play a role like a logical operatior on combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server.</p>
 <div id="query-block-functions" class="section level3">
 <h3>Query block functions</h3>
-<p><code>returnCountries()</code> is the function that creates the list of countreis names. The function requires users to input a data table names and country names. The ISO 3 Code format is recommended for country name inputs, but full country names can work in the function. The inputs are case-insensitive.</p>
+<p><code>returnCountries()</code> is the function that creates the list of countreis names. The function requires users to specify a data table name and country names. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are case-insensitive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint</span>
 ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
 <p><code>returnTimes()</code> is the function that generates a query to return all events between specified time ranges. The format of input time should be “YYYYMMDD” in the order of start and end of a time range. A user mush indentify a data table in the function.</p>
@@ -261,17 +261,18 @@ others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_k
 <p>These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
 <p><code>andList()</code> is the function that returns subset of two or more query lists. The stored queries should be specified in the <code>list()</code> format in the function.</p>
 <p><code>orList()</code> returns a union of two or more query lists in a set thoery. The stored queries should be specified in the <code>list()</code> format in the function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as q or f</span>
-and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,f))
-<span class="co"># subset with two or more stored query blocks such as q or f</span>
-or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(q,f))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as 'time' or 'q' created before</span>
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,time))
+
+<span class="co"># subset with two or more stored query blocks such as 'q' or 'dyad'</span>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(q,dyad))</code></pre></div>
 </div>
 <div id="data-request-function" class="section level2">
 <h2>Data request function</h2>
-<p>A data set can be retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API by chainging from a JSON format to a structured format in R. A user should specify an API key, a data table, and a list of queries by <code>list()</code> in the function as shown in the following example code.</p>
-<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
+<p>A data set can be retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API server. A user should input an API key, a data table, and a list of queries created by <code>andList()</code> or <code>orList()</code> in the function as shown in the following example code.</p>
+<p>The function returns the citation texts of publication and Bibtex formats at the end of the extracted data. If you do not want to have it, please turn off the option by choosig “FALSE” in the ‘citation’ option.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
-<span class="kw">sendQuery</span>(api_key, tabl_name, and_query)
+<span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">list</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
 <span class="co"># examples of subsetting functions</span>
 
@@ -285,22 +286,34 @@ time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span cla
 
 <span class="co"># A boolean logic, or, with the two query blocks</span>
 or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(ctr, time))
-<span class="co"># request a data set to the API server</span>
-d1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,or_query)
+<span class="co"># request a data set to the API server with the package citation</span>
+d1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,or_query, <span class="ot">TRUE</span>)
+
+<span class="co"># to view the subset</span>
+<span class="kw">head</span>(d1<span class="op">$</span>data, <span class="dv">10</span>)
 
 <span class="co"># A boolean logic, and, with the two query blocks</span>
 and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, time))
-d2 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,and_query)
+d2 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,and_query, <span class="ot">TRUE</span>)
+
+<span class="co"># to view the subset</span>
+<span class="kw">head</span>(d2<span class="op">$</span>data, <span class="dv">10</span>)
 
 <span class="co"># When a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time table</span>
 rgex&lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>,<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;src_agent&quot;</span>)
 q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, rgex))
-data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q)</code></pre></div>
-<p>Users can create thier own query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> and can combine them according to thier interest in order to obtain prefered data sets.</p>
+data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q, <span class="dt">citation =</span> <span class="ot">FALSE</span>) <span class="co"># no citation</span>
+
+<span class="co"># to view the data</span>
+<span class="co"># the option for citation was off, package's citation was not printed. </span>
+<span class="kw">head</span>(data, <span class="dv">10</span>) </code></pre></div>
+<p>Users can create thier own query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code>. They can combine them according to thier interest in order to obtain prefered data sets.</p>
+<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
 <div id="an-error-message-from-sendquery" class="section level3">
 <h3>An error message from <code>sendQuery()</code></h3>
-<p>The aforementioned issue in <code>sendQuery()</code> can occur when the size of requested data is greather than computer’s memory. The error message suggests a solution to increase memory size of a user’s computer with the original error note R program returns.</p>
-<p>This issue is more requently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, a user may need to increae its maximum. please check the following examples</p>
+<p>The aforementioned issue in <code>sendQuery()</code> can occur when the size of requested data is greather than computer’s memory. The error message will suggest a solution such as increasing a memory size of a user’s computer with the original error note the R program returns.</p>
+<p>This issue is more frequently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, he/she may need to increae its maximum.</p>
+<p>please see the following examples</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
 <span class="kw">getQuerySize</span>(<span class="st">'api_key'</span>, <span class="st">'table_name'</span>,query objecct)
 
@@ -320,7 +333,7 @@ data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span cl
 <div id="spec-real-time-server" class="section level2">
 <h2>Spec-real-time server</h2>
 <p><a href="https://github.com/Sayeedsalam/spec-event-data-server">Github page for the API access on Jetstream at UTD</a><br />
-This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The query is expressed in JSON format.</p>
+This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The queries are expressed in JSON format.</p>
 </div>
 <div id="jetstream" class="section level2">
 <h2>Jetstream</h2>
