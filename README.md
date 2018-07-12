@@ -10,10 +10,10 @@ There are several functions to explore and extract data in the package. More det
 - DataTable( ): for looking up the data table at UTD data 
 - TableVar( ): for looking up the variables in a specified data table
 - pullData( ): for extracting a data set with contries and time range information
-- sendQuery( ): for requeting specified data to the API server
-- returnCountry( ): creating the query block of countries
+- sendQuery( ): for requesting specified data to the API server to extract a data set
 
 ****
+- returnCountry( ): creating the query block of countries
 - returnLatLon( ): creating the query block of regions with latitude and longitude
 - returnDyad( ): creating the dayd query of source and target actors
 - returnRegExp( ): creating the query of features of attributes in a data table
@@ -41,5 +41,5 @@ Jared Looper <jrl140030@utdallas.edu>
 Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>  
 
 ## License
-The University of Texas at Dallas <br/>
-This package is supported by the RIDIR project funded by National Science Foundatioin, Grant No. SBE-SMA-1539302.
+GPL-3 <br/>
+*This package is supported by the RIDIR project funded by National Science Foundatioin, Grant No. SBE-SMA-1539302.*
