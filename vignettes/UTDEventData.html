@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-07-05" />
+<meta name="date" content="2018-08-03" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,13 +88,13 @@ The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-07-05</em></h4>
+<h4 class="date"><em>2018-08-03</em></h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This R package helps a user to extract a data set from the UTD Event Data server. The project of the UTDEventData R package is in progress and has been upadated day by day. Your comments, feedback, and suggestions are welcome to develop it. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
+<p>This R package proives the way for users to extract a data set from the UTD Event Data server. The project of the UTDEventData R package is in progress and has been upadated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly methods are prepared in the package. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
 <p>This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
 <p>You can install the package from the UTDEVentData github page in R with the following syntax.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install the package without the vignette</span>
@@ -103,7 +103,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <span class="co"># install the package with the vignette</span>
 devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>The UTD Event Data server has the five different event data tables.</p>
-<pre><code>  Table 1:  Data Table Information           </code></pre>
+<pre><code>Table 1:  Data Table Information       </code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -140,9 +140,9 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 </tr>
 </tbody>
 </table>
-<p>The web links of each table provides the details of database and their entities and attributes.</p>
-<div id="computer-enviroments-this-package-has-tested" class="section level3">
-<h3>computer enviroments this package has tested</h3>
+<p>The web links of each table provide the details of database, their entities, and attributes.</p>
+<div id="computer-enviroments-this-package-has-tested" class="section level4">
+<h4>Computer Enviroments This Package Has Tested</h4>
 <p>The codes/functions in this documentation have been tested in the following versions of:</p>
 <ul>
 <li>Microsoft Open R 3.4.0</li>
@@ -157,7 +157,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <h1>Functions</h1>
 <div id="searching-functions" class="section level2">
 <h2>Searching functions</h2>
-<p>There are two main searching functions in this package for users to look up the name of data table and the list of variables each data table contains.</p>
+<p>There are two main searching functions in this package. With them, users can look up the name of data table and the list of variables in a specified data table.</p>
 <p><code>DataTables()</code> returns the all data table names in the UTD server.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Direct way as inputing an API key</span>
 <span class="kw">DataTables</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>)
@@ -177,8 +177,8 @@ k&lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Icews&quot;</span>)
 
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
-<p>This function is not case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by <code>Table()</code> should be specified in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
-<p>This function has another feature as being enable a user to look up a particular variable (attribute) in a data table. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
+<p>This function is <strong>not</strong> case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by <code>Table()</code> should be typed and entered in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
+<p>This function has another feature as being enable for a user to look up a particular variable (attribute) in a data table. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 
 k &lt;-<span class="st"> &quot;..api key...&quot;</span>
@@ -188,11 +188,11 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 </div>
 <div id="subsetting-function-i" class="section level2">
 <h2>Subsetting function I</h2>
-<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges a user provides to the function. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result.</p>
+<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result. That menas the requested data set is empty.</p>
 <p>Please confirm the format of time range, which is “YYYYMMDD.”<br />
 The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.</p>
-<p>The function returns the citation texts of publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosig “FALSE” in the ‘citation’ option.</p>
-<p>The following code is the possible examples you may use to obtain a subset of data.</p>
+<p>The function returns the citation texts for the publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosing “FALSE” in the ‘citation’ option.</p>
+<p>The following code is the possible examples you may use to obtain a data subset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pullData</span>(<span class="dt">api_key=</span><span class="st">&quot; &quot;</span>, <span class="dt">table_name=</span><span class="st">&quot;Phoenix_rt&quot;</span>, <span class="dt">country=</span><span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;MEX&quot;</span>,<span class="st">&quot;SYR&quot;</span>,<span class="st">&quot;CHN&quot;</span>), <span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171112&quot;</span>, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
 ## When you avoid repeating an API key into the function
@@ -205,7 +205,7 @@ subset3 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span 
 <span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level3">
 <h3>Reference class for appying an API key to the functions</h3>
-<p>The pacakge has a reference class, named <code>Table()</code> for users not to repeat the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly put an API key into a function. Some basic usage is as follows;</p>
+<p>The pacakge has a reference class, named <code>Table()</code> of users not reapting the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly input an API key into a function. Some basic usages are as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating an object</span>
 obj&lt;-Table<span class="op">$</span><span class="kw">new</span>()
 
@@ -216,13 +216,13 @@ obj<span class="op">$</span><span class="kw">tableVar</span>(<span class="st">&q
 
 <span class="co"># when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)</span>
 obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;MEX&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171102&quot;</span>)</code></pre></div>
-<p>You can apply a reference class on the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code>.</p>
+<p>You can apply a reference class on the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code> as well.</p>
 <p> </p>
 </div>
 </div>
 <div id="data-citation-function" class="section level2">
 <h2>Data citation function</h2>
-<p><code>citeData()</code> function returns the texts of publication citations of the Event data at the UTD server. The returns contains two different type of citations; 1) a text type citation for a user to copy and paste the text to jouranl paper drafits or other documents, and 2) a Bibtex type for users. The input of table names is case-insensitive, but you should have full data table names for the function input.</p>
+<p><code>citeData()</code> function returns the text of citations for journal publication about the Event data from the UTD server. The returned text contains two different type of citations; 1) a text type f citations for a user to copy and paste them to jouranl papers or other documents, and 2) a Bibtex type for users. The input of table names is case-insensitive, but you should have full data table names for the function input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># citations for Cline Phoenix Event data</span>
 <span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
 
@@ -235,32 +235,35 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 </div>
 <div id="subsetting-functions-ii" class="section level2">
 <h2>Subsetting functions II</h2>
-<p>The package provides another way to obtain subsets from the API server. These functions require users to have an API key to obtain data but provide more options in subsetting criteria. For instance, While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II provides users more discretion of query blocks such as contry names, time ranges, dyads of actors, latitute and longitude of event locations. and source and targets indications of certain events. By using combined query blocks, users can retrieve data with various criteria. The query blocks can be crated and stored by its specific functions in the package. To obtain data avoid error massages, user must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions will be illustrated in this section.</p>
-<p>The subsetting function II in the package consists of three groups. The first group of subsetting function II is creating qeury blocks according to user’s interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, and so on. Moreover, a user can use any variable (attributes) in an API data table with the regular expression function, <code>returnRegExp()</code>. The second group of the subsetting function II is connective functions of query blocks such as <code>orList()</code> and <code>andList()</code>. These functions play a role like a logical operatior on combining query blocks. The third part of the subsetting function II functions is requesting data based on the query a user creates to the API server.</p>
+<p>The package provides another way to obtain subsets from the UTD API server. These functions require users to have an API key to obtain data but provide more options in subsetting criteria. For instance, While <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II facilitate users more discretion in queries with more options such as contry names, time ranges, dyads of actors, latitute &amp; longitude of event locations, and source &amp; targets indications of certain events. By using combined query blocks, users can retrieve data with the various options of criteria.<br />
+The query blocks can be created and stored by its specific functions. To obtain data avoid error massages, users must acquaint each function’s usage illustrated in the help pages. The details how individual function works together with the other functions in the package will be illustrated in this section.</p>
+<p>The subsetting function II consists of three groups. The first group of subsetting function II is creating qeury blocks according to user’s interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, a dyad relation, and so on. Moreover, a user can use any variable (attributes) in an API data table with the regular expression function, <code>returnRegExp()</code>.</p>
+<p>The second group of the subsetting function II is connective functions of query blocks: <code>orList()</code> and <code>andList()</code>. These functions play a role of a logical operatior in combining query blocks.</p>
+<p>The last group of the subsetting function II is the data requesting method, which works with the query a user creates to the API server: <code>sendQuery()</code>.</p>
 <div id="query-block-functions" class="section level3">
 <h3>Query block functions</h3>
 <p><code>returnCountries()</code> is the function that creates the list of countreis names. The function requires users to specify a data table name and country names. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are case-insensitive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint</span>
 ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
-<p><code>returnTimes()</code> is the function that generates a query to return all events between specified time ranges. The format of input time should be “YYYYMMDD” in the order of start and end of a time range. A user mush indentify a data table in the function.</p>
+<p><code>returnTimes()</code> is the function that generates a query to return all events between specified time ranges. The format of typing time should be “YYYYMMDD” in the order of the start and the end points of the time range. A user must indentify a data table in the function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generates a query to return all events between the dates July 27, 1980, and December 10, 2004</span>
 time &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(table_name,  <span class="st">&quot;19800727&quot;</span>, <span class="st">&quot;20041210&quot;</span>)</code></pre></div>
-<p><code>returnLatLon()</code> returns the geo-location boundary a user specif with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of latitudes and minimum and maximum values of longtigudes for a target boundary.</p>
+<p><code>returnLatLon()</code> returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longtigudes for a geolocation boundary.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80</span>
 q &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">30</span>,<span class="dv">20</span>,<span class="dv">80</span>)</code></pre></div>
-<p>The <code>returnDyad()</code> function creates a query of particular dyads of actors of countreis involved in political events. In the function, a user must specify a table name and source and target countries repectively. ISO3 codes for country names is recomended as function inputs, but full names of countries also work in this funtion. These inputs are not case-sensitive.</p>
+<p>The <code>returnDyad()</code> function creates a query of particular dyads of actors in the interesting countreis that are involved in political events. In the function, a user must specify a table name and source and target countries repectively. The ISO3 codes for country names are recomended as function inputs, but full names of countries also work in this funtion. These inputs are not case-sensitive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query that a source country is Syria and a target country is the United States</span>
 dyad &lt;-<span class="st"> </span><span class="kw">returnDayd</span>(table_name, <span class="st">&quot;SYR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</code></pre></div>
-<p><code>returnRegExp()</code> returns a regular expression with variables in the API data table. To use this function, a user must understand the variable in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name in the data table.</p>
+<p><code>returnRegExp()</code> returns a regular expression for indicating the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name in the data table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
 others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, table_name,<span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)</code></pre></div>
 </div>
 </div>
 <div id="connectivive-functions" class="section level2">
 <h2>Connectivive functions</h2>
-<p>These functions play a role to connecting several queries created by query block funcctions aforementioned. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
-<p><code>andList()</code> is the function that returns subset of two or more query lists. The stored queries should be specified in the <code>list()</code> format in the function.</p>
-<p><code>orList()</code> returns a union of two or more query lists in a set thoery. The stored queries should be specified in the <code>list()</code> format in the function.</p>
+<p>These functions play a role to connect several queries created by aforementioned query blocks. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
+<p><code>andList()</code> is the function that returns subset of two or more query blokcs. The stored queries should be specified in the <code>list()</code> format in the function.</p>
+<p><code>orList()</code> returns a union of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function as shown in the following examples.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as 'time' or 'q' created before</span>
 and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,time))
 
@@ -270,7 +273,7 @@ or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span clas
 <div id="data-request-function" class="section level2">
 <h2>Data request function</h2>
 <p>A data set can be retreived with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API server. A user should input an API key, a data table, and a list of queries created by <code>andList()</code> or <code>orList()</code> in the function as shown in the following example code.</p>
-<p>The function returns the citation texts of publication and Bibtex formats at the end of the extracted data. If you do not want to have it, please turn off the option by choosig “FALSE” in the ‘citation’ option.</p>
+<p>The function returns the citation texts of publication and Bibtex formats at the end of the extracted data. If you do not want to have it, please turn off the option by choosing “FALSE” in the method.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
 <span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">list</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
@@ -307,12 +310,12 @@ data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span cl
 <span class="co"># to view the data</span>
 <span class="co"># because the option for citation was off, package's citation was not printed. </span>
 <span class="kw">head</span>(data, <span class="dv">10</span>) </code></pre></div>
-<p>Users can create thier own query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code>. They can combine them according to thier interest in order to obtain prefered data sets.</p>
-<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks may bring about the issue. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>.</p>
+<p>Users can create several combinations of the query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> according to thier interests in order to obtain prefered data sets.</p>
+<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so using <code>orList()</code> with several query blocks may bring about the issue of memory constrains. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>. Specific information is illustrated in the next section.</p>
 <div id="an-error-message-from-sendquery" class="section level3">
 <h3>An error message from <code>sendQuery()</code></h3>
 <p>The aforementioned issue in <code>sendQuery()</code> can occur when the size of requested data is greather than computer’s memory. The error message will suggest a solution such as increasing a memory size of a user’s computer with the original error note the R program returns.</p>
-<p>This issue is more frequently occured in a Windows machine because of the memory cap allocated to a R program. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, he/she may need to increae its maximum.</p>
+<p>This issue is more frequently occured in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, he/she may need to increae its maximum.</p>
 <p>please see the following examples</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
 <span class="kw">getQuerySize</span>(<span class="st">'api_key'</span>, <span class="st">'table_name'</span>,query objecct)
@@ -330,9 +333,14 @@ data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span cl
 </div>
 <div id="further-information-of-the-event-data-server-at-utd" class="section level1">
 <h1>Further information of the Event Data server at UTD</h1>
+<div id="real-time-event-data" class="section level2">
+<h2>Real Time Event Data</h2>
+<p><a href="http://eventdata.utdallas.edu/">The web-page of the real-time event data project</a><br />
+The web portal contains the genral information about the real-time event data project conducted in the University of Texas at Dallas. As the portal site of the project, the basic information of the project and its outcome including related web-links are listed and organized.</p>
+</div>
 <div id="spec-real-time-server" class="section level2">
-<h2>Spec-real-time server</h2>
-<p><a href="https://github.com/Sayeedsalam/spec-event-data-server">Github page for the API access on Jetstream at UTD</a><br />
+<h2>Spec-real-time Server</h2>
+<p><a href="https://github.com/Sayeedsalam/spec-event-data-server">The Github page for the API access on Jetstream at UTD</a><br />
 This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The queries are expressed in JSON format.</p>
 </div>
 <div id="jetstream" class="section level2">

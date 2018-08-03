@@ -318,11 +318,11 @@ memory.size(max=120000)
 
 # Further information of the Event Data server at UTD
 
-## Real time Event Data 
-[The Web-page of the Real-time Event Data Project](http://eventdata.utdallas.edu/)  
-This webpage contains the genral information about the real-time event data project conducted in the University of Texas at Dallas. As a portal site of the project, web-links and related information are summaried and illustrated. 
+## Real Time Event Data 
+[The web-page of the real-time event data project](http://eventdata.utdallas.edu/)  
+The web portal contains the genral information about the real-time event data project conducted in the University of Texas at Dallas. As the portal site of the project, the basic information of the project and its outcome including related web-links are listed and organized. 
 
-## Spec-real-time server
+## Spec-real-time Server
 [The Github page for the API access on Jetstream at UTD](https://github.com/Sayeedsalam/spec-event-data-server)  
 This Github page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The queries are expressed in JSON format. 
 
