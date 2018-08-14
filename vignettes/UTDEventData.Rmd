@@ -28,12 +28,12 @@ vignette: >
 
 # Introduction
 
-This R package proives the way for users to extract a data set from the UTD Event Data server. The project of the UTDEventData R package is in progress and has been upadated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly methods are prepared in the package.
+This R package allows users to extract a data set from the API Event Data server at the University of Texas at Dallas (UTD). The project of the UTDEventData R package is in progress and has been upadated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly methods are prepared in the package.
 If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>) at UTD.  
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <http://eventdata.utdallas.edu/signup>. 
 
-You can install the package from the UTDEVentData github page in R with the following syntax.
+You can install the package from the UTDEventData github page in R with the following syntax.
 ```{r, eval = FALSE}
 # install the package without the vignette
 devtools::install_github("KateHyoung/UTDEventData")
@@ -72,26 +72,27 @@ The codes/functions in this documentation have been tested in the following vers
 
 ## Searching functions
 
-There are two main searching functions in this package. With them, users can look up the name of data table and the list of variables in a specified data table.  
+There are two main searching functions in this package; exploring 1) a data table and 2) attributes in a table. With the searching functions, users can look up the name of data table and the list of variables in a specified data table.  
 
 `DataTables()` returns the all data table names in the UTD server. 
 ```{r,eval = FALSE}
-# Direct way as inputing an API key
+# returning all data table the server contains with entering an API key
 DataTables(api_key = " ")
 "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
-# Save an API key as a string value and use it so as not to repeat typing the key string in other functions
+# Save an API key as a string value and use it so as not to repeat typing the key string 
+# in other functions
 k<-"...api key...."
 DataTables(k)
 "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 ```
 
-`tableVar()` returns the list of variables in a particulr data table a user specified in the function. For example, the variables in the PHOENIX real-time data can be obtained with the following code. 
+`tableVar()` returns the list of variables (attributes) in a particulr data table a user specified in the function. For example, the variables in the Phoenix real-time (RT) data can be obtained as shown in the following example. 
 
 ```{r, eval = FALSE}
 tableVar(api_key="...", table="phoenix_rt")
 
-# By using the saved API key to avoid the repeation of API key typing 
+# with the manner of using a saved API string to avoid the repeation of API key typing 
 k<-"...api key...."
 tableVar(k, "Phoenix_rt")
 
@@ -100,13 +101,14 @@ tableVar(k, "Icews")
 tableVar(k, "Cline_Phoenix_swb")
 ```
 
-This function is **not** case sensitive, so a user may type either lower case or upper case of data table name. However, the full name as returned by `Table()` should be typed and entered in the function. For instance, `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but `"cline_phenix"` will return noting. 
+This function is **not** case sensitive, so a user may type either lower case or upper case of data table name. However, the full table name as returned by `Table()` should be tentered in the function. For instance, `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but `"cline_phenix"` will return noting. 
 
-This function has another feature as being enable for a user to look up a particular variable (attribute) in a data table. For example, one who may wonder the ICEWS data have a variable named "target" can type the string of the certain variable as follows;
+This function has another feature as being enable for a user to look up a particular variable in a data table. For example, one who may wonder the ICEWS data have a variable named "target" can type the string of the certain variable as follows;
 
 ```{r, eval = FALSE }
 tableVar(api_key="...", table="icews", lword="target")
 
+# When a user wants to know the attribute that labeled as 'target' in ICEWS
 k <- "..api key..."
 tableVar(k, table="icews", lword="target")
 " Target Name"    " Target Sectors", ....
@@ -120,29 +122,32 @@ tableVar(k, table="icews", lword="target")
 `pullData()` returns a subset of data from a data table according to the information of country names and time ranges. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return `list()` as its result. That menas the requested data set is empty. 
 
 Please confirm the format of time range, which is "YYYYMMDD."     
-The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO code format to reduce systemic error in the function.  
+The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO-3 code format in order to reduce systemic errors in the function.  
 
 The function returns the citation texts for the publication and Bibtex formats at the end of data retrieval. If you do not want to have it, please turn off the option by choosing "FALSE" in the 'citation' option. 
 
 The following code is the possible examples you may use to obtain a data subset. 
 
 ```{r, eval = FALSE}
-pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"), start="20171101", end="20171112", citation = TRUE)
+pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"), 
+         start="20171101", end="20171112", citation = TRUE)
 
-## When you avoid repeating an API key into the function
+## several examples of different data tables with citation texts
 k<-'api key...'
 subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
 subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
-subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
+subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), 
+                    '19551105','19581215')
 
-# without citation
-pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', citation = FALSE)
+# without citation texts
+pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', 
+         citation = FALSE)
 ```
 
 
 ### Reference class for appying an API key to the functions 
 
-The pacakge has a reference class, named `Table()` of users not reapting the input of an API key into the searching and subsettng functions. Once a referece class is set, a user does not need to repeatedly input an API key into a function. Some basic usages are as follows;
+The pacakge has a reference class, named `Table()` of users not reapting the input of an API key into the searching and subsetting functions. Once a referece class is set, a user does not need to repeatedly input an API key into a function. Some basic usages are as follows;
 
 ```{r, eval=FALSE}
 # Creating an object
@@ -153,84 +158,70 @@ obj$setAPIKey("....")
 obj$DataTables()  # returns the available data tables in the UTD server
 obj$tableVar("cline_Phoenix_NYT")
 
-# when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
+# when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 
+# on MEX(Mexico)
 obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ```
 You can apply a reference class on the functions of `DataTables()`, `TableVar()`, and `pullData()` as well. 
 
 &nbsp;
 
-## Data citation function
-
-`citeData()` function returns the text of citations for journal publication about the Event data from the UTD server. The returned text contains two different type of citations; 1) a text type f citations for a user to copy and paste them to jouranl papers or other documents, and 2) a Bibtex type for \Latex users. The input of table names is case-insensitive, but you should have full data table names for the function input. 
-
-```{r, eval = FALSE}
-# citations for Cline Phoenix Event data
-citeData(table_name = "cline_Phoenix_swb")
-
-# citations for UTD real-time data 
-citeData(table_name = "Phoenix_rt")
-
-# citations for ICEWS  
-citeData(table_name = "ICEWS")
-```
-
-&nbsp;
-
 ## Subsetting functions II
 
-The package provides another way to obtain subsets from the UTD API server. These  functions require users to have an API key to obtain data but provide more options in subsetting criteria.  For instance, While `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II facilitate users more discretion in queries with more options such as contry names, time ranges, dyads of actors, latitute \& longitude of event locations, and source \& targets indications of certain events. By using combined query blocks, users can retrieve data with the various options of criteria.   
+The package provides another method to obtain subsets from the UTD API server. These functions require users to have an API key to obtain data but provide more options as subsetting conditions.  For instance, while `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II facilitate users more discretion in queries with more options such as contry names, time ranges, dyads of actors, latitute \& longitude of event locations, and source \& targets indications of certain events. By combining query blocks created by aforementioned features, users can retrieve data at thier own choices.   
 The query blocks can be created and stored by its specific functions. To obtain data avoid error massages, users must acquaint each function's usage illustrated in the help pages. The details how individual function works together with the other functions in the package will be illustrated in this section.  
 
-The subsetting function II consists of three groups. The first group of subsetting function II is creating qeury blocks according to user's interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, a dyad relation, and so on. Moreover, a user can use any variable (attributes) in an API data table with the regular expression function, `returnRegExp()`.   
+The subsetting function II consists of three groups. The first group of subsetting function II is creating qeury blocks according to user's interests. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, a dyad relation, and so on. Moreover, a user can use any variable (attribute) in an API data table with the regular expression function, `returnRegExp()`.   
 
-The second group of the subsetting function II is connective functions of query blocks: `orList()` and `andList()`. These functions play a role of a logical operatior in combining query blocks.   
+The second group of the subsetting function II is connective functions of query blocks: `orList()` and `andList()`. These functions play a role of a logical operatior in combining query blocks as union and intersection respectively.   
 
-The last group of the subsetting function II is the data requesting method, which works with the query a user creates to the API server: `sendQuery()`. 
+The last group of the subsetting function II is the data requesting method, which works with created query blocks: `sendQuery()`. 
 
 ### Query block functions
 
-`returnCountries()` is the function that creates the list of countreis names. The function requires users to specify a data table name and country names. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are case-insensitive. 
+`returnCountries()` is the function that creates the list of countreis names. The function requires users to specify the names of data table and countries a user is interested in. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are case-insensitive. 
 
 ```{r, eval = FALSE}
-# generating a query of the United States and Canada as a country restraint
+# Generating a query of the United States and Canada as a country restraint
 ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
 ```   
 
-`returnTimes()` is the function that generates a query to return all events between specified time ranges. The format of typing time should be "YYYYMMDD" in the order of the start and the end points of the time range. A user must indentify a data table in the function. 
+`returnTimes()` is the function that generates a query to return all events between two time points. The format of typing time should be "YYYYMMDD" in the order of the start and the end points of the time range. A user must indentify a data table in the function. 
 
 ```{r, eval = FALSE}
-# generates a query to return all events between the dates July 27, 1980, and December 10, 2004
-time <- returnCounries(table_name,  "19800727", "20041210")
+# Generates a query to return all events between July 27, 1980, 
+# and December 10, 2004
+time <- returnTimes(table_name,  "19800727", "20041210")
 ``` 
 
-`returnLatLon()` returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by `lat1, lat2, log1, log2`. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longtigudes for a geolocation boundary. 
+`returnLatLon()` returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by `lat1, lat2, log1, log2`. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longtigudes of the boundary. 
 
 ```{r, eval = FALSE}
-# generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
+# Generate a query with a geo-location bountry with the longitude between -80 and 30 
+# and the longitude between 20 and 80
 q <- returnLatLon(-80,30,20,80)
 ```
 
-The `returnDyad()` function creates a query of particular dyads of actors in the interesting countreis that are involved in political events. In the function, a user must specify a table name and source and target countries repectively. The ISO3 codes for country names are recomended as function inputs, but full names of countries also work in this funtion. These inputs are not case-sensitive. 
+The `returnDyad()` function creates a query of particular dyads of actors in countries. In the function, a user must specify a table name and source and target countries repectively. The ISO-3 codes for country names are recomended as function inputs, but full names of countries also work in this funtion. These inputs are not case-sensitive. 
 
 ```{r, eval = FALSE}
-# genrate a query that a source country is Syria and a target country is the United States
-dyad <- returnDayd(table_name, "SYR", "USA")
+# Genrate a query that a source country is Syria and a target country is the United States
+dyad <- returnDyad(table_name, "SYR", "USA")
 ```
 
-`returnRegExp()` returns a regular expression for indicating the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name in the data table. 
+`returnRegExp()` returns a regular expression for indicating the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package. The function requirs users to provide an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table. 
 
 ```{r, eval = FALSE}
-# genrate a query for all source actors that involved in governments in events
+# Genrate a query for all source actors that involved in governments in events
 others <- returnRegExp( api_key, table_name,"GOV","Source Name")
 ```
 
 
-## Connectivive functions 
+### Connectivive functions 
 
-These functions play a role to connect several queries created by aforementioned query blocks. The two functions, `andList()` and `orList()`, work as logical operators, **"and"** and **"or"**, respectively.  
+These functions play a role to connect several query blocks created by aforementioned functions. The two functions, `andList()` and `orList()`, work as logical operators, **"and"** and **"or"**, respectively.  
 
-`andList()` is the function that returns subset of two or more query blokcs. The stored queries should be specified in the `list()` format in the function. 
+`andList()` is the function that returns the intersection of two or more query blocks. The stored queries should be specified in the `list()` format in the function. 
 
 `orList()` returns a union of two or more query blocks. The stored queries should be specified in the `list()` format in the function as shown in the following examples. 
 
@@ -244,24 +235,24 @@ or_query <- orList(list(q,dyad))
 
 
 
-## Data request function
+### Data request function
 
-A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API server. A user should input an API key, a data table, and a list of queries created by `andList()` or `orList()`  in the function as shown in the following example code. 
+A data set can be retreived with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API server with them. A user should input an API key, a data table, and a list of queries created by `andList()` or `orList()`  in the function as shown in the following example code. 
 
 The function returns the citation texts of publication and Bibtex formats at the end of the extracted data. If you do not want to have it, please turn off the option by choosing "FALSE" in the method.
 
 ```{r, eval = FALSE}
-# request a data set with the list of created queries 
+# Request a data set with the list of created queries 
 sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 
-# examples of subsetting functions
+# Examples of subsetting functions
 
 # creating query blocks
-# a country constrain of CHN and USA
+# A country constrain of 'CHN' and 'USA'
 k <- 'api_key'
 ctr <- returnCountries("phoenix_rt",list("CHN", "USA"))
 
-# the time range between 2017-11-1 and 2017-11-5
+# A query of time between 2017-11-1 and 2017-11-5
 time <- returnTimes("phoenix_rt","20171101","20171105")
 
 # A boolean logic, or, with the two query blocks
@@ -276,42 +267,60 @@ head(d1$data, 10)
 and_query <- andList(list(ctr, time))
 d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
 
-# to view the subset
+# To view the subset
 head(d2$data, 10)
 
-# When a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time table
+# When a user wants to extract all event in US and China with the events for which 
+# the source was a government actor from the Phoenix real-time table
 rgex<- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
 q <- andList(list(ctr, rgex))
 data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
 
-# to view the data
+# To view the data
 # because the option for citation was off, package's citation was not printed. 
 head(data, 10) 
 ```
 
 Users can create several combinations of the query blocks with the other functions such as `returnLocation()` and `returnDyad()` according to thier interests in order to obtain prefered data sets. 
 
-Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks may bring about the issue of memory constrains. Once the issue occurs, please increase a memory size allocated for your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`. Specific information is illustrated in the next section. 
+Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so using `orList()` with several query blocks may bring about the memory issue. Once the issue occurs, please increase a memory size allocated to your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`. Specific information is illustrated in the next section. 
 
 
 ### An error message from `sendQuery()` 
-The aforementioned issue in  `sendQuery()` can occur when the size of requested data is greather than computer's memory. The error message will suggest a solution such as increasing a memory size of a user's computer with the original error note the R program returns. 
+The aforementioned issue in  `sendQuery()` can occur when the size of requested data is greather than computer's memory. The error message will suggest a solution such as increasing a memory size of a user's computer with the original error note provided by R. 
 
-This issue is more frequently occured in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data and machine' RAM, he/she may need to increae its maximum. 
+This issue is more frequently occured in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data and machine' RAM, a user may need to increae its maximum. 
 
-please see the following examples
+please see the following examples,
 
 ```{r, eval = FALSE}
-# estimate the data size you want to extract
+# Estimate the data size you want to extract
 getQuerySize('api_key', 'table_name',query objecct)
 
-# if the error message is noted, estimate the data a user has requested
+# If the error message is noted, estimate the data a user has requested
 getQuerySize(k, 'phoenix_rt', q)
 
-# check your memory limit only in the Windows system
+# Check your memory limit only in the Windows system
 memory.limit()
-# increase its size if you need 
+# Increase its size if you need 
 memory.size(max=120000)   
+```
+
+&nbsp;
+
+## Data citation function
+
+`citeData()` function returns the text of citations for journal publication about the Event data from the UTD server. The returned text contains two different type of citations; 1) a text type of citations for a user to copy and paste them to jouranl papers or other documents, and 2) a Bibtex type for  \LaTeX  users. The input of table names is case-insensitive, but you should have full data table names for the function input. 
+
+```{r, eval = FALSE}
+# citations for Cline Phoenix Event data
+citeData(table_name = "cline_Phoenix_swb")
+
+# citations for UTD real-time data 
+citeData(table_name = "Phoenix_rt")
+
+# citations for ICEWS  
+citeData(table_name = "ICEWS")
 ```
 
 &nbsp;
@@ -329,4 +338,3 @@ This Github page provides specific information of the direct access to the UTD s
 ## Jetstream
 [Jetstream user guide](https://portal.xsede.org/jetstream)  
 XSEDE user guide provides specific information of the Jetstream usage and its working system. You can explore other information of Jetstream in the linked websites. 
-
