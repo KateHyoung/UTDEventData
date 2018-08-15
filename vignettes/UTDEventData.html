@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2018-08-13" />
+<meta name="date" content="2018-08-15" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -88,7 +88,7 @@ The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a
 <address class="author_afil">
 The University of Texass at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2018-08-13</em></h4>
+<h4 class="date"><em>2018-08-15</em></h4>
 
 
 
@@ -178,7 +178,7 @@ k&lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Icews&quot;</span>)
 
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
-<p>This function is <strong>not</strong> case sensitive, so a user may type either lower case or upper case of data table name. However, the full table name as returned by <code>Table()</code> should be tentered in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
+<p>This function is <strong>not</strong> case sensitive, so a user may type either lower case or upper case of data table name. However, the full table name as returned by <code>Table()</code> should be entered in the function. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
 <p>This function has another feature as being enable for a user to look up a particular variable in a data table. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 

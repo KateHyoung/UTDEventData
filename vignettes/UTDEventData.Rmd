@@ -101,7 +101,7 @@ tableVar(k, "Icews")
 tableVar(k, "Cline_Phoenix_swb")
 ```
 
-This function is **not** case sensitive, so a user may type either lower case or upper case of data table name. However, the full table name as returned by `Table()` should be tentered in the function. For instance, `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but `"cline_phenix"` will return noting. 
+This function is **not** case sensitive, so a user may type either lower case or upper case of data table name. However, the full table name as returned by `Table()` should be entered in the function. For instance, `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but `"cline_phenix"` will return noting. 
 
 This function has another feature as being enable for a user to look up a particular variable in a data table. For example, one who may wonder the ICEWS data have a variable named "target" can type the string of the certain variable as follows;
 
