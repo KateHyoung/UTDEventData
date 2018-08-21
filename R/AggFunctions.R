@@ -113,7 +113,7 @@ returnDyad <- function(table_name,source,target) {
 #' @param log2 the maximum value of longitude of a target boundary
 #' @examples q <- returnLatLon(-80,30,20,80)
 returnLatLon <- function(lat1, lat2, lon1, lon2) {
-  return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lat2)))
+  return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lon2)))
 }
 
 #' Obtaining a regular expression for API queries based on a specified data table
