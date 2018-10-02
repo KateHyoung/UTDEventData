@@ -83,6 +83,7 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
+    varList[1] <- paste(" ", varList[1], sep="")
 
      # looking up a word of variables
        if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -100,6 +101,7 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
+    varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -117,6 +119,7 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
+    varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -134,6 +137,7 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
+    varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -151,6 +155,7 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
+    varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -159,8 +164,4 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     else(varList)}
 
   else{print('Please check the table name!')}
-
 }
-
-
-
