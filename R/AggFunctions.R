@@ -88,13 +88,13 @@ returnDyad <- function(table_name,source,target) {
   }
 
   if(ISO == TRUE) {
-    if(table_name == "icews" || table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
+    if(table_name == "icews") {
       source = countrycode::countrycode(source,"iso3c", "country.name")
       target = countrycode::countrycode(target,"iso3c", "country.name")
     }
   }
   else {
-    if(table_name != "icews") {
+    if(table_name != "icews"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
       source = countrycode::countrycode(source, "country.name", "iso3c")
       target = countrycode::countrycode(target,"country.name", "iso3c")
     }
@@ -184,7 +184,15 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   url <- 'http://149.165.156.33:5002/api/data?api_key='
   url_submit = ''
   table_name = tolower(table_name)
-  query_string = relabel(query_string,table_name)
+  if (table_name=="phoenix_rt" ) {
+    query_string = relabel(query_string, "phoenix_rt")
+  }
+  else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
+    query_string = relabel(query_string, "cline")
+  }
+  else if(table_name == "icews") {
+    query_string = relabel(query_string, "icews")
+  }
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
