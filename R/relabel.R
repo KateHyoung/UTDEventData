@@ -166,7 +166,7 @@ f2 <- function() {
                                 \"name\": \"Source Sectors\",
                                 \"format\": \".*\"
                                  },
-                                \"<src_country>\": {
+                                \"<src_actor>\": {
                                 \"name\": \"Source Country\",
                                 \"format\": \".*\"
                                  },
@@ -178,7 +178,7 @@ f2 <- function() {
                                 \"name\": \"Target Sectors\",
                                 \"format\": \".*\"
                                  },
-                                \"<tgt_country>\": {
+                                \"<tgt_actor>\": {
                                 \"name\": \"Target Country\",
                                 \"format\": \".\"
                                  },
