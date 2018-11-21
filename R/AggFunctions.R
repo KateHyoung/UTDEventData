@@ -201,7 +201,7 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   tryCatch({
     retrieved_data <- readLines(url_submit, warn=FALSE)},
     error = function(e){
-      message("Error. Consider to increae memory limits. Use getQuerySize() to see the data size estimate.")
+      message("Error. Consider to increase your memory limit of R. Use getQuerySize() to see the data size estimated.")
       message(e)}
   )
   # end tryCatch
