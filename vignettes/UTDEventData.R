@@ -12,7 +12,7 @@
 #  
 #  # Save an API key as a string value and use it so as not to repeat typing the key string
 #  # in other functions
-#  k<-"...api key...."
+#  k <-"...api key...."
 #  DataTables(k)
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
@@ -20,7 +20,7 @@
 #  tableVar(api_key="...", table="phoenix_rt")
 #  
 #  # with the manner of using a saved API string to avoid the repeation of API key typing
-#  k<-"...api key...."
+#  k <-"...api key...."
 #  tableVar(k, "Phoenix_rt")
 #  
 #  tableVar(k, "Icews")
@@ -40,49 +40,46 @@
 #           start="20171101", end="20171112", citation = TRUE)
 #  
 #  ## several examples of different data tables with citation texts
-#  k<-'api key...'
+#  k <-'api key...'
 #  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
 #  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
 #  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'),
 #                      '19551105','19581215')
 #  
-#  # without citation texts
+#  # if you don't want to prnt the data citation texts
 #  pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102',
 #           citation = FALSE)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  # Creating an object
-#  obj<-Table$new()
+#  # creating an object
+#  obj <- Table$new()
 #  
-#  # Setting an object of an API key
+#  # setting an object of an API key
 #  obj$setAPIKey("....")
 #  obj$DataTables()  # returns the available data tables in the UTD server
 #  obj$tableVar("cline_Phoenix_NYT")
 #  
-#  # when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102
-#  # on MEX(Mexico)
+#  # when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
 #  obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Generating a query of the United States and Canada as a country restraint
+#  # generating a query of the United States and Canada as a country restraint for real-time event data
 #  ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Generates a query to return all events between July 27, 1980,
-#  # and December 10, 2004
-#  time <- returnTimes(table_name,  "19800727", "20041210")
+#  # generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data
+#  time <- returnTimes("icews",  "19800727", "20041210")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Generate a query with a geo-location bountry with the longitude between -80 and 30
-#  # and the longitude between 20 and 80
+#  # generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
 #  q <- returnLatLon(-80,30,20,80)
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Genrate a query that a source country is Syria and a target country is the United States
+#  # genrate a query that a source country is Syria and a target country is the United States
 #  dyad <- returnDyad(table_name, "SYR", "USA")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Genrate a query for all source actors that involved in governments in events
+#  # genrate a query for all source actors that involved in governments in events
 #  others <- returnRegExp( api_key, table_name,"GOV","Source Name")
 
 ## ---- eval = FALSE-------------------------------------------------------
@@ -93,10 +90,10 @@
 #  or_query <- orList(list(q,dyad))
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Request a data set with the list of created queries
+#  # request a data set with the list of created queries
 #  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 #  
-#  # Examples of subsetting functions
+#  # examples of subsetting functions
 #  
 #  # creating query blocks
 #  # A country constrain of 'CHN' and 'USA'
@@ -121,9 +118,8 @@
 #  # To view the subset
 #  head(d2$data, 10)
 #  
-#  # When a user wants to extract all event in US and China with the events for which
-#  # the source was a government actor from the Phoenix real-time table
-#  rgex<- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
+#  # when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
+#  rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
 #  q <- andList(list(ctr, rgex))
 #  data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
 #  
@@ -132,24 +128,25 @@
 #  head(data, 10)
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # Estimate the data size you want to extract
+#  # estimate the data size you want to extract
 #  getQuerySize('api_key', 'table_name',query objecct)
 #  
-#  # If the error message is noted, estimate the data a user has requested
+#  # if the error message is noted, estimate the data a user has requested
 #  getQuerySize(k, 'phoenix_rt', q)
 #  
-#  # Check your memory limit only in the Windows system
+#  # check your memory limit only in the Windows system
 #  memory.limit()
-#  # Increase its size if you need
+#  
+#  # increase its size if you need
 #  memory.size(max=120000)
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # citations for Cline Phoenix Event data
+#  # for the citations for Cline Phoenix Event data
 #  citeData(table_name = "cline_Phoenix_swb")
 #  
-#  # citations for UTD real-time data
+#  # for the citations for UTD real-time data
 #  citeData(table_name = "Phoenix_rt")
 #  
-#  # citations for ICEWS
+#  # for the citations for ICEWS
 #  citeData(table_name = "ICEWS")
 
