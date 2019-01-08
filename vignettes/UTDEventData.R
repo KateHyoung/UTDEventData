@@ -10,8 +10,7 @@
 #  DataTables(api_key = " ")
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #  
-#  # Save an API key as a string value and use it so as not to repeat typing the key string
-#  # in other functions
+#  # save an API key as a string value and use it so as not to repeat typing the key string in other functions
 #  k <-"...api key...."
 #  DataTables(k)
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
@@ -30,7 +29,7 @@
 ## ---- eval = FALSE-------------------------------------------------------
 #  tableVar(api_key="...", table="icews", lword="target")
 #  
-#  # When a user wants to know the attribute that labeled as 'target' in ICEWS
+#  # when a user wants to know the attribute that labeled as 'target' in ICEWS
 #  k <- "..api key..."
 #  tableVar(k, table="icews", lword="target")
 #  " Target Name"    " Target Sectors", ....
@@ -103,7 +102,7 @@
 #  # A query of time between 2017-11-1 and 2017-11-5
 #  time <- returnTimes("phoenix_rt","20171101","20171105")
 #  
-#  # A boolean logic, or, with the two query blocks
+#  # a boolean logic, or, with the two query blocks
 #  or_query <- orList(list(ctr, time))
 #  # request a data set to the API server with the package citation
 #  d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
@@ -111,11 +110,11 @@
 #  # to view the subset
 #  head(d1$data, 10)
 #  
-#  # A boolean logic, and, with the two query blocks
+#  # a boolean logic, and, with the two query blocks
 #  and_query <- andList(list(ctr, time))
 #  d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
 #  
-#  # To view the subset
+#  # to view the subset
 #  head(d2$data, 10)
 #  
 #  # when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
@@ -123,7 +122,7 @@
 #  q <- andList(list(ctr, rgex))
 #  data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
 #  
-#  # To view the data
+#  # to view the data
 #  # because the option for citation was off, package's citation was not printed.
 #  head(data, 10)
 

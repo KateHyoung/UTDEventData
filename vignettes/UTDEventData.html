@@ -163,8 +163,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <span class="kw">DataTables</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>)
 <span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span>
 
-<span class="co"># Save an API key as a string value and use it so as not to repeat typing the key string </span>
-<span class="co"># in other functions</span>
+<span class="co"># save an API key as a string value and use it so as not to repeat typing the key string in other functions</span>
 k &lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">DataTables</span>(k)
 <span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span></code></pre></div>
@@ -182,7 +181,7 @@ k &lt;-<span class="st">&quot;...api key....&quot;</span>
 <p>This function has another feature that a user can look up a particular variable in a data set. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 
-<span class="co"># When a user wants to know the attribute that labeled as 'target' in ICEWS</span>
+<span class="co"># when a user wants to know the attribute that labeled as 'target' in ICEWS</span>
 k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 <span class="st">&quot; Target Name&quot;</span>    <span class="st">&quot; Target Sectors&quot;</span>, ....</code></pre></div>
@@ -280,7 +279,7 @@ ctr &lt;-<span class="st"> </span><span class="kw">returnCountries</span>(<span 
 <span class="co"># A query of time between 2017-11-1 and 2017-11-5</span>
 time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;phoenix_rt&quot;</span>,<span class="st">&quot;20171101&quot;</span>,<span class="st">&quot;20171105&quot;</span>)
 
-<span class="co"># A boolean logic, or, with the two query blocks</span>
+<span class="co"># a boolean logic, or, with the two query blocks</span>
 or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(ctr, time))
 <span class="co"># request a data set to the API server with the package citation</span>
 d1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,or_query, <span class="ot">TRUE</span>)
@@ -288,11 +287,11 @@ d1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class
 <span class="co"># to view the subset</span>
 <span class="kw">head</span>(d1<span class="op">$</span>data, <span class="dv">10</span>)
 
-<span class="co"># A boolean logic, and, with the two query blocks</span>
+<span class="co"># a boolean logic, and, with the two query blocks</span>
 and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, time))
 d2 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,and_query, <span class="ot">TRUE</span>)
 
-<span class="co"># To view the subset</span>
+<span class="co"># to view the subset</span>
 <span class="kw">head</span>(d2<span class="op">$</span>data, <span class="dv">10</span>)
 
 <span class="co"># when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data</span>
@@ -300,7 +299,7 @@ rgex &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k, <span
 q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, rgex))
 data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q, <span class="dt">citation =</span> <span class="ot">FALSE</span>) <span class="co"># no citation</span>
 
-<span class="co"># To view the data</span>
+<span class="co"># to view the data</span>
 <span class="co"># because the option for citation was off, package's citation was not printed. </span>
 <span class="kw">head</span>(data, <span class="dv">10</span>) </code></pre></div>
 <p>Users can create several combinations of the query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> according to their preferences in order to obtain preferred data sets.</p>
