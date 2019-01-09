@@ -40,6 +40,7 @@ The vignette is shown after installing the package and typing the following code
 # access to the UTDEventData document 
 vignette("UTDEventData")
 ```
+Download the PDF version [here](https://github.com/KateHyoung/UTDEventData/blob/af753de676723e876908329b5227825f25bdefa7/UTDEventData.pdf). 
 
 ## Authors  
 Dr. Patrick T. Brandt <pbrandt@utdallas.edu>  
