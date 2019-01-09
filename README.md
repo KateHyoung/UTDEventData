@@ -9,14 +9,14 @@ There are several functions to explore and extract data in the package. More det
 - citeData( ): for citing the package and data tables in the UTD server for publications
 - DataTable( ): for looking up the data table at UTD data 
 - TableVar( ): for looking up the variables in a specified data table
-- pullData( ): for extracting a data set with contries and time range 
+- pullData( ): for extracting a data set with countries and time range 
 - getQuerySize(): for measuring the size of requested data to the server
 - sendQuery( ): for requesting specified data to the API server to extract a data set
 
 ****
 - returnCountry( ): creating the query block of countries
 - returnLatLon( ): creating the query block of regions with latitude and longitude
-- returnDyad( ): creating the dayd query of source and target actors
+- returnDyad( ): creating the dyad query of source and target actors
 - returnRegExp( ): creating the query of features of attributes in a data table
 - orList( ): the function for a union of the query blocks 
 - andList( ): the function for an intersection of the query blocks
@@ -32,6 +32,13 @@ devtools::install_github("KateHyoung/UTDEventData")
 
 # with the vignette
 devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
+```
+## Vignette
+The vignette is shown after installing the package and typing the following code in R console.
+
+```
+# access to the UTDEventData document 
+vignette("UTDEventData")
 ```
 
 ## Authors  
