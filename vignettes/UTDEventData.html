@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="date" content="2019-01-09" />
+
+<title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">UTDEventData: Extracting and aggregating event data from the UTD server</h1>
+<h4 class="author"><em>Dr. Patrick T. Brandt</em></h4>
+<address class="author_afil">
+The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:pbrandt@utdallas.edu">pbrandt@utdallas.edu</a></a>
+</address>
+<h4 class="author"><em>Dr. Vito D’Orazio</em></h4>
+<address class="author_afil">
+The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:dorazio@utdallas.edu">dorazio@utdallas.edu</a></a>
+</address>
+<h4 class="author"><em>Hyoungah (Kate) Kim</em></h4>
+<address class="author_afil">
+The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a></a>
+</address>
+<h4 class="author"><em>Jared Looper</em></h4>
+<address class="author_afil">
+The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:jrl140030@utdallas.edu">jrl140030@utdallas.edu</a></a>
+</address>
+<h4 class="author"><em>Micheal J. Shoemate</em></h4>
+<address class="author_afil">
+The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
+</address>
+<h4 class="date"><em>2019-01-09</em></h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This R package allows users to extract a data set from the API Event Data server at the University of Texas at Dallas (UTD). The project of the UTDEventData R package is in progress and has been updated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly methods are prepared in the library. If you have questions in using the package, please contact Kate Kim (<a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a>) at UTD.</p>
+<p>This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
+<p>You can install the package from the UTDEventData GitHub page in R with the following syntax.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install the package without the vignette</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>)
+
+<span class="co"># install the package with the vignette</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;KateHyoung/UTDEventData&quot;</span>, <span class="dt">build_vignettes=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>The UTD Event Data server has the five different event data tables.</p>
+<pre><code>Table 1:  Data Table Information       </code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Data Table</th>
+<th align="center">Timeline</th>
+<th>Further Information</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phoenix RT</td>
+<td align="center">Oct. 2017 - Today</td>
+<td><a href="http://openeventdata.org/">OEDA</a></td>
+</tr>
+<tr class="even">
+<td>ICEWS</td>
+<td align="center">1995 - Oct. 2018</td>
+<td><a href="https://dataverse.harvard.edu/dataverse/icews">ICEWS Dataverse</a></td>
+</tr>
+<tr class="odd">
+<td>Cline Phoenix NYT</td>
+<td align="center">1945 - 2005</td>
+<td><a href="http://www.clinecenter.illinois.edu/data/event/phoenix/">Cline Center</a></td>
+</tr>
+<tr class="even">
+<td>Cline Phoenix FBIS</td>
+<td align="center">1945 - 2005</td>
+<td><a href="http://www.clinecenter.illinois.edu/data/event/phoenix/">Cline Center</a></td>
+</tr>
+<tr class="odd">
+<td>Cline Phoenix SWB</td>
+<td align="center">1979 - 2015</td>
+<td><a href="http://www.clinecenter.illinois.edu/data/event/phoenix/">Cline Center</a></td>
+</tr>
+</tbody>
+</table>
+<p>You can find the information of each data table in the specified website such as the contents of data, their entities, and attributes.</p>
+<div id="computer-enviroments-this-package-has-tested" class="section level2">
+<h2>Computer Enviroments This Package Has Tested</h2>
+<p>The codes/functions in this documentation have been tested in the following versions of:</p>
+<ul>
+<li>Microsoft Open R 3.4.0</li>
+<li>R-3.4.3 for Windows (32/64 bit)</li>
+<li>OS X 10.12.2</li>
+<li>R-2.4.3 for Mac</li>
+</ul>
+<p> </p>
+</div>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<div id="searching-functions" class="section level2">
+<h2>Searching functions</h2>
+<p>There are two main searching functions in this package; exploring 1) data tables in the server and 2) attributes in a table. With the searching functions, users can look up the name of data table and the list of variables in a specified data table.</p>
+<p><code>DataTables()</code> returns the all data table names in the UTD server.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># returning all data table the server contains with entering an API key</span>
+<span class="kw">DataTables</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>)
+<span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span>
+
+<span class="co"># save an API key as a string value and use it so as not to repeat typing the key string in other functions</span>
+k &lt;-<span class="st">&quot;...api key....&quot;</span>
+<span class="kw">DataTables</span>(k)
+<span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span></code></pre></div>
+<p><code>tableVar()</code> returns the list of variables (attributes) in a particular data table a user specified in the function. For example, the variables in the Phoenix real-time (RT) data can be obtained as shown in the following example.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;phoenix_rt&quot;</span>)
+
+<span class="co"># with the manner of using a saved API string to avoid the repeation of API key typing </span>
+k &lt;-<span class="st">&quot;...api key....&quot;</span>
+<span class="kw">tableVar</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>)
+
+<span class="kw">tableVar</span>(k, <span class="st">&quot;Icews&quot;</span>)
+
+<span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
+<p>This function is <strong>not</strong> case sensitive, so a user may type either lower case or upper case of the data table name. However, the full name as returned by <code>Table()</code> should be entered in the function when applying the table name in other functions. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
+<p>This function has another feature that a user can look up a particular variable in a data set. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
+
+<span class="co"># when a user wants to know the attribute that labeled as 'target' in ICEWS</span>
+k &lt;-<span class="st"> &quot;..api key...&quot;</span>
+<span class="kw">tableVar</span>(k, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
+<span class="st">'&quot; Target Name&quot;    &quot; Target Sectors&quot;, ....'</span></code></pre></div>
+<p> </p>
+<p>This library provides two ways of event data subsetting from the UTD server. The first way is fixed and simple as entering only countries’ names and time ranges users prefer with <code>pullData()</code>. The second way is flexible and extensible in users’ inputs of the events as allowing combinations of data query such as time, locations, event features, and so on.</p>
+<p> </p>
+</div>
+<div id="subsetting-function-i" class="section level2">
+<h2>Subsetting function I</h2>
+<p><code>pullData()</code> returns a subset of data from a data table according to the information of country names and time ranges. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return <code>list()</code> as its result. That means the requested data set is empty.</p>
+<p>Please confirm the format of time ranges, which is “YYYYMMDD.”<br />
+The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO-3 code format in order to reduce systemic errors in the function.</p>
+<p>The function returns the citation texts for the publication and BibTeX formats at the end of data retrieval. If you avoid the printing in your R-console, please turn off the `citation’ option by choosing “FALSE” in the function.</p>
+<p>The following code is the examples of <code>pullData()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pullData</span>(<span class="dt">api_key=</span><span class="st">&quot; &quot;</span>, <span class="dt">table_name=</span><span class="st">&quot;Phoenix_rt&quot;</span>, <span class="dt">country=</span><span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;MEX&quot;</span>,<span class="st">&quot;SYR&quot;</span>,<span class="st">&quot;CHN&quot;</span>), 
+         <span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171112&quot;</span>, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
+
+## several examples of different data tables with citation texts
+k &lt;-<span class="st">'api key...'</span>
+subset1 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>)
+subset2 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;icews&quot;</span>, <span class="kw">list</span>(<span class="st">'can'</span>, <span class="st">'usa'</span>), <span class="st">'20010101'</span>,<span class="st">'20010110'</span>)
+subset3 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">'cline_Phoenix_NYT'</span>,<span class="kw">list</span>(<span class="st">'South Korea'</span>,<span class="st">'canada'</span>), 
+                    <span class="st">'19551105'</span>,<span class="st">'19581215'</span>)
+
+<span class="co"># if you don't want to prnt the data citation texts</span>
+<span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>, 
+         <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div id="reference-class-for-appying-an-api-key-to-the-functions" class="section level3">
+<h3>Reference class for appying an API key to the functions</h3>
+<p>The package has a reference class, named <code>Table()</code> for users not to repeat the input of an API key into the searching and subsetting functions. Once a reference class is set, a user does not need to repeatedly input an API key into a function. Some basic usages are as follows;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creating an object</span>
+obj &lt;-<span class="st"> </span>Table<span class="op">$</span><span class="kw">new</span>()
+
+<span class="co"># setting an object of an API key</span>
+obj<span class="op">$</span><span class="kw">setAPIKey</span>(<span class="st">&quot;....&quot;</span>)
+obj<span class="op">$</span><span class="kw">DataTables</span>()  <span class="co"># returns the available data tables in the UTD server</span>
+obj<span class="op">$</span><span class="kw">tableVar</span>(<span class="st">&quot;cline_Phoenix_NYT&quot;</span>)
+
+<span class="co"># when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)</span>
+obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;MEX&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171102&quot;</span>)</code></pre></div>
+<p>The reference class works with the functions of <code>DataTables()</code>, <code>TableVar()</code>, and <code>pullData()</code> in the library.</p>
+<p> </p>
+</div>
+</div>
+<div id="subsetting-functions-ii" class="section level2">
+<h2>Subsetting functions II</h2>
+<p>The package provides another method to obtain subsets from the UTD API server. These functions require users to have an API key to get data but provide more options as subsetting queries. For instance, while <code>pullData()</code> function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II facilitate users more discretion in queries with more options such as country names, time ranges, a dyad of actors, latitude &amp; longitude of event locations, and source &amp; targets indications of certain events. By combining query blocks created by aforementioned features, users can retrieve data at their own choices.</p>
+<p>The query blocks can be created and stored by its specific functions. To obtain data avoid error massages, users must acquaint each function’s usage illustrated in this document or help pages. The details how individual function works together with the other functions are illustrated in this section.</p>
+<p>The subsetting function II consists of three groups. The first group of subsetting function II is creating query blocks according to user’s preference. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, a dyad relation, and so on. Moreover, a user can use any variable (attribute) in an API data table with the regular expression function, <code>returnRegExp()</code>.</p>
+<p>The second group of the subsetting function II is connective functions of query blocks: <code>orList()</code> and <code>andList()</code>. These functions play a role of a logical operator to combine the query blocks as union and intersection respectively.</p>
+<p>The last group of the subsetting function II is the data requesting method, which works with created query blocks: <code>sendQuery()</code>.</p>
+<div id="query-block-functions" class="section level3">
+<h3>Query block functions</h3>
+<p><code>returnCountries()</code> is the function that creates the list of countries names. The function requires users to specify the names of data table and countries a user is interested in. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are <em>case-insensitive</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint for real-time event data</span>
+ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
+<p><code>returnTimes()</code> is the function that generates a query to return all events between two time points. The format of typing time should be “YYYYMMDD” in the order of the start and the end points of the time range. A user must identify a data table in the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data</span>
+time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;icews&quot;</span>,  <span class="st">&quot;19800727&quot;</span>, <span class="st">&quot;20041210&quot;</span>)</code></pre></div>
+<p><code>returnLatLon()</code> returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80</span>
+q &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">30</span>,<span class="dv">20</span>,<span class="dv">80</span>)</code></pre></div>
+<p>The <code>returnDyad()</code> function creates a query of particular dyads of actors in countries. In the function, a user must specify a table name and source and target countries respectively. The ISO-3 codes for country names are recommended as function inputs, but full names of countries also work in this function. These inputs are not case-sensitive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query that a source country is Syria and a target country is the United States</span>
+dyad &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(table_name, <span class="st">&quot;SYR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</code></pre></div>
+<p><code>returnRegExp()</code> returns a regular expression for indicating the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requires users to provide an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
+others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, table_name,<span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)</code></pre></div>
+</div>
+<div id="connectivive-functions" class="section level3">
+<h3>Connectivive functions</h3>
+<p>These functions play a role to connect several query blocks created by aforementioned functions. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
+<p><code>andList()</code> is the function that returns the intersection of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function.</p>
+<p><code>orList()</code> returns a union of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function as shown in the following examples.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as 'time' or 'q' created before</span>
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,time))
+
+<span class="co"># subset with two or more stored query blocks such as 'q' or 'dyad'</span>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(q,dyad))</code></pre></div>
+</div>
+<div id="data-request-function" class="section level3">
+<h3>Data request function</h3>
+<p>A data set can be retrieved with the combinations generated with aforementioned functions. The <code>sendQuery()</code> function requests specified data to the API server with them. A user should input an API key, a data table, and a list of queries created by <code>andList()</code> or <code>orList()</code> in the function as shown in the following example code.</p>
+<p>The function returns the citation texts of publication and BibTeX formats at the end of the extracted data as default. If you do not want to print it, please turn off the option by choosing “FALSE” in the method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
+<span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">list</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># examples of subsetting functions</span>
+
+<span class="co"># creating query blocks</span>
+<span class="co"># A country constrain of 'CHN' and 'USA'</span>
+k &lt;-<span class="st"> 'api_key'</span>
+ctr &lt;-<span class="st"> </span><span class="kw">returnCountries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;CHN&quot;</span>, <span class="st">&quot;USA&quot;</span>))
+
+<span class="co"># A query of time between 2017-11-1 and 2017-11-5</span>
+time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="st">&quot;20171101&quot;</span>,<span class="st">&quot;20171105&quot;</span>)
+
+<span class="co"># a boolean logic, or, with the two query blocks</span>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(ctr, time))
+<span class="co"># request a data set to the API server with the package citation</span>
+d1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,or_query, <span class="ot">TRUE</span>)
+
+<span class="co"># to view the subset</span>
+<span class="kw">head</span>(d1<span class="op">$</span>data, <span class="dv">10</span>)
+
+<span class="co"># a boolean logic, and, with the two query blocks</span>
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, time))
+d2 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,and_query, <span class="ot">TRUE</span>)
+
+<span class="co"># to view the subset</span>
+<span class="kw">head</span>(d2<span class="op">$</span>data, <span class="dv">10</span>)
+
+<span class="co"># when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data</span>
+rgex &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>,<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;src_agent&quot;</span>)
+q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, rgex))
+data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span class="st">&quot;phoenix_rt&quot;</span>,q, <span class="dt">citation =</span> <span class="ot">FALSE</span>) <span class="co"># no citation</span>
+
+<span class="co"># to view the data</span>
+<span class="co"># because the option for citation was off, package's citation was not printed. </span>
+<span class="kw">head</span>(data, <span class="dv">10</span>) </code></pre></div>
+<p>Users can create several combinations of the query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> according to their preferences in order to obtain preferred data sets.</p>
+<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so you may encounter the memory issue when using <code>orList()</code> with several query blocks. Once the issue occurs, please increase a memory size allocated to your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>. Specific information is illustrated in the next section.</p>
+</div>
+<div id="an-error-message-from-sendquery" class="section level3">
+<h3>An error message from <code>sendQuery()</code></h3>
+<p>The aforementioned issue in <code>sendQuery()</code> can occur when the size of requested data is greater than computer’s memory. The error message will suggest a solution such as increasing a memory size of a user’s computer with the original error note provided by R.</p>
+<p>This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, a user may need to increase its maximum.</p>
+<p>please see the following examples;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
+<span class="kw">getQuerySize</span>(<span class="st">'api_key'</span>, <span class="st">'table_name'</span>, <span class="st">&quot;query object&quot;</span>)
+
+<span class="co"># if the error message is noted, estimate the data a user has requested</span>
+<span class="kw">getQuerySize</span>(k, <span class="st">'phoenix_rt'</span>, q)
+
+<span class="co"># check your memory limit only in the Windows system</span>
+<span class="kw">memory.limit</span>()
+
+<span class="co"># increase its size if you need </span>
+<span class="kw">memory.size</span>(<span class="dt">max=</span><span class="dv">120000</span>)   </code></pre></div>
+<p> </p>
+</div>
+</div>
+<div id="data-citation-function" class="section level2">
+<h2>Data citation function</h2>
+<p><code>citeData()</code> function returns the text of citations of data and this R library for journal publication or research documentation. The returned text contains two different type of citations; 1) a text type of citations for a user to copy and paste them to journal papers or other documents, and 2) a BibTeX type for users. The input for table names in this function is case-insensitive, but you should have full data table names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for the citations for Cline Phoenix Event data</span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;cline_Phoenix_swb&quot;</span>)
+
+<span class="co"># for the citations for UTD real-time data </span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;Phoenix_rt&quot;</span>)
+
+<span class="co"># for the citations for ICEWS  </span>
+<span class="kw">citeData</span>(<span class="dt">table_name =</span> <span class="st">&quot;ICEWS&quot;</span>)</code></pre></div>
+<p> </p>
+</div>
+</div>
+<div id="usage-examples" class="section level1">
+<h1>Usage examples</h1>
+<p>A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
+<div id="exampe-1---using-pulldata" class="section level2">
+<h2>Exampe 1 - using <code>pullData()</code></h2>
+<p>After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Note: k &lt;- &quot;...provided API key&quot;</span>
+dt &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;RUS&quot;</span>, <span class="st">&quot;SYR&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20180101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20180331&quot;</span>, <span class="dt">citation =</span> F)
+
+## querying the fight event by CAMEO codes
+Fgt &lt;-<span class="st"> </span>dt[dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;190&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;191&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;192&quot;</span> <span class="op">|</span>
+<span class="st">          </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;193&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;194&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;195&quot;</span> <span class="op">|</span>
+<span class="st">          </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;1951&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;1952&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;196&quot;</span>,]
+
+Fgt &lt;-<span class="st"> </span>Fgt[,<span class="dv">1</span><span class="op">:</span><span class="dv">23</span>] ## removing url and oid
+
+tb &lt;-<span class="st"> </span><span class="kw">table</span>(Fgt<span class="op">$</span>country_code, Fgt<span class="op">$</span>month) <span class="co"># monthly incidents</span>
+
+<span class="kw">barplot</span>(tb, <span class="dt">main =</span> <span class="st">&quot;Monthly Fight Incidents between RUS and SYR&quot;</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;red&quot;</span>),
+        <span class="dt">legend =</span> <span class="kw">rownames</span>(tb), <span class="dt">beside=</span><span class="ot">TRUE</span>,  <span class="dt">xlab=</span><span class="st">&quot;Month in 2018&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="example-2---using-sendquery" class="section level2">
+<h2>Example 2 - using <code>sendQuery()</code></h2>
+<ul>
+<li><p>A similar data extraction to the previous example only with the functions of time and country query blocks. Please note that <code>sendQuery()</code> prints the API query syntax corresponding to user’s specification. <em>If this syntax is thrown to your browser, you will have unstructured JSON data in the browser.</em></p></li>
+<li><p>For extracting the data set of Russia and Syria from 1950 to 1960 from Cline Phoenix SWB and drawing the graph from the obtained data set:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># querying the fight event by CAMEO codes</span>
+<span class="co"># please checking the variable features and formats in a data set. Attribute names and formats vary by data tables</span>
+
+ctr&lt;-<span class="st"> </span><span class="kw">returnCountries</span>(<span class="st">'icews'</span>, <span class="kw">list</span>(<span class="st">'RUS'</span>, <span class="st">'SYR'</span>))
+t &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">'icews'</span>, <span class="st">&quot;20170101&quot;</span>, <span class="st">'20171231'</span>)
+qr &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(ctr, t))
+dt1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">'icews'</span>, qr, <span class="dt">citation =</span> F)</code></pre></div>
+<pre><code>## [1] &quot;http://149.165.156.33:5002/api/data?api_key=CD75737EF4CAC292EE17B85AAE4B6&amp;query={%22$and%22:[{%22Country%22:{%22$in%22:[%22Russia%22,%22Syria%22]}},{%22Event%20Date%22:{%22$gte%22:%222017-01-01%22,%22$lte%22:%222017-12-31%22}}]}&amp;datasource=icews&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dt1<span class="op">$</span><span class="st">`</span><span class="dt">Event Date1</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(dt1<span class="op">$</span><span class="st">`</span><span class="dt">Event Date</span><span class="st">`</span>)
+dt1<span class="op">$</span>Month &lt;-<span class="kw">format.Date</span>(dt1<span class="op">$</span><span class="st">`</span><span class="dt">Event Date1</span><span class="st">`</span>,<span class="st">&quot;%m&quot;</span>)
+tab &lt;-<span class="st"> </span><span class="kw">table</span>(dt1<span class="op">$</span>Country,  dt1<span class="op">$</span>Month)
+
+<span class="kw">barplot</span>(tab, <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">ylab=</span><span class="st">'Frequency'</span>, <span class="dt">xlab =</span> <span class="st">&quot;Month&quot;</span>,
+        <span class="dt">main =</span> <span class="st">&quot;Monthly Event Frequency of Syria in 2017 (ICEWS)&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="example-3---using-a-dyad-query-block-and-sendquery" class="section level2">
+<h2>Example 3 - using a dyad query block and <code>sendQuery()</code></h2>
+<ul>
+<li>Comparing the data set with the consistent query that Pakistan is the source and India is the target of events:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creating the query of source = 'PAK' and target = 'IND' for ICEWS</span>
+query &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(<span class="st">'icews'</span>, <span class="st">'PAK'</span>, <span class="st">'IND'</span>)
+tmp &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">'icews'</span>, query, <span class="dt">citation =</span> F)
+<span class="co"># the query for Phoenix_Cline_SWB</span>
+q.cline.swb &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(<span class="st">'cline_phoenix_swb'</span>, <span class="st">'PAK'</span>, <span class="st">'IND'</span>)
+tmp.swb &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">'cline_phoenix_swb'</span>, q.cline.swb, F)
+<span class="co"># the query for Phoenix_Cline_FBIS</span>
+q.cline.fbis &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(<span class="st">'cline_phoenix_fbis'</span>, <span class="st">'PAK'</span>, <span class="st">'IND'</span>)
+tmp.fbis &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">'cline_phoenix_fbis'</span>, q.cline.fbis, F)
+<span class="co"># the query for Phoenix_Cline_NYT</span>
+q.cline.nyt &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(<span class="st">'cline_phoenix_nyt'</span>, <span class="st">'PAK'</span>, <span class="st">'IND'</span>)
+tmp.nyt &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">'cline_phoenix_nyt'</span>, q.cline.nyt, F)
+<span class="co"># save each observation as a data set and print it</span>
+Compare &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">cbind</span>(<span class="kw">nrow</span>(tmp), <span class="kw">nrow</span>(tmp.swb), <span class="kw">nrow</span>(tmp.fbis), <span class="kw">nrow</span>(tmp.nyt)))
+<span class="kw">colnames</span>(Compare) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ICEWS&quot;</span>, <span class="st">&quot;Phoenix SWB&quot;</span>, <span class="st">&quot;Phoenix FBIS&quot;</span>, <span class="st">&quot;Phoenix NYT&quot;</span>)
+<span class="kw">xtable</span>(Compare)</code></pre></div>
+<pre><code>Table 2:  The Result of Example 3  </code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="center">CEWS</th>
+<th align="center">Phoenix SWB</th>
+<th align="center">Phoenix FBIS</th>
+<th align="center">Phoenix NYT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">40731</td>
+<td align="center">1140</td>
+<td align="center">633</td>
+<td align="center">272</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="example-4---using-a-regual-expression-query-block-and-sendquery" class="section level2">
+<h2>Example 4 - using a regual expression query block and <code>sendQuery()</code></h2>
+<p>A user can extract the data by the feature of an attribute in a data table with the function of <code>RegExp()</code>.</p>
+<ul>
+<li>After extracting the data set of ‘source’: IGOEUREEC (EU) and ‘target’: United Kingdom (UK) and the one of <em>vice versa</em> from the real-time Phoenix data, create the graphs of their trends:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sorce actor is EU</span>
+eu &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k,<span class="st">&quot;Phoenix_rt&quot;</span>,<span class="st">&quot;IGOEUREEC&quot;</span>, <span class="st">&quot;source&quot;</span>)
+<span class="co"># target actor is UK</span>
+uk &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k,<span class="st">&quot;Phoenix_rt&quot;</span>,<span class="st">&quot;GBR&quot;</span>, <span class="st">&quot;target&quot;</span>)
+dyad1 &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(eu,uk))
+dd1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>, dyad1, F)
+
+<span class="co"># source actor is UK</span>
+uk2 &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k,<span class="st">&quot;Phoenix_rt&quot;</span>,<span class="st">&quot;GBR&quot;</span>, <span class="st">&quot;source&quot;</span>)
+<span class="co"># target actor is EU</span>
+eu2 &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(k,<span class="st">&quot;Phoenix_rt&quot;</span>,<span class="st">&quot;IGOEUREEC&quot;</span>, <span class="st">&quot;target&quot;</span>)
+dyad2 &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(eu2,uk2))
+dd2 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>, dyad2, F)
+
+<span class="co"># reshaping data</span>
+EU_UK &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">table</span>(dd1<span class="op">$</span>date8, dd1<span class="op">$</span>quad_class))
+<span class="kw">colnames</span>(EU_UK) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;day&quot;</span>, <span class="st">&quot;quadclass&quot;</span>, <span class="st">&quot;count&quot;</span>)
+EU_UK  &lt;-<span class="st"> </span><span class="kw">reshape</span>(EU_UK, <span class="dt">idvar =</span> <span class="st">&quot;day&quot;</span>, <span class="dt">timevar =</span> <span class="st">&quot;quadclass&quot;</span>, <span class="dt">direction =</span> <span class="st">&quot;wide&quot;</span>)
+<span class="kw">colnames</span>(EU_UK) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;date&quot;</span>,<span class="st">&quot;qc0&quot;</span>,<span class="st">&quot;qc1&quot;</span>,<span class="st">&quot;qc2&quot;</span>,<span class="st">&quot;qc3&quot;</span>,<span class="st">&quot;qc4&quot;</span>)
+EU_UK &lt;-<span class="st"> </span><span class="kw">t</span>(EU_UK)
+EU_UK &lt;-<span class="st"> </span>EU_UK[<span class="op">-</span><span class="dv">1</span>,]
+
+UK_EU &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">table</span>(dd2<span class="op">$</span>date8, dd2<span class="op">$</span>quad_class))
+<span class="kw">colnames</span>(UK_EU) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;day&quot;</span>, <span class="st">&quot;quadclass&quot;</span>, <span class="st">&quot;count&quot;</span>)
+UK_EU  &lt;-<span class="st"> </span><span class="kw">reshape</span>(UK_EU, <span class="dt">idvar =</span> <span class="st">&quot;day&quot;</span>, <span class="dt">timevar =</span> <span class="st">&quot;quadclass&quot;</span>, <span class="dt">direction =</span> <span class="st">&quot;wide&quot;</span>)
+<span class="kw">colnames</span>(UK_EU) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;date&quot;</span>,<span class="st">&quot;qc0&quot;</span>,<span class="st">&quot;qc1&quot;</span>,<span class="st">&quot;qc2&quot;</span>,<span class="st">&quot;qc3&quot;</span>,<span class="st">&quot;qc4&quot;</span>)
+UK_EU &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(UK_EU)
+UK_EU &lt;-<span class="st"> </span><span class="kw">t</span>(UK_EU)
+<span class="kw">colnames</span>(UK_EU) &lt;-<span class="st"> </span>UK_EU[<span class="dv">1</span>,]
+UK_EU &lt;-<span class="st"> </span>UK_EU[<span class="op">-</span><span class="dv">1</span>,]
+
+<span class="co"># Put the plots together</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))
+<span class="kw">barplot</span>(EU_UK, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;orange&quot;</span>, <span class="st">&quot;red&quot;</span>),
+        <span class="dt">ylab=</span> <span class="st">&quot;Event counts&quot;</span>,
+        <span class="dt">main =</span> <span class="kw">expression</span>(source<span class="op">:</span><span class="er">~</span>E.U. <span class="op">%-&gt;%</span><span class="st"> </span><span class="er">~</span>target<span class="op">:</span><span class="er">~</span>U.K.))
+<span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Neutral&quot;</span>, <span class="st">&quot;Verbal Cooperation&quot;</span>, <span class="st">&quot;Material Cooperation&quot;</span>,
+                     <span class="st">&quot;Verbal Conflict&quot;</span>, <span class="st">&quot;Material Conflict&quot;</span>),
+       <span class="dt">fill=</span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;orange&quot;</span>, <span class="st">&quot;red&quot;</span>))
+<span class="kw">barplot</span>(UK_EU, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;orange&quot;</span>, <span class="st">&quot;red&quot;</span>),
+        <span class="dt">ylab=</span> <span class="st">&quot;Event counts&quot;</span>,
+        <span class="dt">main =</span> <span class="kw">expression</span>(source<span class="op">:</span><span class="er">~</span>U.K. <span class="op">%-&gt;%</span><span class="st"> </span><span class="er">~</span>target<span class="op">:</span><span class="er">~</span>E.U.))</code></pre></div>
+</div>
+</div>
+<div id="further-information-of-the-event-data-server-at-utd" class="section level1">
+<h1>Further information of the Event Data server at UTD</h1>
+<div id="real-time-event-data" class="section level2">
+<h2>Real Time Event Data</h2>
+<p><a href="http://eventdata.utdallas.edu/">The web-page of the real-time event data project</a><br />
+The web portal contains the general information about the real-time event data project conducted in the University of Texas at Dallas. As the portal site of the project, the basic information of the project and its outcome including related web-links are listed and organized.</p>
+</div>
+<div id="spec-real-time-server" class="section level2">
+<h2>Spec-real-time Server</h2>
+<p><a href="https://github.com/Sayeedsalam/spec-event-data-server">The GitHub page for the API access on Jetstream at UTD</a><br />
+This GitHub page provides specific information of the direct access to the UTD server managed by Big Data Management and Analytic Lab with Mongo DB query syntax. The queries are expressed in JSON format.</p>
+</div>
+<div id="jetstream" class="section level2">
+<h2>Jetstream</h2>
+<p><a href="https://portal.xsede.org/jetstream">Jetstream user guide</a><br />
+XSEDE user guide provides specific information of the Jetstream usage and its working system. You can explore other information of Jetstream in the linked websites.</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
