@@ -1,21 +1,25 @@
 #################################################################
 #############    A Main function of subsetting ##################
 #############    Combined by Kate Kim          ##################
-#############    Last update: 4/18/2018        ##################
+#############    Last update: Jan. 2019        ##################
 #################################################################
 #' Extracting event data from the UTD real-time event data server.
 #' @description This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
 #'              The API key is required and can be obtained after filling out the form in the UTD event data sign-up website (\url{http://eventdata.utdallas.edu/signup}).
-#'              Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+#'              Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.\cr
 #'              You can also use this function through the reference class, \code{Table()}.
 #'              Please find the help document of the \code{Table()} function for more details for its usage.
-#' @return extracted event data from a specifed data table
+#' @return A list with components
+#'     \itemize{
+#'          \item{}{\code{$data}   a data frame of requested data. An attribute of the data can be formatted as data.frame, please check the features of data if it's necessary}
+#'          \item{}{\code{$citation}    a text of data citation}
+#'           }
 #' @importFrom jsonlite fromJSON
 #' @importFrom countrycode countrycode
 #' @importFrom rjson toJSON
 #' @export
 #' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
-#'  start="20171101", end="20171112")
+#'  start="20171101", end="20171112", citation = TRUE)
 #'
 #'  ## Another way to avoid repeating an API key into the function
 #'  k <- '...api key...'
@@ -30,8 +34,8 @@
 #' @param country List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 #' the full country name is also working in this function.\cr
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
-#' @param start The "YYYYMMDD" format of the first date of a data set.
-#' @param end The "YYYYMMDD" format of the end date of a data set.
+#' @param start The "YYYYMMDD" format of the first date of a data set
+#' @param end The "YYYYMMDD" format of the end date of a data set
 #' @param citation The option for printing a package citation at the end of data retrival.
 #' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
 
