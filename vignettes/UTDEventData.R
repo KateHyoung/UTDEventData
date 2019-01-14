@@ -154,38 +154,38 @@
 library(UTDEventData)
 k <- 'CD75737EF4CAC292EE17B85AAE4B6'
 
-## ---- fig.height=3, fig.width=5------------------------------------------
-# Note: k <- "...provided API key"
-dt <- pullData(k, "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
+## ---- eval = FALSE, fig.height=3, fig.width=5----------------------------
+#  # Note: k <- "...provided API key"
+#  dt <- pullData(k, "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
+#  
+#  ## querying the fight event by CAMEO codes
+#  Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
+#            dt$code=="193" | dt$code=="194" | dt$code=="195" |
+#            dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
+#  
+#  Fgt <- Fgt[,1:23] ## removing url and oid
+#  
+#  tb <- table(Fgt$country_code, Fgt$month) # monthly incidents
+#  
+#  barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblue", "red"),
+#          legend = rownames(tb), beside=TRUE,  xlab="Month in 2018")
+#  
 
-## querying the fight event by CAMEO codes
-Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
-          dt$code=="193" | dt$code=="194" | dt$code=="195" |
-          dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
-
-Fgt <- Fgt[,1:23] ## removing url and oid
-
-tb <- table(Fgt$country_code, Fgt$month) # monthly incidents
-
-barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblue", "red"),
-        legend = rownames(tb), beside=TRUE,  xlab="Month in 2018")
-
-
-## ---- fig.height=3, fig.width=6, message=FALSE, warning=FALSE------------
-# querying the fight event by CAMEO codes
-# please checking the variable features and formats in a data set. Attribute names and formats vary by data tables
-
-ctr<- returnCountries('icews', list('RUS', 'SYR'))
-t <- returnTimes('icews', "20170101", '20171231')
-qr <- andList(list(ctr, t))
-dt1 <- sendQuery(k, 'icews', qr, citation = F)
-
-dt1$`Event Date1` <- as.POSIXct(dt1$`Event Date`)
-dt1$Month <-format.Date(dt1$`Event Date1`,"%m")
-tab <- table(dt1$Country,  dt1$Month)
-
-barplot(tab, col="gray", ylab='Frequency', xlab = "Month",
-        main = "Monthly Event Frequency of Syria in 2017 (ICEWS)")
+## ---- eval = FALSE, fig.height=3, fig.width=6, message=FALSE, warning=FALSE----
+#  # querying the fight event by CAMEO codes
+#  # please checking the variable features and formats in a data set. Attribute names and formats vary by data tables
+#  
+#  ctr<- returnCountries('icews', list('RUS', 'SYR'))
+#  t <- returnTimes('icews', "20170101", '20171231')
+#  qr <- andList(list(ctr, t))
+#  dt1 <- sendQuery(k, 'icews', qr, citation = F)
+#  
+#  dt1$`Event Date1` <- as.POSIXct(dt1$`Event Date`)
+#  dt1$Month <-format.Date(dt1$`Event Date1`,"%m")
+#  tab <- table(dt1$Country,  dt1$Month)
+#  
+#  barplot(tab, col="gray", ylab='Frequency', xlab = "Month",
+#          main = "Monthly Event Frequency of Syria in 2017 (ICEWS)")
 
 ## ---- eval=FALSE, message=FALSE, warning=FALSE, results="asis"-----------
 #  # creating the query of source = 'PAK' and target = 'IND' for ICEWS

@@ -341,7 +341,7 @@ k <- 'CD75737EF4CAC292EE17B85AAE4B6'
 ## Exampe 1 - using `pullData()`
 After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
 
-```{r, fig.height=3, fig.width=5}
+```{r, eval = FALSE, fig.height=3, fig.width=5}
 # Note: k <- "...provided API key"
 dt <- pullData(k, "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
 
@@ -364,7 +364,7 @@ barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblu
 + A similar data extraction to the previous example only with the functions of time and country query blocks. Please note that `sendQuery()` prints the API query syntax corresponding to user's specification. *If this syntax is thrown to your browser, you will have unstructured JSON data in the browser.* 
 
 + For extracting the data set of Russia and Syria from 1950 to 1960 from Cline Phoenix SWB and drawing the graph from the obtained data set:
-```{r, fig.height=3, fig.width=6, message=FALSE, warning=FALSE}
+```{r, eval = FALSE, fig.height=3, fig.width=6, message=FALSE, warning=FALSE}
 # querying the fight event by CAMEO codes
 # please checking the variable features and formats in a data set. Attribute names and formats vary by data tables
 
