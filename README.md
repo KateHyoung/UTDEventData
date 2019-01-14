@@ -14,7 +14,8 @@ There are several functions to explore and extract data in the package. More det
 - sendQuery( ): for requesting specified data to the API server to extract a data set
 
 ****
-- returnCountry( ): creating the query block of countries
+- retrunTimes( ): setting a time range of data subsetting
+- returnCountries( ): creating the query block of countries
 - returnLatLon( ): creating the query block of regions with latitude and longitude
 - returnDyad( ): creating the dyad query of source and target actors
 - returnRegExp( ): creating the query of features of attributes in a data table
