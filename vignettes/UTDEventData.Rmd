@@ -457,6 +457,7 @@ barplot(UK_EU, col=c("white","blue","purple","orange", "red"),
         main = expression(source:~U.K. %->% ~target:~E.U.))
 ```
 
+&nbsp;
 
 # Further information of the Event Data server at UTD
 
