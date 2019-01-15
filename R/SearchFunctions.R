@@ -1,3 +1,8 @@
+## function for indicating a specific data table in MongoDB
+## Currently updated on Jan. 2019
+## Kate Kim
+## this returns all data tables the UTD database has
+####################################################################
 #' Searching data tables in the UTD event data server
 #' @description Searching available data tables in the event data server.
 #' It returns the list of data tables in the UTD server and requires an API key.
@@ -9,24 +14,20 @@
 #' The details of data tables are illustrated in the linked websites. \cr
 #' \itemize{
 #' \item {Phoenix_RT:} {Real-time data from Oct. 2017 to today, please see more details in \href{http://openeventdata.org/}{Open Event Data Alliance}}.\cr
-#' \item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Occt. 2018. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
+#' \item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Oct. 2018. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
 #' \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #' \item {Phoenix FBIS:} {accumulated from 1995 to 2004, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #' \item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #'  }
-#' @return The list of data table the UTD server has
+#' @return A list of the data tables currently downloadable from the UTD server in a characer format
 #' @param api_key an API key provided by the UTD server manager
 #' @export
 #' @examples DataTables(api_key=" ")
 #'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #'
 #'  k <- "api_key"
-#'  DataTables(k)  # This code will return the same outcome with the previous code
+#'  DataTables(k)  # The same return will be printed
 
-## function for indicating a specific data table in MongoDB
-## Currently updated on 2/21/2018
-## Kate Kim
-## this returns all data tables the UTD database has
 DataTables<-function (api_key=" ")
 {
   # constructing a url
@@ -52,7 +53,7 @@ DataTables<-function (api_key=" ")
 #' @param api_key an API key from the developer at UTD
 #' @param table a specific data table a user wants to explore its variables
 #' @param lword a look-up word for a particular variable name you need
-#' @return The variables list in a particular data table
+#' @return A list of variable names of the specified data table
 #' @export
 #' @examples
 #' # when searching the variables in Phoenix_RT
@@ -61,7 +62,7 @@ DataTables<-function (api_key=" ")
 #' # when searhing the variable which includes the word of "tar" in ICEWS
 #' tableVar(api_key="...", table="icews", lword="tar")
 #'
-#' # The way with creating a string value of an API
+#' # a simple way of applying an API key
 #' k <- "api_key"
 #' tableVar(k, table="phoeni_rt")
 #' tableVar(k, table="icews", lword="tar")

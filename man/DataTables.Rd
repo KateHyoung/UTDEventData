@@ -10,7 +10,7 @@ DataTables(api_key = " ")
 \item{api_key}{an API key provided by the UTD server manager}
 }
 \value{
-The list of data table the UTD server has
+A list of the data tables currently downloadable from the UTD server in a characer format
 }
 \description{
 Searching available data tables in the event data server.
@@ -23,7 +23,7 @@ Please find the help document of the \code{Table()} function for more details on
 The details of data tables are illustrated in the linked websites. \cr
 \itemize{
 \item {Phoenix_RT:} {Real-time data from Oct. 2017 to today, please see more details in \href{http://openeventdata.org/}{Open Event Data Alliance}}.\cr
-\item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Occt. 2018. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
+\item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Oct. 2018. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
 \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 \item {Phoenix FBIS:} {accumulated from 1995 to 2004, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 \item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
@@ -34,5 +34,5 @@ DataTables(api_key=" ")
  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
  k <- "api_key"
- DataTables(k)  # This code will return the same outcome with the previous code
+ DataTables(k)  # The same return will be printed
 }

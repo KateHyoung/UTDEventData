@@ -14,7 +14,7 @@ tableVar(api_key = " ", table = " ", lword = " ")
 \item{lword}{a look-up word for a particular variable name you need}
 }
 \value{
-The variables list in a particular data table
+A list of variable names of the specified data table
 }
 \description{
 Searching the list of variables in the data table a user specifies.
@@ -33,7 +33,7 @@ tableVar(api_key="...", table="phoenix_rt")
 # when searhing the variable which includes the word of "tar" in ICEWS
 tableVar(api_key="...", table="icews", lword="tar")
 
-# The way with creating a string value of an API
+# a simple way of applying an API key
 k <- "api_key"
 tableVar(k, table="phoeni_rt")
 tableVar(k, table="icews", lword="tar")
