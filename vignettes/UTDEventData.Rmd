@@ -360,6 +360,9 @@ barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblu
 
 ```
 
+![Example1](figures/fig1.jpg){width=70%}
+
+&nbsp;
 
 ## Example 2 - using `sendQuery()`
 + A similar data extraction to the previous example only with the functions of time and country query blocks. Please note that `sendQuery()` prints the API query syntax corresponding to user's specification. *If this syntax is thrown to your browser, you will have unstructured JSON data in the browser.* 
@@ -381,6 +384,10 @@ tab <- table(dt1$Country,  dt1$Month)
 barplot(tab, col="gray", ylab='Frequency', xlab = "Month",
         main = "Monthly Event Frequency of Syria in 2017 (ICEWS)")
 ```
+
+![Example2](figures/fig2.jpg){width=70%}
+
+&nbsp;
 
 ## Example 3 - using a dyad query block and `sendQuery()`
 + Comparing the data set with the consistent query that Pakistan is the source and India is the target of events:
@@ -407,6 +414,8 @@ xtable(Compare)
 | CEWS   | Phoenix SWB | Phoenix FBIS | Phoenix NYT|
 |:------:|:-----------:|:------------:|:----------:|
 |40731   |1140         | 633          | 272        | 
+
+
 
 ## Example 4 - using a regual expression query block and `sendQuery()`
 A user can extract the data by the feature of an attribute in a data table with the function of `RegExp()`.
@@ -456,6 +465,9 @@ barplot(UK_EU, col=c("white","blue","purple","orange", "red"),
         ylab= "Event counts",
         main = expression(source:~U.K. %->% ~target:~E.U.))
 ```
+
+
+![Example4](figures/fig3.jpg){width=80%}
 
 &nbsp;
 
