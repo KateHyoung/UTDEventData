@@ -3,6 +3,8 @@
 This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it.   
 If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).
 
+This R library is a part of the project, titled "Modernizing Political Event Data for Big Data Social Science Research". More information can be found on [the project webpage](http://eventdata.utdallas.edu/data.html).
+
 There are several functions to explore and extract data in the package. More details of these methods are illustrated in the vignettes of this package. 
 
 - Table: a reference class 
@@ -41,7 +43,7 @@ The vignette is shown after installing the package and typing the following code
 # access to the UTDEventData document 
 vignette("UTDEventData")
 ```
-Download the PDF version [here](https://github.com/KateHyoung/UTDEventData/raw/af753de676723e876908329b5227825f25bdefa7/UTDEventData.pdf)
+Download the PDF version [here](https://github.com/KateHyoung/UTDEventData/raw/UTDEventData/UTDEventData.pdf)
 
 
 ## Authors  
