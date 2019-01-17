@@ -2,7 +2,7 @@
 ############ Aggregation functions  ##############
 ############  by Jared Looper       ##############
 ############  & edited by Kate Kim  ##############
-############     May 2018           ##############
+############     Jan. 2019           ##############
 ##################################################
 #'
 #' Creating a vector of countries names for the data aggretaion.
@@ -15,11 +15,11 @@
 #' @param country List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 #' the full country name is also working in this function.\cr
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
-#' @examples # When you have a query of the United States and Canada as a country restraint
+#' @examples # to have a query block of the United States and Canada as a country restraint
 #' ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
-returnCountries <- function(table_name="", country = list()) {
+returnCountries <- function(table_name =" ", country = list()) {
 
-  #convert the strings to an appropriate format given the database
+  # convert the strings to an appropriate format given the database
   ISO = TRUE
 
   for(i in 1:length(country))
@@ -44,17 +44,18 @@ returnCountries <- function(table_name="", country = list()) {
   return(query)
 }
 
-#' Setting a time range for data aggretations
+#' Setting a time range for data queries
 #' @description This function returns the time range a user specifies in the funtion
-#' @return A vector of a time range
+#' @return A list of dates for start and end of a specified time range
 #' @export
-#' @param table_name a name of a data table a user specifies. Your input is NOT
+#' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param start The "YYYYMMDD" format of the first date of a data set.
-#' @param end The "YYYYMMDD" format of the end date of a data set.
-#' @examples When creating the time ragne between Nov. 2, 2017 and Nov. 4, 2017 for data aggretation
-#' t <- returnTimes("pheonix_rt", "20171102","20171104")
-returnTimes <- function(table_name, start, end) {
+#' @param start The "YYYYMMDD" format of the first date of a data set
+#' @param end The "YYYYMMDD" format of the last date of a data set
+#' @examples # to create the time ragne between Nov. 2, 2017 and
+#' # Nov. 4, 2017 for data aggretation
+#' t <- returnTimes("phoenix_rt", "20171102","20171104")
+returnTimes <- function(table_name =" ", start = " ", end = " ") {
 
   if(table_name == "icews" || table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
     start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
@@ -76,7 +77,7 @@ returnTimes <- function(table_name, start, end) {
 #' case-sensitive.
 #' @param soure The name of a source country either an ISO code or a country name
 #' @param target The name of a target country either an ISO code or a country name
-#' @examples  When you have a dyad query of Syria and the United State
+#' @examples  # When you have a dyad query of Syria and the United State
 #' dyad <- returnDayd("pheonix_rt", "SYR", "USA")
 returnDyad <- function(table_name,source,target) {
   ISO = TRUE

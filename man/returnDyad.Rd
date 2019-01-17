@@ -21,6 +21,6 @@ A queary syntax of source and target countries
 This function returns a vector of query syntax for a dayd information
 }
 \examples{
- When you have a dyad query of Syria and the United State
+ # When you have a dyad query of Syria and the United State
 dyad <- returnDayd("pheonix_rt", "SYR", "USA")
 }

@@ -4,7 +4,7 @@
 \alias{returnCountries}
 \title{Creating a vector of countries names for the data aggretaion.}
 \usage{
-returnCountries(table_name = "", country = list())
+returnCountries(table_name = " ", country = list())
 }
 \arguments{
 \item{table_name}{a name of a data table a user specifies. Your input is NOT
@@ -21,6 +21,6 @@ A list of countries
 This function returns the list of countries a user specifies
 }
 \examples{
-# When you have a query of the United States and Canada as a country restraint
+# to have a query block of the United States and Canada as a country restraint
 ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
 }
