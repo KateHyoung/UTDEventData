@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnTimes}
 \alias{returnTimes}
-\title{Setting a time range for data queries}
+\title{Creating of a query block of a time range}
 \usage{
 returnTimes(table_name = " ", start = " ", end = " ")
 }
@@ -15,7 +15,7 @@ case-sensitive.}
 \item{end}{The "YYYYMMDD" format of the last date of a data set}
 }
 \value{
-A list of dates for start and end of a specified time range
+A list of dates for start and end of a time range
 }
 \description{
 This function returns the time range a user specifies in the funtion

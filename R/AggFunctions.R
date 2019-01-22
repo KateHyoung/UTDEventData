@@ -4,15 +4,15 @@
 ############  & edited by Kate Kim  ##############
 ############     Jan. 2019           ##############
 ##################################################
-#'
-#' Creating a vector of countries names for the data aggretaion.
+
+#' Creating a query block of countries
 #' @description This function returns the list of countries a user specifies
-#' @return A list of countries
+#' @return A list of country query blocks
 #' @importFrom countrycode countrycode
 #' @export
 #' @param table_name a name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param country List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
+#' @param country A list of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 #' the full country name is also working in this function.\cr
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
 #' @examples # to have a query block of the United States and Canada as a country restraint
@@ -44,9 +44,9 @@ returnCountries <- function(table_name =" ", country = list()) {
   return(query)
 }
 
-#' Setting a time range for data queries
+#' Creating of a query block of a time range
 #' @description This function returns the time range a user specifies in the funtion
-#' @return A list of dates for start and end of a specified time range
+#' @return A list of dates for start and end of a time range
 #' @export
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
@@ -70,16 +70,16 @@ returnTimes <- function(table_name =" ", start = " ", end = " ") {
 
 #' Creating a list of the dayd countries of source and target actors
 #' @description This function returns a vector of query syntax for a dayd information
-#' @return A queary syntax of source and target countries
+#' @return A list of the queary syntax of source and target countries
 #' @export
 #' @importFrom countrycode countrycode
 #' @param table_name a name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
 #' @param soure The name of a source country either an ISO code or a country name
 #' @param target The name of a target country either an ISO code or a country name
-#' @examples  # When you have a dyad query of Syria and the United State
+#' @examples  # When you have a dyad query of Syria as a source and the United State as a target
 #' dyad <- returnDayd("pheonix_rt", "SYR", "USA")
-returnDyad <- function(table_name,source,target) {
+returnDyad <- function(table_name, source, target) {
   ISO = TRUE
 
   if(nchar(source) != 3 || nchar(target) != 3) {
@@ -104,9 +104,9 @@ returnDyad <- function(table_name,source,target) {
   return(query)
 }
 
-#' Creating the location boundaries with longitudes and lattidues
-#' @description This function returns a vector of query syntax for geo-locations
-#' @return A vector of queary syntax of latidues and longitudes
+#' Creating the location query block of longitudes and lattidues
+#' @description This function returns a block of query syntax for geo-locations
+#' @return A list of queary syntax of latidues and longitudes
 #' @export
 #' @param lat1 the minimum value of lattitude of a target boundary
 #' @param lat2 the maximum value of latitidue of a target boundary
@@ -117,16 +117,16 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
   return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lon2)))
 }
 
-#' Obtaining a regular expression for API queries based on a specified data table
+#' Obtaining a list of query that use the variables in a particular data table
 #' @description This function retuns general query syntax for sepcfied data table
-#' @return JSON query syntax
+#' @return A list of the query block with variable's features
 #' @export
 #' @param api_key An API key provided by a UTD server manager
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param pattern A pattern of an actor in events
-#' @param field A field of a data table
-#' @examples # when a user wants to get all source actors related to governments
+#' @param pattern A pattern or feature of a specified variable
+#' @param field A field (variable) of a data table
+#' @examples # when a user wants to get all source actors related to governments in ICEWS
 #' f <- returnRegExp( k, "icews","GOV","Source Name")
 #'
 returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
@@ -139,49 +139,56 @@ returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = ""
 
 #' Obtaining an OR syntax to use two and more query lists
 #' @description This function retuns the syntax to combine several query lists
-#' @return Or query syntax
+#' @return A list of several query blocks corresponding to a particular data table
 #' @export
-#' @param query_prep A list of other queris stored
+#' @param query_prep A list of other query blocks that should be entered in `list()`
 #' @examples # If you want to combine stored query blocks such as q or f,
-#' and_query <- andList(list(q,f))
+#' or_query <- orList(list(q,f))
 #'
 orList <- function(query_prep = list()) {
   return(list('$or'=query_prep))
 }
 
-#' Obtaining an AND syntax to use two and more query lists
-#' @description This function retuns the syntax to combine several query lists
-#' @return AND query syntax
+#' Obtaining an AND query syntax to use two and more query blocks
+#' @description This function retuns the list of comination two or more query blocks.
+#' @return A list of several query blocks corresponding to a particular data table
 #' @export
-#' @param query_prep A list of other queris stored
-#' @examples # If you want to subset with two or more stored query blocks such as q or f,
-#' or_query <- orList(list(q,f))
+#' @param query_prep A list of other query blocks that should be entered in `list()`
+#' @examples # If you want to subset with two or more stored query blocks such as q or f
+#' and_query <- andList(list(q,f))
 #'
 andList <- function(query_prep = list()) {
   return(list('$and'=query_prep))
 }
 
-#' Sending queries to the API server
-#' @description This function retruns the data a user requests by a query compositions of
-#' aggretation functions
-#' @return A data set with the R-package citation
+#' Sending queries to the API server in order to retrieve the data set
+#' @description This function retruns the data a user requests by a composition of query blocks
+#' @return A list of data and citation texts
 #' @importFrom jsonlite fromJSON
 #' @importFrom rjson toJSON
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param query List of queries a user builds with othter aggretation functions.
-#' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
-#' @param citation The option for printing a package citation at the end of data retrival.
-#' @examples sendQuery(api_key,"icews",and_query)
+#' @param query A list of query blocks a user builds with other query block functions
+#' If you enter `query = "entire"`, then the entire data will be returned.
+#' Please note the size of the data you request. It may cause a memory issue on your device.
+#' @param citation The option for printing a package citation at the end of data retrival. The default of option is TRUE.
+#' @examples sendQuery(api_key,"icews", query_block, citation = FALSE)
+#' # To retrieve the entire data of phoenix_rt
+#' data <- sendQuery(api_key, "phoenix_rt", "entire", citation = FALSE)
 sendQuery <- function(api_key = "", table_name = "", query = list(), citation = TRUE){
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
   }
+  else if (query == 'entire'){
+    query_string = '{}'
+  }
+  else {
   query_string = rjson::toJSON(query)
   query_string = gsub("\\", '', query_string, fixed=TRUE)
+  }
   url <- 'http://149.165.156.33:5002/api/data?api_key='
   url_submit = ''
   table_name = tolower(table_name)
@@ -226,19 +233,35 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
 #' @param api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param query List of queries a user builds with othter aggretation functions.
-#' @examples getQuerysize(api_key,"Phoenix_rt", query_list)
+#' @param query A list of query blocks a user builds with other query block functions
+#' If you enter `query = "entire"`, then the size of the entire data will be returned.
+#' @examples getQuerySize(api_key,"Phoenix_rt", query_blocks)
+#' To get the size of entire data of ICEWS
+#' getQuerySize(api_key, "icews", "entire")
 getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
   }
-  query_string = rjson::toJSON(query)
-  query_string = gsub("\\", '', query_string, fixed=TRUE)
+  else if (query == 'entire'){
+    query_string = '{}'
+  }
+  else {
+    query_string = rjson::toJSON(query)
+    query_string = gsub("\\", '', query_string, fixed=TRUE)
+  }
   url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
   url_submit = ''
   table_name = tolower(table_name)
-  query_string = relabel(query_string,table_name)
+  if (table_name=="phoenix_rt" ) {
+    query_string = relabel(query_string, "phoenix_rt")
+  }
+  else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
+    query_string = relabel(query_string, "cline")
+  }
+  else if(table_name == "icews") {
+    query_string = relabel(query_string, "icews")
+  }
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)

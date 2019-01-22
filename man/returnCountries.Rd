@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnCountries}
 \alias{returnCountries}
-\title{Creating a vector of countries names for the data aggretaion.}
+\title{Creating a query block of countries}
 \usage{
 returnCountries(table_name = " ", country = list())
 }
@@ -10,12 +10,12 @@ returnCountries(table_name = " ", country = list())
 \item{table_name}{a name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{country}{List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
+\item{country}{A list of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 the full country name is also working in this function.\cr
      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.}
 }
 \value{
-A list of countries
+A list of country query blocks
 }
 \description{
 This function returns the list of countries a user specifies

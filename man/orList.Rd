@@ -7,16 +7,16 @@
 orList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of other queris stored}
+\item{query_prep}{A list of other query blocks that should be entered in `list()`}
 }
 \value{
-Or query syntax
+A list of several query blocks corresponding to a particular data table
 }
 \description{
 This function retuns the syntax to combine several query lists
 }
 \examples{
 # If you want to combine stored query blocks such as q or f,
-and_query <- andList(list(q,f))
+or_query <- orList(list(q,f))
 
 }

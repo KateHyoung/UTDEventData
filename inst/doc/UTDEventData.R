@@ -62,33 +62,6 @@
 #  obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # genrate a query for all source actors that involved in governments in events
-#  others <- returnRegExp( api_key, table_name,"GOV","Source Name")
-
-## ---- eval = FALSE-------------------------------------------------------
-#  # generating a query of the United States and Canada as a country restraint for real-time event data
-#  ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
-
-## ---- eval = FALSE-------------------------------------------------------
-#  # generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data
-#  time <- returnTimes("icews",  "19800727", "20041210")
-
-## ---- eval = FALSE-------------------------------------------------------
-#  # generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
-#  q <- returnLatLon(-80,30,20,80)
-
-## ---- eval = FALSE-------------------------------------------------------
-#  # genrate a query that a source country is Syria and a target country is the United States
-#  dyad <- returnDyad(table_name, "SYR", "USA")
-
-## ---- eval = FALSE-------------------------------------------------------
-#  # combine stored query blocks such as 'time' or 'q' created before
-#  and_query <- andList(list(q,time))
-#  
-#  # subset with two or more stored query blocks such as 'q' or 'dyad'
-#  or_query <- orList(list(q,dyad))
-
-## ---- eval = FALSE-------------------------------------------------------
 #  # request a data set with the list of created queries
 #  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 #  
@@ -125,6 +98,36 @@
 #  # to view the data
 #  # because the option for citation was off, package's citation was not printed.
 #  head(data, 10)
+#  
+#  # to get the entire data of Cline_phoenix_fbis
+#  data <- sendQuery(k, table_name = "cline_phoenix_fbis", query = "entire", citation = FALSE)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # genrate a query for all source actors that involved in governments in events
+#  others <- returnRegExp( api_key, table_name,"GOV","Source Name")
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # generating a query of the United States and Canada as a country restraint for real-time event data
+#  ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data
+#  time <- returnTimes("icews",  "19800727", "20041210")
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
+#  q <- returnLatLon(-80,30,20,80)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # genrate a query that a source country is Syria and a target country is the United States
+#  dyad <- returnDyad(table_name, "SYR", "USA")
+
+## ---- eval = FALSE-------------------------------------------------------
+#  # combine stored query blocks such as 'time' or 'q' created before
+#  and_query <- andList(list(q,time))
+#  
+#  # subset with two or more stored query blocks such as 'q' or 'dyad'
+#  or_query <- orList(list(q,dyad))
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # estimate the data size you want to extract

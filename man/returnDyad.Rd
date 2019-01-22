@@ -15,12 +15,12 @@ case-sensitive.}
 \item{soure}{The name of a source country either an ISO code or a country name}
 }
 \value{
-A queary syntax of source and target countries
+A list of the queary syntax of source and target countries
 }
 \description{
 This function returns a vector of query syntax for a dayd information
 }
 \examples{
- # When you have a dyad query of Syria and the United State
+ # When you have a dyad query of Syria as a source and the United State as a target
 dyad <- returnDayd("pheonix_rt", "SYR", "USA")
 }

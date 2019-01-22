@@ -126,12 +126,13 @@ This library provides two ways of event data subsetting from the UTD server. The
 
 `pullData()` returns a subset of data from a data table according to the information of country names and time ranges. Please note the corresponding time period of a certain data in Table 1. If the given time range in the function falls outside the timeline of a data table, the function will return `list()` as its result. That means the requested data set is empty. 
 
-Please confirm the format of time ranges, which is "YYYYMMDD."     
-The country names can be either full names or the ISO-Alpha3 code. Please use a consistent format when you type countries names. We recommend the ISO-3 code format in order to reduce systemic errors in the function.  
+Please confirm the format of time ranges, which is "YYYYMMDD."   
+
+The country names can be either full names or the ISO-Alpha3 code. Users's specified country mean the countries in which a particular event happend in a news article.   Please use a consistent format when you type countries names. We recommend the ISO-3 code format in order to reduce systemic errors in the function.  
 
 The function returns the citation texts for the publication and BibTeX formats at the end of data retrieval. If you avoid the printing in your R-console, please turn off the `citation' option by choosing "FALSE" in the function. 
 
-The following code is the examples of `pullData()`. 
+The following code is the example usage of `pullData()`. 
 
 ```{r, eval = FALSE}
 pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"), 
@@ -148,6 +149,9 @@ subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'),
 pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', 
          citation = FALSE)
 ```
+
+#### _Note_   
+As illustrated, the data are retrieved by the country names and the time range a user specified. The country in a data set means the country where a particular event happened. This country could not be identical with the source or target countries of an event. A researcher should pay attention to this attribute when conducting research. This feature of each variable can be scrutinized by exploring the variables of the data set downloaded in user's device.
 
 
 ### Reference class for appying an API key to the functions 
@@ -166,21 +170,75 @@ obj$tableVar("cline_Phoenix_NYT")
 # when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
 obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ```
+
 The reference class works with the functions of `DataTables()`, `TableVar()`, and `pullData()` in the library. 
 
 &nbsp;
 
 ## Subsetting functions II
 
-The package provides another method to obtain subsets from the UTD API server. These functions require users to have an API key to get data but provide more options as subsetting queries.  For instance, while `pullData()` function provides limited query options such as country names and time ranges of a data set, the group of subsetting functions II facilitate users more discretion in queries with more options such as country names, time ranges, a dyad of actors, latitude \& longitude of event locations, and source \& targets indications of certain events. By combining query blocks created by aforementioned features, users can retrieve data at their own choices. 
+The package provides another method to obtain subsets from the UTD API server. These functions require users to have an API key to get data but provide more options in setting queries.  For instance, while `pullData()` function provides lfixed query options such as country names and time ranges of a data set, the method of subsetting functions II facilitates users more discretion in queries such as country names, time ranges, a dyad of actors, latitude \& longitude of event locations, and source \& targets indications of certain events. By combining query blocks created by aforementioned features, users can retrieve data at their own choices. 
 
-The query blocks can be created and stored by its specific functions. To obtain data avoid error massages, users must acquaint each function's usage illustrated in this document or help pages. The details how individual function works together with the other functions are illustrated in this section.  
+The query blocks can be created and stored by its specific functions. To obtain data avoid error massages, users must acquaint each function's usage illustrated in this document or help pages in the library. The details how individual function works together with the other functions are illustrated in this section.  
 
-The subsetting function II consists of three groups. The first group of subsetting function II is creating query blocks according to user's preference. The subsetting query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, a dyad relation, and so on. Moreover, a user can use any variable (attribute) in an API data table with the regular expression function, `returnRegExp()`.   
+The subsetting function II consists of three groups. The first method is the data requesting function, which works with created query blocks: `sendQuery()`. 
 
-The second group of the subsetting function II is connective functions of query blocks: `orList()` and `andList()`. These functions play a role of a logical operator to combine the query blocks as union and intersection respectively.   
+The second group of is creating query blocks according to user's preference. These query blocks are the basis of subsetting information such as country names, locations (latitude and longitude), time ranges, a dyad relation, and so on. Moreover, a user can use any variable (attribute) in an API data table with the regular expression function, `returnRegExp()`.   
 
-The last group of the subsetting function II is the data requesting method, which works with created query blocks: `sendQuery()`. 
+The last group of is the connective functions of query blocks: `orList()` and `andList()`. These functions play a role of a logical operator to combine the query blocks as union and intersection respectively.
+
+
+### Data request function
+
+A data set can be retrieved with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API server with them. A user should input an API key, a data table, and a list of queries created by `andList()` or `orList()`  in the function as shown in the following example code. 
+
+In addition to the subseeting, this function returns the entire data of a particular data by specifying the option `"entire"`. 
+
+The function also provides the citation texts of publication and BibTeX formats at the end of the extracted data as default. If you do not want to print it, please turn off the option by choosing "FALSE" in the method.
+
+```{r, eval = FALSE}
+# request a data set with the list of created queries 
+sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
+
+# examples of subsetting functions
+
+# creating query blocks
+# A country constrain of 'CHN' and 'USA'
+k <- 'api_key'
+ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
+
+# A query of time between 2017-11-1 and 2017-11-5
+time <- returnTimes("phoenix_rt", "20171101","20171105")
+
+# a boolean logic, or, with the two query blocks
+or_query <- orList(list(ctr, time))
+# request a data set to the API server with the package citation
+d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
+
+# to view the subset
+head(d1$data, 10)
+
+# a boolean logic, and, with the two query blocks
+and_query <- andList(list(ctr, time))
+d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
+
+# to view the subset
+head(d2$data, 10)
+
+# when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
+rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
+q <- andList(list(ctr, rgex))
+data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
+
+# to view the data
+# because the option for citation was off, package's citation was not printed. 
+head(data, 10) 
+
+# to get the entire data of Cline_phoenix_fbis
+data <- sendQuery(k, table_name = "cline_phoenix_fbis", query = "entire", citation = FALSE)
+```
+
+
 
 ### Query block functions
 
@@ -237,52 +295,6 @@ and_query <- andList(list(q,time))
 or_query <- orList(list(q,dyad))
 ```
 
-
-
-### Data request function
-
-A data set can be retrieved with the combinations generated with aforementioned functions. The `sendQuery()` function requests specified data to the API server with them. A user should input an API key, a data table, and a list of queries created by `andList()` or `orList()`  in the function as shown in the following example code. 
-
-The function returns the citation texts of publication and BibTeX formats at the end of the extracted data as default. If you do not want to print it, please turn off the option by choosing "FALSE" in the method.
-
-```{r, eval = FALSE}
-# request a data set with the list of created queries 
-sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
-
-# examples of subsetting functions
-
-# creating query blocks
-# A country constrain of 'CHN' and 'USA'
-k <- 'api_key'
-ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
-
-# A query of time between 2017-11-1 and 2017-11-5
-time <- returnTimes("phoenix_rt", "20171101","20171105")
-
-# a boolean logic, or, with the two query blocks
-or_query <- orList(list(ctr, time))
-# request a data set to the API server with the package citation
-d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
-
-# to view the subset
-head(d1$data, 10)
-
-# a boolean logic, and, with the two query blocks
-and_query <- andList(list(ctr, time))
-d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
-
-# to view the subset
-head(d2$data, 10)
-
-# when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
-rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
-q <- andList(list(ctr, rgex))
-data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
-
-# to view the data
-# because the option for citation was off, package's citation was not printed. 
-head(data, 10) 
-```
 
 Users can create several combinations of the query blocks with the other functions such as `returnLocation()` and `returnDyad()` according to their preferences in order to obtain preferred data sets. 
 

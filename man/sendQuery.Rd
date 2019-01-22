@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{sendQuery}
 \alias{sendQuery}
-\title{Sending queries to the API server}
+\title{Sending queries to the API server in order to retrieve the data set}
 \usage{
 sendQuery(api_key = "", table_name = "", query = list(),
   citation = TRUE)
@@ -13,18 +13,20 @@ sendQuery(api_key = "", table_name = "", query = list(),
 \item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{query}{List of queries a user builds with othter aggretation functions.
-The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
+\item{query}{A list of query blocks a user builds with other query block functions
+If you enter `query = "entire"`, then the entire data will be returned.
+Please note the size of the data you request. It may cause a memory issue on your device.}
 
-\item{citation}{The option for printing a package citation at the end of data retrival.}
+\item{citation}{The option for printing a package citation at the end of data retrival. The default of option is TRUE.}
 }
 \value{
-A data set with the R-package citation
+A list of data and citation texts
 }
 \description{
-This function retruns the data a user requests by a query compositions of
-aggretation functions
+This function retruns the data a user requests by a composition of query blocks
 }
 \examples{
-sendQuery(api_key,"icews",and_query)
+sendQuery(api_key,"icews", query_block, citation = FALSE)
+# To retrieve the entire data of phoenix_rt
+data <- sendQuery(api_key, "phoenix_rt", "entire", citation = FALSE)
 }

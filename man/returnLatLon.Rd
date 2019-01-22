@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnLatLon}
 \alias{returnLatLon}
-\title{Creating the location boundaries with longitudes and lattidues}
+\title{Creating the location query block of longitudes and lattidues}
 \usage{
 returnLatLon(lat1, lat2, lon1, lon2)
 }
@@ -16,10 +16,10 @@ returnLatLon(lat1, lat2, lon1, lon2)
 \item{log2}{the maximum value of longitude of a target boundary}
 }
 \value{
-A vector of queary syntax of latidues and longitudes
+A list of queary syntax of latidues and longitudes
 }
 \description{
-This function returns a vector of query syntax for geo-locations
+This function returns a block of query syntax for geo-locations
 }
 \examples{
 q <- returnLatLon(-80,30,20,80)

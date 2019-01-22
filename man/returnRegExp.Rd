@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnRegExp}
 \alias{returnRegExp}
-\title{Obtaining a regular expression for API queries based on a specified data table}
+\title{Obtaining a list of query that use the variables in a particular data table}
 \usage{
 returnRegExp(api_key = "", table_name = "", pattern = "", field = "")
 }
@@ -12,18 +12,18 @@ returnRegExp(api_key = "", table_name = "", pattern = "", field = "")
 \item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{pattern}{A pattern of an actor in events}
+\item{pattern}{A pattern or feature of a specified variable}
 
-\item{field}{A field of a data table}
+\item{field}{A field (variable) of a data table}
 }
 \value{
-JSON query syntax
+A list of the query block with variable's features
 }
 \description{
 This function retuns general query syntax for sepcfied data table
 }
 \examples{
-# when a user wants to get all source actors related to governments
+# when a user wants to get all source actors related to governments in ICEWS
 f <- returnRegExp( k, "icews","GOV","Source Name")
 
 }
