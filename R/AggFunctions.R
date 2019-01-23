@@ -182,13 +182,8 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
     print("The query is empty.")
     return(list())
   }
-  else if (query == 'entire'){
-    query_string = '{}'
-  }
-  else {
   query_string = rjson::toJSON(query)
   query_string = gsub("\\", '', query_string, fixed=TRUE)
-  }
   url <- 'http://149.165.156.33:5002/api/data?api_key='
   url_submit = ''
   table_name = tolower(table_name)
@@ -243,13 +238,8 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
     print("The query is empty.")
     return(list())
   }
-  else if (query == 'entire'){
-    query_string = '{}'
-  }
-  else {
-    query_string = rjson::toJSON(query)
-    query_string = gsub("\\", '', query_string, fixed=TRUE)
-  }
+  query_string = rjson::toJSON(query)
+  query_string = gsub("\\", '', query_string, fixed=TRUE)
   url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
   url_submit = ''
   table_name = tolower(table_name)
