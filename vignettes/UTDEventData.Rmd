@@ -7,7 +7,7 @@ author:
 - name: "Dr. Vito D'Orazio"
   affiliation: *utd
   email: dorazio@utdallas.edu
-- name: "Hyoungah (Kate) Kim"
+- name: "HyoungAh (Kate) Kim"
   affiliation: *utd
   email: hyoungah.kim@utdallas.edu
 - name: "Jared Looper" 
