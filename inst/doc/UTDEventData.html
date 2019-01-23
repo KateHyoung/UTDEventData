@@ -265,9 +265,40 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 <p>In addition to the subseeting, this function returns the entire data of a particular data by specifying the option <code>&quot;entire&quot;</code>.</p>
 <p>The function also provides the citation texts of publication and BibTeX formats at the end of the extracted data as default. If you do not want to print it, please turn off the option by choosing “FALSE” in the method.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># request a data set with the list of created queries </span>
-<span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">list</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
+<span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">list</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="query-block-functions" class="section level3">
+<h3>Query block functions</h3>
+<p><code>returnRegExp()</code> can be used for a special case as indicating a particular value or a feature of the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requires users to provide an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
+others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, table_name,<span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)</code></pre></div>
+<p><code>returnCountries()</code> is the function that creates the list of countries names. The function requires users to specify the names of data table and countries a user is interested in. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are <em>case-insensitive</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint for real-time event data</span>
+ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
+<p><code>returnTimes()</code> is the function that generates a query to return all events between two time points. The format of typing time should be “YYYYMMDD” in the order of the start and the end points of the time range. A user must identify a data table in the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data</span>
+time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;icews&quot;</span>,  <span class="st">&quot;19800727&quot;</span>, <span class="st">&quot;20041210&quot;</span>)</code></pre></div>
+<p><code>returnLatLon()</code> returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80</span>
+q &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">30</span>,<span class="dv">20</span>,<span class="dv">80</span>)</code></pre></div>
+<p>The <code>returnDyad()</code> function creates a query of particular dyads of actors in countries. In the function, a user must specify a table name and source and target countries respectively. The ISO-3 codes for country names are recommended as function inputs, but full names of countries also work in this function. These inputs are not case-sensitive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query that a source country is Syria and a target country is the United States</span>
+dyad &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(table_name, <span class="st">&quot;SYR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</code></pre></div>
+</div>
+<div id="connectivive-functions" class="section level3">
+<h3>Connectivive functions</h3>
+<p>These functions play a role to connect several query blocks created by aforementioned functions. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
+<p><code>andList()</code> is the function that returns the intersection of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function.</p>
+<p><code>orList()</code> returns a union of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function as shown in the following examples.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as 'time' or 'q' created before</span>
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,time))
 
-<span class="co"># examples of subsetting functions</span>
+<span class="co"># subset with two or more stored query blocks such as 'q' or 'dyad'</span>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(q,dyad))</code></pre></div>
+</div>
+<div id="examples-of-subsetting-ii" class="section level3">
+<h3>Examples of subsetting II</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># examples of subsetting functions</span>
 
 <span class="co"># creating query blocks</span>
 <span class="co"># A country constrain of 'CHN' and 'USA'</span>
@@ -303,37 +334,8 @@ data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span cl
 
 <span class="co"># to get the entire data of Cline_phoenix_fbis</span>
 data &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="dt">table_name =</span> <span class="st">&quot;cline_phoenix_fbis&quot;</span>, <span class="dt">query =</span> <span class="st">&quot;entire&quot;</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
-</div>
-<div id="query-block-functions" class="section level3">
-<h3>Query block functions</h3>
-<p><code>returnRegExp()</code> returns a regular expression for indicating the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package. The function requires users to provide an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
-others &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, table_name,<span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)</code></pre></div>
-<p><code>returnCountries()</code> is the function that creates the list of countries names. The function requires users to specify the names of data table and countries a user is interested in. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are <em>case-insensitive</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint for real-time event data</span>
-ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
-<p><code>returnTimes()</code> is the function that generates a query to return all events between two time points. The format of typing time should be “YYYYMMDD” in the order of the start and the end points of the time range. A user must identify a data table in the function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data</span>
-time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;icews&quot;</span>,  <span class="st">&quot;19800727&quot;</span>, <span class="st">&quot;20041210&quot;</span>)</code></pre></div>
-<p><code>returnLatLon()</code> returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80</span>
-q &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">30</span>,<span class="dv">20</span>,<span class="dv">80</span>)</code></pre></div>
-<p>The <code>returnDyad()</code> function creates a query of particular dyads of actors in countries. In the function, a user must specify a table name and source and target countries respectively. The ISO-3 codes for country names are recommended as function inputs, but full names of countries also work in this function. These inputs are not case-sensitive.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query that a source country is Syria and a target country is the United States</span>
-dyad &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(table_name, <span class="st">&quot;SYR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</code></pre></div>
-</div>
-<div id="connectivive-functions" class="section level3">
-<h3>Connectivive functions</h3>
-<p>These functions play a role to connect several query blocks created by aforementioned functions. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
-<p><code>andList()</code> is the function that returns the intersection of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function.</p>
-<p><code>orList()</code> returns a union of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function as shown in the following examples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as 'time' or 'q' created before</span>
-and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(q,time))
-
-<span class="co"># subset with two or more stored query blocks such as 'q' or 'dyad'</span>
-or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(q,dyad))</code></pre></div>
 <p>Users can create several combinations of the query blocks with the other functions such as <code>returnLocation()</code> and <code>returnDyad()</code> according to their preferences in order to obtain preferred data sets.</p>
-<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function, so you may encounter the memory issue when using <code>orList()</code> with several query blocks. Once the issue occurs, please increase a memory size allocated to your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>. Specific information is illustrated in the next section.</p>
+<p>Please note that an issue may occur if the large size of data are extracted by <code>sendQuery()</code>. More specifically, the issue can more frequently come with the <code>orList()</code> function or the <code>&quot;entire&quot;</code> option, so you may encounter the memory issue when using <code>orList()</code> with several query blocks. Once the issue occurs, please increase a memory size allocated to your R program and re-run the functions. If a user keeps having the issue, please consider to use <code>pullData()</code> for data subsetting. <code>pullData()</code> works more efficiently than <code>sendQuery()</code>. Specific information is illustrated in the next section.</p>
 </div>
 <div id="an-error-message-from-sendquery" class="section level3">
 <h3>An error message from <code>sendQuery()</code></h3>

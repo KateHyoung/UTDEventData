@@ -199,50 +199,12 @@ The function also provides the citation texts of publication and BibTeX formats 
 ```{r, eval = FALSE}
 # request a data set with the list of created queries 
 sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
-
-# examples of subsetting functions
-
-# creating query blocks
-# A country constrain of 'CHN' and 'USA'
-k <- 'api_key'
-ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
-
-# A query of time between 2017-11-1 and 2017-11-5
-time <- returnTimes("phoenix_rt", "20171101","20171105")
-
-# a boolean logic, or, with the two query blocks
-or_query <- orList(list(ctr, time))
-# request a data set to the API server with the package citation
-d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
-
-# to view the subset
-head(d1$data, 10)
-
-# a boolean logic, and, with the two query blocks
-and_query <- andList(list(ctr, time))
-d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
-
-# to view the subset
-head(d2$data, 10)
-
-# when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
-rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
-q <- andList(list(ctr, rgex))
-data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
-
-# to view the data
-# because the option for citation was off, package's citation was not printed. 
-head(data, 10) 
-
-# to get the entire data of Cline_phoenix_fbis
-data <- sendQuery(k, table_name = "cline_phoenix_fbis", query = "entire", citation = FALSE)
 ```
-
 
 
 ### Query block functions
 
-`returnRegExp()` returns a regular expression for indicating the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package. The function requires users to provide an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table. 
+`returnRegExp()` can be used for a special case as indicating a particular value or a feature of the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package. The function requires users to provide an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table. 
 
 ```{r, eval = FALSE}
 # genrate a query for all source actors that involved in governments in events
@@ -296,9 +258,52 @@ or_query <- orList(list(q,dyad))
 ```
 
 
+### Examples of subsetting II
+
+```{r, eval=FALSE}
+
+# examples of subsetting functions
+
+# creating query blocks
+# A country constrain of 'CHN' and 'USA'
+k <- 'api_key'
+ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
+
+# A query of time between 2017-11-1 and 2017-11-5
+time <- returnTimes("phoenix_rt", "20171101","20171105")
+
+# a boolean logic, or, with the two query blocks
+or_query <- orList(list(ctr, time))
+# request a data set to the API server with the package citation
+d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
+
+# to view the subset
+head(d1$data, 10)
+
+# a boolean logic, and, with the two query blocks
+and_query <- andList(list(ctr, time))
+d2 <- sendQuery(k,"phoenix_rt",and_query, TRUE)
+
+# to view the subset
+head(d2$data, 10)
+
+# when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
+rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
+q <- andList(list(ctr, rgex))
+data  <- sendQuery(k,"phoenix_rt",q, citation = FALSE) # no citation
+
+# to view the data
+# because the option for citation was off, package's citation was not printed. 
+head(data, 10) 
+
+# to get the entire data of Cline_phoenix_fbis
+data <- sendQuery(k, table_name = "cline_phoenix_fbis", query = "entire", citation = FALSE)
+```
+
+
 Users can create several combinations of the query blocks with the other functions such as `returnLocation()` and `returnDyad()` according to their preferences in order to obtain preferred data sets. 
 
-Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so you may encounter the memory issue when using `orList()` with several query blocks. Once the issue occurs, please increase a memory size allocated to your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`. Specific information is illustrated in the next section. 
+Please note that an issue may occur if the large size of data are extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function or the `"entire"` option, so you may encounter the memory issue when using `orList()` with several query blocks. Once the issue occurs, please increase a memory size allocated to your R program and re-run the functions. If a user keeps having the issue, please consider to use `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`. Specific information is illustrated in the next section. 
 
 
 ### An error message from `sendQuery()` 
