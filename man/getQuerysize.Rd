@@ -23,6 +23,6 @@ This function retruns a data size in a string format
 }
 \examples{
 getQuerySize(api_key,"Phoenix_rt", query_blocks)
-To get the size of entire data of ICEWS
+# To get the size of entire data of ICEWS
 getQuerySize(api_key, "icews", "entire")
 }

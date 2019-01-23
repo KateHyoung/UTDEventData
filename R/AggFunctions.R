@@ -236,7 +236,7 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
 #' @param query A list of query blocks a user builds with other query block functions
 #' If you enter `query = "entire"`, then the size of the entire data will be returned.
 #' @examples getQuerySize(api_key,"Phoenix_rt", query_blocks)
-#' To get the size of entire data of ICEWS
+#' # To get the size of entire data of ICEWS
 #' getQuerySize(api_key, "icews", "entire")
 getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   if(is.null(query)) {
