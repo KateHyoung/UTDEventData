@@ -4,26 +4,37 @@
 \alias{tableVar}
 \title{Searching the variables in a particular data table}
 \usage{
-tableVar(api_key = " ", table = "table_name", lword = " ")
+tableVar(api_key = " ", table = " ", lword = " ")
 }
 \arguments{
 \item{api_key}{an API key from the developer at UTD}
 
-\item{table}{a specific data table a user want to exploer its variables}
+\item{table}{a specific data table a user wants to explore its variables}
 
-\item{lword}{a look-up word for a particular variable name in a data table}
+\item{lword}{a look-up word for a particular variable name you need}
 }
 \value{
-The variables list in a particular data table
+A list of variable names of the specified data table
 }
 \description{
-Searching the list of variablees in the data table a user specifies. It returns the list of variables.
+Searching the list of variables in the data table a user specifies.
+It returns variables names and requires an API key. \cr
+You can also look up a particular word for variabla names such as "day", "month", or "src" so that you can find whether or not a
+specified data table has the certain variables you need. \cr
+The API key can be obtained after filling out the form in the UTD event data sign-up website
+(http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+You can also use this function through the reference class, \code{Table()}.
+Please find the help document of the \code{Table()} function for more details on its usage.
 }
 \examples{
-> tableVar(api_key="...", table="phoenix_rt")
- # when searching the variables in Phoenix_RT
-[1] " code", "src_actor", "month", "tgt_actor", ....
-> tableVar(api_key="...", table="icews", lword="tar")
- # when searhing the variable which includes the word of "tar" in ICEWS
-[1] " Target Name"    " Target Sectors", ....
+# when searching the variables in Phoenix_RT
+tableVar(api_key="...", table="phoenix_rt")
+
+# when searhing the variable which includes the word of "tar" in ICEWS
+tableVar(api_key="...", table="icews", lword="tar")
+
+# a simple way of applying an API key
+k <- "api_key"
+tableVar(k, table="phoeni_rt")
+tableVar(k, table="icews", lword="tar")
 }
