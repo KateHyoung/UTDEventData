@@ -1,11 +1,12 @@
 # ------------------------------------------------------- #
 #               Data preview function                     #
 # ------------------------------------------------------- #
-#' Checking the data frame of a particular data table
-#' @description This function retruns the 100 obsertations of a particular data table at the UTD API server
+#' Previewing a data structure and its variables which a user requests
+#' @description This function retruns the 100 observations of a particular data table
 #' @return A data frame of a specified data table.
-#' @note The retrived data are shown in `View()`, but the class of the variable, `_id`, is a dataframe. To check the data
-#' with `edit()` with no warning or error, the variable of `_id` need to be dropped.
+#' @note The retrived data are invoked in a spreadsheet-style by `View()`, but the class of the variable, `_id`,
+#' in the data is a datafame, so it returns error if you view them by `edit()`. To check the data
+#' with `edit()`, the variable of `_id` needs to be dropped.
 #' @importFrom jsonlite fromJSON
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
