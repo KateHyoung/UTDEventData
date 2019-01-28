@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2019-01-22" />
+<meta name="date" content="2019-01-28" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -110,7 +110,7 @@ The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a 
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2019-01-22</em></h4>
+<h4 class="date"><em>2019-01-28</em></h4>
 
 
 
@@ -373,8 +373,8 @@ data &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span cl
 <div id="usage-examples" class="section level1">
 <h1>Usage examples</h1>
 <p>A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <a href="http://eventdata.utdallas.edu/signup" class="uri">http://eventdata.utdallas.edu/signup</a>.</p>
-<div id="exampe-1---using-pulldata" class="section level2">
-<h2>Exampe 1 - using <code>pullData()</code></h2>
+<div id="example-1---using-pulldata" class="section level2">
+<h2>Example 1 - using <code>pullData()</code></h2>
 <p>After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Note: k &lt;- &quot;...provided API key&quot;</span>
 dt &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;RUS&quot;</span>, <span class="st">&quot;SYR&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20180101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20180331&quot;</span>, <span class="dt">citation =</span> F)
