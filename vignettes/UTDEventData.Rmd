@@ -356,7 +356,7 @@ library(UTDEventData)
 k <- 'CD75737EF4CAC292EE17B85AAE4B6'
 ```
 
-## Exampe 1 - using `pullData()`
+## Example 1 - using `pullData()`
 After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
 
 ```{r, eval = FALSE, fig.height=3, fig.width=5}
