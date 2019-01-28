@@ -11,6 +11,7 @@ There are several functions to explore and extract data in the package. More det
 - citeData( ): for citing the package and data tables in the UTD server for publications
 - DataTable( ): for looking up the data table at UTD data 
 - TableVar( ): for looking up the variables in a specified data table
+- previewData( ): for previewing the data of a particular data table
 - pullData( ): for extracting a data set with countries and time range 
 - getQuerySize(): for measuring the size of requested data to the server
 - sendQuery( ): for requesting specified data to the API server to extract a data set
