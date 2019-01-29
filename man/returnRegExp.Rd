@@ -27,7 +27,8 @@ Please use this function only with the field that is not used in the other query
 For instance; if you subset the data with a certain country, use the function, `returnCountries()`.
 }
 \examples{
-\dontrun{# to get all source actors related to governments in ICEWS
+\dontrun{
+# to get all source actors related to governments in ICEWS
 reg <- returnRegExp(api_key, "icews","GOV","Source Name")
 # to subset the cline_phoenix_nyt data by year == 2001
 myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}

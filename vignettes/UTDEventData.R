@@ -18,7 +18,7 @@
 ## ---- eval = FALSE-------------------------------------------------------
 #  tableVar(api_key="...", table="phoenix_rt")
 #  
-#  # with the manner of using a saved API string to avoid the repeation of API key typing
+#  # in the manner of using a saved API string to avoid the repeation of API key typing
 #  k <-"...api key...."
 #  tableVar(k, "Phoenix_rt")
 #  
@@ -35,18 +35,19 @@
 #  '" Target Name"    " Target Sectors", ....'
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
-#           start="20171101", end="20171112", citation = TRUE)
-#  
+#  dataSample <- preveiwData(api_key, "PHOENIX_RT")
+#  View(dataSample)
+
+## ---- eval = FALSE-------------------------------------------------------
 #  ## several examples of different data tables with citation texts
 #  k <-'api key...'
-#  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102')
-#  subset2 <- pullData(k, "icews", list('can', 'usa'), '20010101','20010110')
-#  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'),
-#                      '19551105','19581215')
+#  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', T)
+#  data <- subset1$data
+#  # to print the citation texts
+#  subset1$citation
 #  
-#  # if you don't want to prnt the data citation texts
-#  pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102',
+#  # to avoid the citation texts
+#  data <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102',
 #           citation = FALSE)
 
 ## ---- eval=FALSE---------------------------------------------------------
@@ -62,12 +63,24 @@
 #  obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # request a data set with the list of created queries
+#  # basic usage
 #  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
+#  
+#  # to store the ICEWS subset in the vector of myData without the citation
+#  myData <- sendQuery(api_key,"icews", query_block, citation = TRUE)
+#  # store the data only
+#  myData <- myData$data
+#  # print citation texts only
+#  myData$citation
+#  
+#  # without the citation text
+#  myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # genrate a query for all source actors that involved in governments in events
-#  others <- returnRegExp( api_key, table_name,"GOV","Source Name")
+#  govQuery <- returnRegExp( api_key, "ICEWS", "GOV","Source Name")
+#  # to subset the cline_phoenix_nyt data by year == 2001
+#  nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # generating a query of the United States and Canada as a country restraint for real-time event data
@@ -79,25 +92,25 @@
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
-#  q <- returnLatLon(-80,30,20,80)
+#  locQuery <- returnLatLon(-80,30,20,80)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # genrate a query that a source country is Syria and a target country is the United States
 #  dyad <- returnDyad(table_name, "SYR", "USA")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # combine stored query blocks such as 'time' or 'q' created before
-#  and_query <- andList(list(q,time))
+#  # combine stored query blocks such as 'time' or 'locQuery' created before
+#  and_query <- andList(list(locQuery, time))
 #  
-#  # subset with two or more stored query blocks such as 'q' or 'dyad'
-#  or_query <- orList(list(q,dyad))
+#  # subset with two or more stored query blocks such as 'locQuery' or 'dyad'
+#  or_query <- orList(list(locQuery, dyad))
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  
 #  # examples of subsetting functions
 #  
 #  # creating query blocks
-#  # A country constrain of 'CHN' and 'USA'
+#  # a country constrain of 'CHN' and 'USA'
 #  k <- 'api_key'
 #  ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
 #  
@@ -111,6 +124,7 @@
 #  
 #  # to view the subset
 #  head(d1$data, 10)
+#  View(d1)
 #  
 #  # a boolean logic, and, with the two query blocks
 #  and_query <- andList(list(ctr, time))
@@ -118,6 +132,7 @@
 #  
 #  # to view the subset
 #  head(d2$data, 10)
+#  View(d2)
 #  
 #  # when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
 #  rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
@@ -127,9 +142,8 @@
 #  # to view the data
 #  # because the option for citation was off, package's citation was not printed.
 #  head(data, 10)
+#  View(data)
 #  
-#  # to get the entire data of Cline_phoenix_fbis
-#  data <- sendQuery(k, table_name = "cline_phoenix_fbis", query = "entire", citation = FALSE)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # estimate the data size you want to extract
