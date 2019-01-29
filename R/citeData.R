@@ -2,19 +2,20 @@
 ################ Citation functions #####################
 ################    Kate H. Kim     #####################
 #########################################################
-#' Properly citing data tables in the UTD Event data server for publications.
+#' Obtaining the text or Bibtax to properly cite the data downloaded from the UTD Event data server for publications
 #' @description This function returns the citation texts in text and Bibtex formats of data sets a user extracts
-#' by the UTDEventData package with a data table name.
+#' by the UTDEventData package.
 #' @param table_name a name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @return The texts of propor citations for publication in text and Bibtex formats
+#' @return The texts of proper citations for publication in text and Bibtex formats
+#' @note The citing texts for the package can be found after requesting data with `pullData()` or 'sendQeury()`.
 #' @export
-#' @examples # citations for Cline Phoenix Event data
+#' @examples \donrun{# citations for Cline Phoenix Event data
 #' citeData("cline_Phoenix_swb")
 #' # citations for ICEWS
 #' citeData("icews")
 #' # citation for real-time phoenix data
-#' citeData("phoenix_rt")
+#' citeData("phoenix_rt")}
 citeData <- function(table_name = "") {
 
   tn <- tolower(table_name)

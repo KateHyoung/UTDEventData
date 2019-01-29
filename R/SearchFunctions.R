@@ -19,14 +19,14 @@
 #' \item {Phoenix FBIS:} {accumulated from 1995 to 2004, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #' \item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #'  }
-#' @return A list of the data tables currently downloadable from the UTD server in a characer format
+#' @return A list of the data tables currently downloadable from the UTD server as a character format
 #' @param api_key an API key provided by the UTD server manager
 #' @export
-#' @examples DataTables(api_key=" ")
+#' @examples \dontrun{DataTables(api_key=" ")
 #'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #'
 #'  k <- "api_key"
-#'  DataTables(k)  # The same return will be printed
+#'  DataTables(k)}
 
 DataTables<-function (api_key=" ")
 {
@@ -43,13 +43,13 @@ DataTables<-function (api_key=" ")
 
 #' Searching the variables in a particular data table
 #' @description Searching the list of variables in the data table a user specifies.
-#' It returns variables names and requires an API key. \cr
-#' You can also look up a particular word for variabla names such as "day", "month", or "src" so that you can find whether or not a
+#' It returns variable names and requires an API key. \cr
+#' You can also look up a particular word of variabla names such as "day", "month", or "src" so that you can find whether or not a
 #' specified data table has the certain variables you need. \cr
-#' The API key can be obtained after filling out the form in the UTD event data sign-up website
+#' The API key can be obtained after submitting the form in the UTD event data sign-up website
 #' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #' You can also use this function through the reference class, \code{Table()}.
-#' Please find the help document of the \code{Table()} function for more details on its usage.
+#' Please find the help document of the \code{Table()} function for more details of its usage.
 #' @param api_key an API key from the developer at UTD
 #' @param table a specific data table a user wants to explore its variables
 #' @param lword a look-up word for a particular variable name you need
