@@ -133,10 +133,11 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' @param field A field (variable) of a data table
 #' @note Please use this function only with the field that is not used in the other query block function.
 #' For instance; if you subset the data with a certain country, use the function, `returnCountries()`.
-#' @examples \dontrun{# to get all source actors related to governments in ICEWS
+#' @examples \dontrun{
+#' # to get all source actors related to governments in ICEWS
 #' reg <- returnRegExp(api_key, "icews","GOV","Source Name")
 #' # to subset the cline_phoenix_nyt data by year == 2001
-# nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
+#  nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 #' myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
   f = paste(" ",field,sep='')
