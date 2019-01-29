@@ -27,7 +27,7 @@ The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
 A list with components
     \itemize{
          \item{}{\code{$data    }   a data frame of requested data. An attribute of the data can be formatted as data.frame. Please check the features of data if it's necessary}
-         \item{}{\code{$citation}    a text of data citation}
+         \item{}{\code{$citation}    a text of the package citation}
           }
 }
 \description{

@@ -7,7 +7,7 @@
 andList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of other query blocks that should be entered in `list()`}
+\item{query_prep}{A list of query blocks that should be entered in `the list()` format}
 }
 \value{
 A list of several query blocks corresponding to a particular data table
@@ -15,8 +15,13 @@ A list of several query blocks corresponding to a particular data table
 \description{
 This function retuns the list of comination two or more query blocks.
 }
+\note{
+Please make sure that specifying the same data table in all query block functions to avoid errors
+}
 \examples{
-# If you want to subset with two or more stored query blocks such as q or f
-and_query <- andList(list(q,f))
-
+\dontrun{# to subset real-time data with the constraint of a time range and a dyad
+t <- returnTimes("phoenix_rt", "20171015", "20171215")
+dyad <- returnDyad('Phoexnix_rt', 'RUS', 'SYR')
+# building an AND-query of a certain time and the country dyad
+and_query <- andList(list(t,dyad))}
 }

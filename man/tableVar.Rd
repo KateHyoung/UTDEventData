@@ -18,13 +18,13 @@ A list of variable names of the specified data table
 }
 \description{
 Searching the list of variables in the data table a user specifies.
-It returns variables names and requires an API key. \cr
-You can also look up a particular word for variabla names such as "day", "month", or "src" so that you can find whether or not a
+It returns variable names and requires an API key. \cr
+You can also look up a particular word of variabla names such as "day", "month", or "src" so that you can find whether or not a
 specified data table has the certain variables you need. \cr
-The API key can be obtained after filling out the form in the UTD event data sign-up website
+The API key can be obtained after submitting the form in the UTD event data sign-up website
 (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 You can also use this function through the reference class, \code{Table()}.
-Please find the help document of the \code{Table()} function for more details on its usage.
+Please find the help document of the \code{Table()} function for more details of its usage.
 }
 \examples{
 # when searching the variables in Phoenix_RT

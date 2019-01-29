@@ -6,7 +6,7 @@
 \title{A reference class to apply a given API key to extracting functions in this package}
 \description{
 Once a referece class is set, a user does not need to repeatedly put an API key into a function.
-An API key can be obtained after filling out the form in the UTD event data sign-up website (\url{http://eventdata.utdallas.edu/signup}).
+An API key can be obtained after submitting an API request form in the sign-up website (\url{http://eventdata.utdallas.edu/signup}).
 Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 }
 \section{Fields}{
@@ -40,15 +40,15 @@ the UTD Event data server by country names and time ranges.
 }}
 
 \examples{
-# Creating an object
+# creating an object
 obj<-Table$new()
 
-# Setting an object of an API key
+# setting an object of an API key
 obj$setAPIKey("....")
 
-# Once the object of an API is set, a user no need to repeat typing an API key to use the subsetting functions
+# once the object of an API is set, a user no need to repeat typing an API key to use the subsetting functions
 obj$DataTable()  # returns the available data tables in the UTD server
 
-# when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
+# when a user wants to subset real-time data ('phoenix_rt') from 20171101 to 20171102 on MEX (Mexico)
 obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 }

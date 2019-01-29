@@ -10,23 +10,28 @@ sendQuery(api_key = "", table_name = "", query = list(),
 \arguments{
 \item{api_key}{An API key provided by a server manager at UTD}
 
-\item{table_name}{A name of a data table a user specifies. Your input is NOT
-case-sensitive.}
+\item{table_name}{A name of a data table a user specifies. Your input is NOT case-sensitive.}
 
-\item{query}{A list of query blocks a user builds with other query block functions
-If you enter `query = "entire"`, then the entire data will be returned.
-Please note the size of the data you request. It may cause a memory issue on your device.}
+\item{query}{A list of query blocks or a single query block a user builds with the other query functions.}
 
 \item{citation}{The option for printing a package citation at the end of data retrival. The default of option is TRUE.}
 }
 \value{
-A list of data and citation texts
+A list with components
+    \itemize{
+         \item{}{\code{$data    }   a data frame of requested data. An attribute of the data can be formatted as data.frame. Please check the features of data if it's necessary}
+         \item{}{\code{$citation}   a text of the package citation}
+          }
 }
 \description{
-This function retruns the data a user requests by a composition of query blocks
+This function retruns the data and the package citation a user requests
+}
+\note{
+If an error message is returned, please increase the memory size your R is allocated. This error is more
+frequently occurred in a Windows machine.
 }
 \examples{
-sendQuery(api_key,"icews", query_block, citation = FALSE)
-# To retrieve the entire data of phoenix_rt
-data <- sendQuery(api_key, "phoenix_rt", "entire", citation = FALSE)
+\dontrun{ # to store the ICEWS subset in the vector of myData without the citation
+# query_block means the list of queries created from other functions such as `returnDyad()` or `returnTimes()`
+myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)}
 }

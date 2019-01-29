@@ -9,20 +9,17 @@ getQuerySize(api_key = "", table_name = "", query = list())
 \arguments{
 \item{api_key}{An API key provided by a server manager at UTD}
 
-\item{table_name}{A name of a data table a user specifies. Your input is NOT
-case-sensitive.}
+\item{table_name}{A name of a data table a user specifies. Your input is NOT case-sensitive.}
 
-\item{query}{A list of query blocks a user builds with other query block functions
-If you enter `query = "entire"`, then the size of the entire data will be returned.}
+\item{query}{A list of query blocks a user builds with other query block functions}
 }
 \value{
-A data size in bytes
+A text of the data size in bytes
 }
 \description{
 This function retruns a data size in a string format
 }
 \examples{
-getQuerySize(api_key,"Phoenix_rt", query_blocks)
-# To get the size of entire data of ICEWS
-getQuerySize(api_key, "icews", "entire")
+\dontrun{ # to measure the size of the query blocks builded with the other functions
+getQuerySize(api_key,"Phoenix_rt", query_blocks)}
 }

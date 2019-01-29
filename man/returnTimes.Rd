@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnTimes}
 \alias{returnTimes}
-\title{Creating of a query block of a time range}
+\title{Creating of a query block of a time range before applying the query to `sendQuery()`}
 \usage{
 returnTimes(table_name = " ", start = " ", end = " ")
 }
@@ -18,10 +18,10 @@ case-sensitive.}
 A list of dates for start and end of a time range
 }
 \description{
-This function returns the time range a user specifies in the funtion
+This function returns the list of a time range a user specifies
 }
 \examples{
-# to create the time ragne between Nov. 2, 2017 and
-# Nov. 4, 2017 for data aggretation
-t <- returnTimes("phoenix_rt", "20171102","20171104")
+\\donotrun{# to create the time ragne between Nov. 2, 2017 and
+# Nov. 4, 2017 for the subset of real-time Phoenix data
+t <- returnTimes("phoenix_rt", "20171102","20171104")}
 }

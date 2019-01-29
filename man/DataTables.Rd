@@ -10,7 +10,7 @@ DataTables(api_key = " ")
 \item{api_key}{an API key provided by the UTD server manager}
 }
 \value{
-A list of the data tables currently downloadable from the UTD server in a characer format
+A list of the data tables currently downloadable from the UTD server as a character format
 }
 \description{
 Searching available data tables in the event data server.
@@ -30,9 +30,9 @@ The details of data tables are illustrated in the linked websites. \cr
  }
 }
 \examples{
-DataTables(api_key=" ")
+\dontrun{DataTables(api_key=" ")
  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
  k <- "api_key"
- DataTables(k)  # The same return will be printed
+ DataTables(k)}
 }

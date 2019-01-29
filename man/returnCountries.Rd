@@ -2,12 +2,12 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnCountries}
 \alias{returnCountries}
-\title{Creating a query block of countries}
+\title{Creating a query block of countries before applying the query block to `sendQuery()`}
 \usage{
 returnCountries(table_name = " ", country = list())
 }
 \arguments{
-\item{table_name}{a name of a data table a user specifies. Your input is NOT
+\item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
 \item{country}{A list of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but

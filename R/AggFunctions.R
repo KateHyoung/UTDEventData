@@ -5,7 +5,7 @@
 ############     Jan. 2019           ##############
 ##################################################
 
-# Creating a query block of countries before applying the query block to `sendQuery()`
+#' Creating a query block of countries before applying the query block to `sendQuery()`
 #' @description This function returns the list of countries a user specifies
 #' @return A list of country query blocks
 #' @importFrom countrycode countrycode
@@ -116,7 +116,7 @@ returnDyad <- function(table_name, source, target) {
 #' @param lat2 the maximum value of latitidue of a event boundary
 #' @param log1 the minimum value of longitude of a event boundary
 #' @param log2 the maximum value of longitude of a event boundary
-#' @examples \dontrun {# to build the location constraint with the latitude of (-80, 30) and the longitude of (20, 80)
+#' @examples \dontrun{# to build the location constraint with the ranges of latitudes the longitudes
 #' geo <- returnLatLon(-10,30,40,70)}
 returnLatLon <- function(lat1, lat2, lon1, lon2) {
   return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lon2)))

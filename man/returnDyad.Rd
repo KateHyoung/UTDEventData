@@ -2,25 +2,28 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnDyad}
 \alias{returnDyad}
-\title{Creating a list of the dayd countries of source and target actors}
+\title{Building a list of the dayd query block as source and target actors respectively}
 \usage{
 returnDyad(table_name, source, target)
 }
 \arguments{
-\item{table_name}{a name of a data table a user specifies. Your input is NOT
+\item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{target}{The name of a target country either an ISO code or a country name}
+\item{target}{The name of a target country either an ISO code or a country name format}
 
-\item{soure}{The name of a source country either an ISO code or a country name}
+\item{soure}{The name of a source country either an ISO code or a country name format}
 }
 \value{
-A list of the queary syntax of source and target countries
+A list of the queary block of source and target countries
 }
 \description{
-This function returns a vector of query syntax for a dayd information
+This function returns a list of a query block of a source-target country dyad
+}
+\note{
+Please use the consistent format for source and target countries such as `"USA", "CAN"`` or `"Uniated States", "Canada"`
 }
 \examples{
- # When you have a dyad query of Syria as a source and the United State as a target
-dyad <- returnDayd("pheonix_rt", "SYR", "USA")
+ \dontrun{# building a dyad query of Syria as a source and the United State as a target
+dyad <- returnDayd("pheonix_rt", "SYR", "USA")}
 }
