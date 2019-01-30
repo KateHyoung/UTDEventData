@@ -16,7 +16,7 @@
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  tableVar(api_key="...", table="phoenix_rt")
+#  tableVar(api_key="...", table = "phoenix_rt")
 #  
 #  # in the manner of using a saved API string to avoid the repeation of API key typing
 #  k <-"...api key...."
@@ -27,7 +27,7 @@
 #  tableVar(k, "Cline_Phoenix_swb")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  tableVar(api_key="...", table="icews", lword="target")
+#  tableVar(api_key = "...", table = "icews", lword = "target")
 #  
 #  # when a user wants to know the attribute that labeled as 'target' in ICEWS
 #  k <- "..api key..."
@@ -35,14 +35,17 @@
 #  '" Target Name"    " Target Sectors", ....'
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  dataSample <- preveiwData(api_key, "PHOENIX_RT")
+#  dataSample <- previewData(api_key = " ", table_name = "PHOENIX_RT")
 #  View(dataSample)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  ## several examples of different data tables with citation texts
 #  k <-'api key...'
-#  subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', T)
+#  subset1 <- pullData(api_key = k, table_name = "phoenix_rt", country = list('canada','China'), start = '20171101',
+#                      end = '20171102', T)
+#  # to store the data only
 #  data <- subset1$data
+#  
 #  # to print the citation texts
 #  subset1$citation
 #  
@@ -67,6 +70,7 @@
 #  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 #  
 #  # to store the ICEWS subset in the vector of myData without the citation
+#  # query_block is a list of the quries built by the query block functions illustrated in following chapter
 #  myData <- sendQuery(api_key,"icews", query_block, citation = TRUE)
 #  # store the data only
 #  myData <- myData$data
@@ -78,32 +82,32 @@
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # genrate a query for all source actors that involved in governments in events
-#  govQuery <- returnRegExp( api_key, "ICEWS", "GOV","Source Name")
+#  govQuery <- returnRegExp( api_key = " " , table_name = "phoenix_rt", pattern = "GOV", field = "src_agent")
 #  # to subset the cline_phoenix_nyt data by year == 2001
-#  nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
+#  nytQuery <- returnRegExp( "api_key", 'cline_phoenix_nyt', '2001', 'year')
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # generating a query of the United States and Canada as a country restraint for real-time event data
-#  ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+#  ctr <- returnCountries(table_name = "phoenix_rt", country = list("USA","CAN"))
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data
 #  time <- returnTimes("icews",  "19800727", "20041210")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  # generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
-#  locQuery <- returnLatLon(-80,30,20,80)
+#  # generate a query with a geo-location bountry with the latitude between -80 and 30 and the longitude between 20 and 80
+#  locQuery <- returnLatLon(lat1 = -80, lat2 = 30, lon1 = 20, lon2 = 80)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # genrate a query that a source country is Syria and a target country is the United States
-#  dyad <- returnDyad(table_name, "SYR", "USA")
+#  dyad <- returnDyad(table_name = , source = "SYR", target = "USA")
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # combine stored query blocks such as 'time' or 'locQuery' created before
-#  and_query <- andList(list(locQuery, time))
+#  and_query <- andList(query_prep = list(locQuery, time))
 #  
 #  # subset with two or more stored query blocks such as 'locQuery' or 'dyad'
-#  or_query <- orList(list(locQuery, dyad))
+#  or_query <- orList(query_prep = list(locQuery, dyad))
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  
@@ -147,7 +151,7 @@
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # estimate the data size you want to extract
-#  getQuerySize('api_key', 'table_name', "query object")
+#  getQuerySize(api_key = " ", table_name = " ", query = list())
 #  
 #  # if the error message is noted, estimate the data a user has requested
 #  getQuerySize(k, 'phoenix_rt', q)
@@ -167,11 +171,6 @@
 #  
 #  # for the citations for ICEWS
 #  citeData(table_name = "ICEWS")
-
-## ---- echo=FALSE---------------------------------------------------------
-# loading the package
-library(UTDEventData)
-k <- 'CD75737EF4CAC292EE17B85AAE4B6'
 
 ## ---- eval = FALSE, fig.height=3, fig.width=5----------------------------
 #  # Note: k <- "...provided API key"

@@ -179,7 +179,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <h1>Functions</h1>
 <div id="searching-functions" class="section level2">
 <h2>Searching functions</h2>
-<p>The search functions help users to explore 1) the data tables in the UTD API server and 2) the attributes (variables) in a particular table. Moreover, Users can view the 100 sample data of each data table so as to checks its data structure and particular values and patterns of attributes before downloading them on thier own computers.</p>
+<p>The search functions help users to explore 1) the data tables in the UTD API server and 2) the attributes (variables) in a particular table. Moreover, Users can view the 100 sample data of each data table so as to check its data structure and particular values and patterns of attributes before downloading them on thier own computers.</p>
 <p><code>DataTables()</code> returns all data table names in the UTD server.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># returning all data table the server contains with entering an API key</span>
 <span class="kw">DataTables</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>)
@@ -190,7 +190,7 @@ k &lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">DataTables</span>(k)
 <span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span></code></pre></div>
 <p><code>tableVar()</code> returns the list of variables (attributes) in a particular data table a user specified in the function. For example, the variables in the Phoenix real-time (RT) data can be obtained as shown in the following example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;phoenix_rt&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;phoenix_rt&quot;</span>)
 
 <span class="co"># in the manner of using a saved API string to avoid the repeation of API key typing </span>
 k &lt;-<span class="st">&quot;...api key....&quot;</span>
@@ -201,14 +201,14 @@ k &lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
 <p>This function is <strong>not</strong> case sensitive, so a user may type either lower case or upper case of the data table name. However, the full name as returned by <code>Table()</code> should be entered in the function when applying the table name in other functions. For instance, <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but <code>&quot;cline_phenix&quot;</code> will return noting.</p>
 <p>This function has another feature that a user can look up a particular variable in a data set. For example, one who may wonder the ICEWS data have a variable named “target” can type the string of the certain variable as follows;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key =</span> <span class="st">&quot;...&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;icews&quot;</span>, <span class="dt">lword =</span> <span class="st">&quot;target&quot;</span>)
 
 <span class="co"># when a user wants to know the attribute that labeled as 'target' in ICEWS</span>
 k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 <span class="st">'&quot; Target Name&quot;    &quot; Target Sectors&quot;, ....'</span></code></pre></div>
 <p><code>previewData()</code> shows the 100 obsertaions of a data table as an example in order to explore the features of certain variables. Users may need to confirm the pattern to extract the correct data they are interested in. This function can be useful when building a query block with a regular expression (<code>returnRegExp()</code>) function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataSample &lt;-<span class="st"> </span><span class="kw">preveiwData</span>(api_key, <span class="st">&quot;PHOENIX_RT&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataSample &lt;-<span class="st"> </span><span class="kw">previewData</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot;PHOENIX_RT&quot;</span>)
 <span class="kw">View</span>(dataSample)</code></pre></div>
 <p> </p>
 </div>
@@ -222,8 +222,11 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <p>The following code is the example usage of <code>pullData()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## several examples of different data tables with citation texts
 k &lt;-<span class="st">'api key...'</span>
-subset1 &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="st">'20171101'</span>, <span class="st">'20171102'</span>, T)
+subset1 &lt;-<span class="st"> </span><span class="kw">pullData</span>(<span class="dt">api_key =</span> k, <span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">country =</span> <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="dt">start =</span> <span class="st">'20171101'</span>, 
+                    <span class="dt">end =</span> <span class="st">'20171102'</span>, T)
+<span class="co"># to store the data only</span>
 data &lt;-<span class="st"> </span>subset1<span class="op">$</span>data
+
 <span class="co"># to print the citation texts</span>
 subset1<span class="op">$</span>citation
 
@@ -266,6 +269,7 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 <span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">list</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
 <span class="co"># to store the ICEWS subset in the vector of myData without the citation</span>
+<span class="co"># query_block is a list of the quries built by the query block functions illustrated in following chapter</span>
 myData &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(api_key,<span class="st">&quot;icews&quot;</span>, query_block, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 <span class="co"># store the data only</span>
 myData &lt;-<span class="st"> </span>myData<span class="op">$</span>data
@@ -280,32 +284,32 @@ myData &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(api_key,<
 <p><code>returnRegExp()</code> can be used for a special case as indicating a particular value or a pattern of the variables in the API data table. To use this function, a user must aware the variables in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package and the pattern is confirmed by <code>previewData()</code>. The function requires users to have an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in the data table.</p>
 <p>The query block functions return the lists of queries.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
-govQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( api_key, <span class="st">&quot;ICEWS&quot;</span>, <span class="st">&quot;GOV&quot;</span>,<span class="st">&quot;Source Name&quot;</span>)
+govQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( <span class="dt">api_key =</span> <span class="st">&quot; &quot;</span> , <span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;GOV&quot;</span>, <span class="dt">field =</span> <span class="st">&quot;src_agent&quot;</span>)
 <span class="co"># to subset the cline_phoenix_nyt data by year == 2001</span>
-nytQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>(api_key, <span class="st">'cline_phoenix_nyt'</span>, <span class="st">'2001'</span>, <span class="st">'year'</span>)</code></pre></div>
+nytQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( <span class="st">&quot;api_key&quot;</span>, <span class="st">'cline_phoenix_nyt'</span>, <span class="st">'2001'</span>, <span class="st">'year'</span>)</code></pre></div>
 <p><code>returnCountries()</code> is the function that creates the list of countries. The country means the geolocation where a certain event occurred in a news article. The function requires users to specify the names of the data table and countries. The ISO-3 Code format is recommended for the country names, but full country names can work in the function. The inputs are <em>case-insensitive</em>. But we recommend using a consist way in the country name input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generating a query of the United States and Canada as a country restraint for real-time event data</span>
-ctr &lt;-<span class="st"> </span><span class="kw">returnCounries</span>(<span class="st">&quot;phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
+ctr &lt;-<span class="st"> </span><span class="kw">returnCountries</span>(<span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">country =</span> <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
 <p><code>returnTimes()</code> is the function that generates a query to return all events between two time points. The format of typing time should be “YYYYMMDD” in the order of the start and the end points of the time range. A user must identify a data table in the function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generates a query to return all events between July 27, 1980, and December 10, 2004 for ICEWS data</span>
 time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;icews&quot;</span>,  <span class="st">&quot;19800727&quot;</span>, <span class="st">&quot;20041210&quot;</span>)</code></pre></div>
-<p><code>returnLatLon()</code> returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, log1, log2</code>. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80</span>
-locQuery &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">30</span>,<span class="dv">20</span>,<span class="dv">80</span>)</code></pre></div>
+<p><code>returnLatLon()</code> returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by <code>lat1, lat2, lon1, lon2</code>. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query with a geo-location bountry with the latitude between -80 and 30 and the longitude between 20 and 80</span>
+locQuery &lt;-<span class="st"> </span><span class="kw">returnLatLon</span>(<span class="dt">lat1 =</span> <span class="op">-</span><span class="dv">80</span>, <span class="dt">lat2 =</span> <span class="dv">30</span>, <span class="dt">lon1 =</span> <span class="dv">20</span>, <span class="dt">lon2 =</span> <span class="dv">80</span>)</code></pre></div>
 <p>The <code>returnDyad()</code> function creates a query of particular dyads of actors in countries. In the function, a user must specify a table name and source and target countries respectively. The ISO-3 codes for country names are recommended as function inputs, but full names of countries also work in this function. These inputs are not case-sensitive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query that a source country is Syria and a target country is the United States</span>
-dyad &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(table_name, <span class="st">&quot;SYR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</code></pre></div>
+dyad &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(<span class="dt">table_name =</span> , <span class="dt">source =</span> <span class="st">&quot;SYR&quot;</span>, <span class="dt">target =</span> <span class="st">&quot;USA&quot;</span>)</code></pre></div>
 </div>
-<div id="connectivive-functions" class="section level3">
-<h3>Connectivive functions</h3>
+<div id="connective-functions" class="section level3">
+<h3>Connective functions</h3>
 <p>These functions play a role to connect several query blocks created by aforementioned functions. The two functions, <code>andList()</code> and <code>orList()</code>, work as logical operators, <strong>“and”</strong> and <strong>“or”</strong>, respectively.</p>
 <p><code>andList()</code> is the function that returns the intersection of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function.</p>
 <p><code>orList()</code> returns a union of two or more query blocks. The stored queries should be specified in the <code>list()</code> format in the function as shown in the following examples.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine stored query blocks such as 'time' or 'locQuery' created before</span>
-and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">list</span>(locQuery, time))
+and_query &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="dt">query_prep =</span> <span class="kw">list</span>(locQuery, time))
 
 <span class="co"># subset with two or more stored query blocks such as 'locQuery' or 'dyad'</span>
-or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="kw">list</span>(locQuery, dyad))</code></pre></div>
+or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span class="dt">query_prep =</span> <span class="kw">list</span>(locQuery, dyad))</code></pre></div>
 </div>
 <div id="examples-of-subsetting-ii" class="section level3">
 <h3>Examples of subsetting II</h3>
@@ -354,7 +358,7 @@ data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span cl
 <p>This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, a user may need to increase its maximum.</p>
 <p>please see the following examples;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
-<span class="kw">getQuerySize</span>(<span class="st">'api_key'</span>, <span class="st">'table_name'</span>, <span class="st">&quot;query object&quot;</span>)
+<span class="kw">getQuerySize</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot; &quot;</span>, <span class="dt">query =</span> <span class="kw">list</span>())
 
 <span class="co"># if the error message is noted, estimate the data a user has requested</span>
 <span class="kw">getQuerySize</span>(k, <span class="st">'phoenix_rt'</span>, q)
