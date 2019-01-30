@@ -72,7 +72,7 @@ The codes/functions in this documentation have been tested in the following vers
 
 ## Searching functions
 
-The search functions help users to explore 1) the data tables in the UTD API server and 2) the attributes (variables) in a particular table. Moreover, Users can view the 100 sample data of each data table so as to checks its data structure and particular values and patterns of attributes before downloading them on thier own computers.
+The search functions help users to explore 1) the data tables in the UTD API server and 2) the attributes (variables) in a particular table. Moreover, Users can view the 100 sample data of each data table so as to check its data structure and particular values and patterns of attributes before downloading them on thier own computers.
 
 `DataTables()` returns all data table names in the UTD server. 
 
@@ -90,7 +90,7 @@ DataTables(k)
 `tableVar()` returns the list of variables (attributes) in a particular data table a user specified in the function. For example, the variables in the Phoenix real-time (RT) data can be obtained as shown in the following example. 
 
 ```{r, eval = FALSE}
-tableVar(api_key="...", table="phoenix_rt")
+tableVar(api_key="...", table = "phoenix_rt")
 
 # in the manner of using a saved API string to avoid the repeation of API key typing 
 k <-"...api key...."
@@ -106,7 +106,7 @@ This function is **not** case sensitive, so a user may type either lower case or
 This function has another feature that a user can look up a particular variable in a data set. For example, one who may wonder the ICEWS data have a variable named "target" can type the string of the certain variable as follows;
 
 ```{r, eval = FALSE }
-tableVar(api_key="...", table="icews", lword="target")
+tableVar(api_key = "...", table = "icews", lword = "target")
 
 # when a user wants to know the attribute that labeled as 'target' in ICEWS
 k <- "..api key..."
@@ -118,7 +118,7 @@ tableVar(k, table="icews", lword="target")
 `previewData()` shows the 100 obsertaions of a data table as an example in order to explore the features of certain variables. Users may need to confirm the pattern to extract the correct data they are interested in. This function can be useful when building a query block with a regular expression (`returnRegExp()`) function. 
 
 ```{r, eval = FALSE }
-dataSample <- preveiwData(api_key, "PHOENIX_RT")
+dataSample <- previewData(api_key = " ", table_name = "PHOENIX_RT")
 View(dataSample)
 ```
 
@@ -141,8 +141,11 @@ The following code is the example usage of `pullData()`.
 ```{r, eval = FALSE}
 ## several examples of different data tables with citation texts
 k <-'api key...'
-subset1 <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102', T)
+subset1 <- pullData(api_key = k, table_name = "phoenix_rt", country = list('canada','China'), start = '20171101', 
+                    end = '20171102', T)
+# to store the data only
 data <- subset1$data
+
 # to print the citation texts
 subset1$citation
 
@@ -200,6 +203,7 @@ The function print the citation texts of publication and BibTeX formats at the e
 sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
 
 # to store the ICEWS subset in the vector of myData without the citation
+# query_block is a list of the quries built by the query block functions illustrated in following chapter
 myData <- sendQuery(api_key,"icews", query_block, citation = TRUE)
 # store the data only
 myData <- myData$data
@@ -219,9 +223,9 @@ The query block functions return the lists of queries.
 
 ```{r, eval = FALSE}
 # genrate a query for all source actors that involved in governments in events
-govQuery <- returnRegExp( api_key, "ICEWS", "GOV","Source Name")
+govQuery <- returnRegExp( api_key = " " , table_name = "phoenix_rt", pattern = "GOV", field = "src_agent")
 # to subset the cline_phoenix_nyt data by year == 2001
-nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
+nytQuery <- returnRegExp( "api_key", 'cline_phoenix_nyt', '2001', 'year')
 ```
 
 
@@ -229,7 +233,7 @@ nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 
 ```{r, eval = FALSE}
 # generating a query of the United States and Canada as a country restraint for real-time event data
-ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+ctr <- returnCountries(table_name = "phoenix_rt", country = list("USA","CAN"))
 ```   
 
 `returnTimes()` is the function that generates a query to return all events between two time points. The format of typing time should be "YYYYMMDD" in the order of the start and the end points of the time range. A user must identify a data table in the function. 
@@ -239,22 +243,22 @@ ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
 time <- returnTimes("icews",  "19800727", "20041210")
 ``` 
 
-`returnLatLon()` returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by `lat1, lat2, log1, log2`. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary. 
+`returnLatLon()` returns the geo-location boundary a user specifies with latitudes and longitudes. This function does not require a data table name, but the input should be ordered by `lat1, lat2, lon1, lon2`. They are respectively the minimum and maximum values of the latitudes and minimum and maximum values of longitudes of the boundary. 
 
 ```{r, eval = FALSE}
-# generate a query with a geo-location bountry with the longitude between -80 and 30 and the longitude between 20 and 80
-locQuery <- returnLatLon(-80,30,20,80)
+# generate a query with a geo-location bountry with the latitude between -80 and 30 and the longitude between 20 and 80
+locQuery <- returnLatLon(lat1 = -80, lat2 = 30, lon1 = 20, lon2 = 80)
 ```
 
 The `returnDyad()` function creates a query of particular dyads of actors in countries. In the function, a user must specify a table name and source and target countries respectively. The ISO-3 codes for country names are recommended as function inputs, but full names of countries also work in this function. These inputs are not case-sensitive. 
 
 ```{r, eval = FALSE}
 # genrate a query that a source country is Syria and a target country is the United States
-dyad <- returnDyad(table_name, "SYR", "USA")
+dyad <- returnDyad(table_name = , source = "SYR", target = "USA")
 ```
 
 
-### Connectivive functions 
+### Connective functions 
 
 These functions play a role to connect several query blocks created by aforementioned functions. The two functions, `andList()` and `orList()`, work as logical operators, **"and"** and **"or"**, respectively.  
 
@@ -264,10 +268,10 @@ These functions play a role to connect several query blocks created by aforement
 
 ```{r, eval = FALSE}
 # combine stored query blocks such as 'time' or 'locQuery' created before
-and_query <- andList(list(locQuery, time))
+and_query <- andList(query_prep = list(locQuery, time))
 
 # subset with two or more stored query blocks such as 'locQuery' or 'dyad'
-or_query <- orList(list(locQuery, dyad))
+or_query <- orList(query_prep = list(locQuery, dyad))
 ```
 
 
@@ -329,7 +333,7 @@ please see the following examples;
 
 ```{r, eval = FALSE}
 # estimate the data size you want to extract
-getQuerySize('api_key', 'table_name', "query object")
+getQuerySize(api_key = " ", table_name = " ", query = list())
 
 # if the error message is noted, estimate the data a user has requested
 getQuerySize(k, 'phoenix_rt', q)
@@ -364,11 +368,6 @@ citeData(table_name = "ICEWS")
 
 A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <http://eventdata.utdallas.edu/signup>. 
 
-```{r, echo=FALSE}
-# loading the package
-library(UTDEventData)
-k <- 'CD75737EF4CAC292EE17B85AAE4B6'
-```
 
 ## Example 1 - using `pullData()`
 After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
