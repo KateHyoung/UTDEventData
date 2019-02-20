@@ -7,13 +7,13 @@
 returnLatLon(lat1, lat2, lon1, lon2)
 }
 \arguments{
-\item{lat1}{the minimum value of lattitude of a event boundary}
+\item{lat1}{the minimum value of lattitude of a geo-location boundary}
 
-\item{lat2}{the maximum value of latitidue of a event boundary}
+\item{lat2}{the maximum value of latitidue of a geo-location boundary}
 
-\item{log1}{the minimum value of longitude of a event boundary}
+\item{lon1}{the minimum value of longitude of a geo-location boundary}
 
-\item{log2}{the maximum value of longitude of a event boundary}
+\item{lon2}{the maximum value of longitude of a geo-location boundary}
 }
 \value{
 A list of geo-location query blocks

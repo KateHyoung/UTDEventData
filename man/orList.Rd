@@ -13,7 +13,7 @@ orList(query_prep = list())
 A list of several query blocks corresponding to a particular data table
 }
 \description{
-This function retuns  the list of comination two or more query blocks.
+This function retuns  the list of combination two or more query blocks.
 }
 \note{
 Please make sure that specifying the same data table in all query block functions to avoid errors \cr

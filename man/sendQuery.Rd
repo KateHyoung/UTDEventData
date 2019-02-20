@@ -32,6 +32,5 @@ frequently occurred in a Windows machine.
 }
 \examples{
 \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
-# query_block means the list of queries created from other functions such as `returnDyad()` or `returnTimes()`
 myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)}
 }

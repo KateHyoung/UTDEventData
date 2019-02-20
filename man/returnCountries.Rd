@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnCountries}
 \alias{returnCountries}
-\title{Creating a query block of countries before applying the query block to `sendQuery()`}
+\title{Creating a query block for country restraint}
 \usage{
 returnCountries(table_name = " ", country = list())
 }
@@ -21,6 +21,6 @@ A list of country query blocks
 This function returns the list of countries a user specifies
 }
 \examples{
-# to have a query block of the United States and Canada as a country restraint
-ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+\dontrun{# to have a query block of the United States and Canada as a country restraint
+ctr <- returnCountries("phoenix_rt", list("USA","CAN"))}
 }

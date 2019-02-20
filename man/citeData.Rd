@@ -18,13 +18,13 @@ This function returns the citation texts in text and Bibtex formats of data sets
 by the UTDEventData package.
 }
 \note{
-The citing texts for the package can be found after requesting data with `pullData()` or 'sendQeury()`.
+The citation texts for the package can be found after requesting data with `pullData()` or 'sendQeury()`.
 }
 \examples{
-\\donrun{# citations for Cline Phoenix Event data
+\dontrun{# citations for Cline Phoenix Event data
 citeData("cline_Phoenix_swb")
 # citations for ICEWS
 citeData("icews")
-# citation for real-time phoenix data
+# citations for real-time phoenix data
 citeData("phoenix_rt")}
 }

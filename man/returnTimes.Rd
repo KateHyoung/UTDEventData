@@ -21,7 +21,7 @@ A list of dates for start and end of a time range
 This function returns the list of a time range a user specifies
 }
 \examples{
-\\donotrun{# to create the time ragne between Nov. 2, 2017 and
+\dontrun{# to create the time ragne between Nov. 2, 2017 and
 # Nov. 4, 2017 for the subset of real-time Phoenix data
 t <- returnTimes("phoenix_rt", "20171102","20171104")}
 }

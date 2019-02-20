@@ -5,7 +5,7 @@
 ############     Jan. 2019           ##############
 ##################################################
 
-#' Creating a query block of countries before applying the query block to `sendQuery()`
+#' Creating a query block for country restraint
 #' @description This function returns the list of countries a user specifies
 #' @return A list of country query blocks
 #' @importFrom countrycode countrycode
@@ -15,8 +15,8 @@
 #' @param country A list of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 #' the full country name is also working in this function.\cr
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
-#' @examples # to have a query block of the United States and Canada as a country restraint
-#' ctr <- returnCounries("phoenix_rt", list("USA","CAN"))
+#' @examples \dontrun{# to have a query block of the United States and Canada as a country restraint
+#' ctr <- returnCountries("phoenix_rt", list("USA","CAN"))}
 returnCountries <- function(table_name =" ", country = list()) {
 
   # convert the strings to an appropriate format given the database
@@ -52,7 +52,7 @@ returnCountries <- function(table_name =" ", country = list()) {
 #' case-sensitive.
 #' @param start The "YYYYMMDD" format of the first date of a data set
 #' @param end The "YYYYMMDD" format of the last date of a data set
-#' @examples \donotrun{# to create the time ragne between Nov. 2, 2017 and
+#' @examples \dontrun{# to create the time ragne between Nov. 2, 2017 and
 #' # Nov. 4, 2017 for the subset of real-time Phoenix data
 #' t <- returnTimes("phoenix_rt", "20171102","20171104")}
 returnTimes <- function(table_name =" ", start = " ", end = " ") {
@@ -77,7 +77,7 @@ returnTimes <- function(table_name =" ", start = " ", end = " ") {
 #' @importFrom countrycode countrycode
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @param soure The name of a source country either an ISO code or a country name format
+#' @param source The name of a source country either an ISO code or a country name format
 #' @param target The name of a target country either an ISO code or a country name format
 #' @note Please use the consistent format for source and target countries such as `"USA", "CAN"`` or `"Uniated States", "Canada"`
 #' @examples  \dontrun{# building a dyad query of Syria as a source and the United State as a target
@@ -112,19 +112,20 @@ returnDyad <- function(table_name, source, target) {
 #' @description This function returns a list of a query block of geo-locations
 #' @return A list of geo-location query blocks
 #' @export
-#' @param lat1 the minimum value of lattitude of a event boundary
-#' @param lat2 the maximum value of latitidue of a event boundary
-#' @param log1 the minimum value of longitude of a event boundary
-#' @param log2 the maximum value of longitude of a event boundary
+#' @param lat1 the minimum value of lattitude of a geo-location boundary
+#' @param lat2 the maximum value of latitidue of a geo-location boundary
+#' @param lon1 the minimum value of longitude of a geo-location boundary
+#' @param lon2 the maximum value of longitude of a geo-location boundary
 #' @examples \dontrun{# to build the location constraint with the ranges of latitudes the longitudes
 #' geo <- returnLatLon(-10,30,40,70)}
 returnLatLon <- function(lat1, lat2, lon1, lon2) {
   return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lon2)))
 }
 
-#' Building a query block that indicating a certain pattern of the variables in a particular data table
-#' @description This function retuns a query block to indicate the certain pattern of a variable
+#' Building a query block, which indicates a certain pattern of the variables in a particular data table
+#' @description This function creates a query block to indicate the certain pattern of a variable
 #' @return A list of the query block of a certain pattern of a particular variable in a data table
+#' @importFrom stats setNames
 #' @export
 #' @param api_key An API key provided by a UTD server manager
 #' @param table_name A name of a data table a user specifies. Your input is NOT
@@ -137,7 +138,7 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' # to get all source actors related to governments in ICEWS
 #' reg <- returnRegExp(api_key, "icews","GOV","Source Name")
 #' # to subset the cline_phoenix_nyt data by year == 2001
-#  nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
+#' nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 #' myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
   f = paste(" ",field,sep='')
@@ -149,7 +150,7 @@ returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = ""
 }
 
 #' Obtaining an OR query to use two and more query blocks
-#' @description This function retuns  the list of comination two or more query blocks.
+#' @description This function retuns  the list of combination two or more query blocks.
 #' @return A list of several query blocks corresponding to a particular data table
 #' @export
 #' @param query_prep A list of query blocks that should be entered in the `list()` format
@@ -196,7 +197,6 @@ andList <- function(query_prep = list()) {
 #' frequently occurred in a Windows machine.
 #' @param citation The option for printing a package citation at the end of data retrival. The default of option is TRUE.
 #' @examples \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
-#' # query_block means the list of queries created from other functions such as `returnDyad()` or `returnTimes()`
 #' myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)}
 sendQuery <- function(api_key = "", table_name = "", query = list(), citation = TRUE){
   if(is.null(query)) {

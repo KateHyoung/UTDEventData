@@ -9,12 +9,14 @@ Author: Dr. Patrick T. Brandt <pbrandt@utdallas.edu>,
         Micheal J. Shoemate <michael.shoemate@utdallas.edu>, 
         Jared Looper <jrl140030@utdallas.edu>
 Maintainer: Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
-Description: Search, extract and format event data from the real-time event data server at the University Texas at Dallas 
+Description: Search, extract and format event data from the real-time event data server at the University Texas at Dallas. 
 Imports: 
     countrycode,
     jsonlite,
-    rjson
-License: GPL-3
+    rjson,
+    stats, 
+    methods
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

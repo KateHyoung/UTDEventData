@@ -8,13 +8,13 @@
 #' @param table_name a name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
 #' @return The texts of proper citations for publication in text and Bibtex formats
-#' @note The citing texts for the package can be found after requesting data with `pullData()` or 'sendQeury()`.
+#' @note The citation texts for the package can be found after requesting data with `pullData()` or 'sendQeury()`.
 #' @export
-#' @examples \donrun{# citations for Cline Phoenix Event data
+#' @examples \dontrun{# citations for Cline Phoenix Event data
 #' citeData("cline_Phoenix_swb")
 #' # citations for ICEWS
 #' citeData("icews")
-#' # citation for real-time phoenix data
+#' # citations for real-time phoenix data
 #' citeData("phoenix_rt")}
 citeData <- function(table_name = "") {
 
@@ -41,9 +41,9 @@ citeData <- function(table_name = "") {
   }
 
   else if(tn == 'phoenix_rt'){
-    full <- "Brandt, Patrick T., Vito D’Orazio, Jennifer Holmes, Latifur Khan, Vincent Ng. 2018. “Phoenix real time event data.” University of Texas Dallas, http://eventdata.utdallas.edu"
+    full <- "Brandt, Patrick T., Vito D\u0092Orazio, Jennifer Holmes, Latifur Khan, Vincent Ng. 2018. \u0093Phoenix real time event data.\u0094 University of Texas Dallas, http://eventdata.utdallas.edu"
     title <- "Phoenix real time event data"
-    author <- "Brandt, Patrick T.; “D’Orazio, Vito; Holmes, Jennifer; Khan, Latifur; Ng, Vincent"
+    autho <- "Brandt, Patrick T.; D\u0092Orazio, Vito; Holmes, Jennifer; Khan, Latifur; Ng, Vincent"
     year <- "2018"
     note <- "University of Texas Dallas"
     url <- "http://eventdata.utdallas.edu"

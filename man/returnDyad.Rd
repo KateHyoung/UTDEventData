@@ -10,9 +10,9 @@ returnDyad(table_name, source, target)
 \item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
 
-\item{target}{The name of a target country either an ISO code or a country name format}
+\item{source}{The name of a source country either an ISO code or a country name format}
 
-\item{soure}{The name of a source country either an ISO code or a country name format}
+\item{target}{The name of a target country either an ISO code or a country name format}
 }
 \value{
 A list of the queary block of source and target countries

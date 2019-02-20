@@ -3,21 +3,19 @@
 #'@description  Once a referece class is set, a user does not need to repeatedly put an API key into a function.
 #'An API key can be obtained after submitting an API request form in the sign-up website (\url{http://eventdata.utdallas.edu/signup}).
 #'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
+#'@importFrom methods new
 #'@name Table
 #'@field api_key An API key obtained from the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}
 #'@export Table
 #'@exportClass Table
-#'@examples # creating an object
+#'@examples \dontrun{# creating an object
 #'obj<-Table$new()
-#'
 #'# setting an object of an API key
 #'obj$setAPIKey("....")
-#'
-#'# once the object of an API is set, a user no need to repeat typing an API key to use the subsetting functions
+#'# once the object of an API is set, a user no need to repeat typing an API key
 #'obj$DataTable()  # returns the available data tables in the UTD server
-#'
-#'# when a user wants to subset real-time data ('phoenix_rt') from 20171101 to 20171102 on MEX (Mexico)
-#'obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
+#'# to subset real-time data ('phoenix_rt') from 20171101 to 20171102 on MEX (Mexico)
+#'obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")}
 
 Table <- setRefClass("Table",
                      fields = list (api_key = "character"),

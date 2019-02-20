@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnRegExp}
 \alias{returnRegExp}
-\title{Building a query block that indicating a certain pattern of the variables in a particular data table}
+\title{Building a query block, which indicates a certain pattern of the variables in a particular data table}
 \usage{
 returnRegExp(api_key = "", table_name = "", pattern = "", field = "")
 }
@@ -20,7 +20,7 @@ case-sensitive.}
 A list of the query block of a certain pattern of a particular variable in a data table
 }
 \description{
-This function retuns a query block to indicate the certain pattern of a variable
+This function creates a query block to indicate the certain pattern of a variable
 }
 \note{
 Please use this function only with the field that is not used in the other query block function.
@@ -31,5 +31,6 @@ For instance; if you subset the data with a certain country, use the function, `
 # to get all source actors related to governments in ICEWS
 reg <- returnRegExp(api_key, "icews","GOV","Source Name")
 # to subset the cline_phoenix_nyt data by year == 2001
+nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 }

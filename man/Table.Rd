@@ -40,15 +40,12 @@ the UTD Event data server by country names and time ranges.
 }}
 
 \examples{
-# creating an object
+\dontrun{# creating an object
 obj<-Table$new()
-
 # setting an object of an API key
 obj$setAPIKey("....")
-
-# once the object of an API is set, a user no need to repeat typing an API key to use the subsetting functions
+# once the object of an API is set, a user no need to repeat typing an API key
 obj$DataTable()  # returns the available data tables in the UTD server
-
-# when a user wants to subset real-time data ('phoenix_rt') from 20171101 to 20171102 on MEX (Mexico)
-obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
+# to subset real-time data ('phoenix_rt') from 20171101 to 20171102 on MEX (Mexico)
+obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")}
 }
