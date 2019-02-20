@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{getQuerySize}
 \alias{getQuerySize}
-\title{Estimating a size of data a user requests to the API server}
+\title{Estimating a size of data  queries that will be requested to the UTD API server}
 \usage{
 getQuerySize(api_key = "", table_name = "", query = list())
 }
@@ -21,5 +21,5 @@ This function retruns a data size in a string format
 }
 \examples{
 \dontrun{ # to measure the size of the query blocks builded with the other functions
-getQuerySize(api_key,"Phoenix_rt", query_blocks)}
+getQuerySize(api_key = "", table_name = "Phoenix_rt", query =  )}
 }

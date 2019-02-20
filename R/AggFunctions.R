@@ -241,16 +241,17 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   }
 }
 
-#' Estimating a size of data a user requests to the API server
+#' Estimating a size of data  queries that will be requested to the UTD API server
 #' @description This function retruns a data size in a string format
 #' @return A text of the data size in bytes
 #' @importFrom rjson toJSON
+#' @importFrom curl curl
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table a user specifies. Your input is NOT case-sensitive.
 #' @param query A list of query blocks a user builds with other query block functions
 #' @examples \dontrun{ # to measure the size of the query blocks builded with the other functions
-#' getQuerySize(api_key,"Phoenix_rt", query_blocks)}
+#' getQuerySize(api_key = "", table_name = "Phoenix_rt", query =  )}
 getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   if(is.null(query)) {
     print("The query is empty.")
@@ -274,6 +275,7 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
+  url_submit <- curl::curl(url_submit)
   size = readLines(url_submit, warn=FALSE)
   size = unlist(strsplit(size, split = ':', fixed=TRUE))[2]
   size = gsub('}', "", size)
