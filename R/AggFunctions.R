@@ -189,6 +189,7 @@ andList <- function(query_prep = list()) {
 #'           }
 #' @importFrom jsonlite fromJSON
 #' @importFrom rjson toJSON
+#' @importFrom curl curl
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table a user specifies. Your input is NOT case-sensitive.
@@ -221,17 +222,19 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
+
   # Apply tryCatch for large data
   tryCatch({
-    retrieved_data <- readLines(url_submit, warn=FALSE)},
+    retrieved_data <- readLines(curl::curl(url_submit), warn=FALSE)},
     error = function(e){
       message("Error. Consider to increase your memory limit of R. Use getQuerySize() to see the data size estimated.")
       message(e)}
   )
   # end tryCatch
+  closeAllConnections()
   parsed_data <- jsonlite::fromJSON(retrieved_data)$data
 
-  # package citation
+    # package citation
   if (citation) {
     return(list(data=parsed_data, citation=citation("UTDEventData")))
   }
@@ -275,8 +278,7 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
-  url_submit <- curl::curl(url_submit)
-  size = readLines(url_submit, warn=FALSE)
+  size = readLines(curl::curl(url_submit), warn=FALSE)
   size = unlist(strsplit(size, split = ':', fixed=TRUE))[2]
   size = gsub('}', "", size)
   cat("Its size is:", size, "bytes")
