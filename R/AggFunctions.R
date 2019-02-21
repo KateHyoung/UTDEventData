@@ -252,34 +252,72 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table a user specifies. Your input is NOT case-sensitive.
-#' @param query A list of query blocks a user builds with other query block functions
+#' @param query A list of query blocks a user builds with other query block functions.
+#' Please type in "entire" to find the total size of a data table.
 #' @examples \dontrun{ # to measure the size of the query blocks builded with the other functions
 #' getQuerySize(api_key = "", table_name = "Phoenix_rt", query =  )}
 getQuerySize <- function(api_key = "", table_name = "", query = list()) {
+  url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
+  url_submit = ''
+
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
   }
-  query_string = rjson::toJSON(query)
-  query_string = gsub("\\", '', query_string, fixed=TRUE)
-  url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
-  url_submit = ''
-  table_name = tolower(table_name)
-  if (table_name=="phoenix_rt" ) {
-    query_string = relabel(query_string, "phoenix_rt")
+  if(query == 'entire'){
+    query_string = '{}'
+    }
+
+  else {query_string = rjson::toJSON(query)
+    table_name = tolower(table_name)
+    if (table_name=="phoenix_rt" ) {
+      query_string = relabel(query_string, "phoenix_rt")
+    }
+    else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
+      query_string = relabel(query_string, "cline")
+    }
+    else if(table_name == "icews") {
+      query_string = relabel(query_string, "icews")
+    }
   }
-  else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
-    query_string = relabel(query_string, "cline")
-  }
-  else if(table_name == "icews") {
-    query_string = relabel(query_string, "icews")
-  }
+
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
   size = readLines(curl::curl(url_submit), warn=FALSE)
+  closeAllConnections()
   size = unlist(strsplit(size, split = ':', fixed=TRUE))[2]
   size = gsub('}', "", size)
   cat("Its size is:", size, "bytes")
+}
+
+
+
+
+
+entireData() <- function(api_key = "", table_name = "", citation = TRUE){
+  table_name = tolower(table_name)
+  url <- 'http://149.165.156.33:5002/api/data?api_key='
+  url_submit = ''
+  url_submit = paste(url_submit,url, api_key,'&query={}', sep='','&datasource=',table_name)
+  url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
+  url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
+  print(url_submit)
+
+  # download data to disk
+  tmp <- tempfile()
+  curl::curl_download(url_submit, tmp)
+
+  # read the stored data
+  retrieved_data <- readLines(tmp, warn=FALSE)
+  parsed_data <- jsonlite::fromJSON(retrieved_data)$data
+
+  # package citation
+  if (citation) {
+    return(list(data=parsed_data, citation=citation("UTDEventData")))
+  }
+  else {
+    return(parsed_data)
+  }
 }
