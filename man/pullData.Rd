@@ -38,7 +38,7 @@ This is the main function to extract subdata from the UTD Event data server by c
              Please find the help document of the \code{Table()} function for more details for its usage.
 }
 \examples{
-pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
+\dontrun{pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
  start="20171101", end="20171112", citation = TRUE)
 
  ## Another way to avoid repeating an API key into the function
@@ -48,5 +48,5 @@ pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","C
  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
 
  ## Data retreval without the citation
- pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)
+ pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)}
 }

@@ -7,7 +7,7 @@
 andList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of query blocks that should be entered in `the list()` format}
+\item{query_prep}{A list of query blocks that should be entered in the \code{list()} format}
 }
 \value{
 A list of several query blocks corresponding to a particular data table

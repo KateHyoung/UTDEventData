@@ -18,7 +18,7 @@
 #' @importFrom countrycode countrycode
 #' @importFrom rjson toJSON
 #' @export
-#' @examples pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
+#' @examples \dontrun{pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112", citation = TRUE)
 #'
 #'  ## Another way to avoid repeating an API key into the function
@@ -28,7 +28,7 @@
 #'  subset3 <- pullData(k, 'cline_Phoenix_NYT',list('South Korea','canada'), '19551105','19581215')
 #'
 #'  ## Data retreval without the citation
-#'  pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)
+#'  pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)}
 #' @param api_key An API key provided by the server manager at UTD.
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
 #' @param country List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but

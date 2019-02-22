@@ -2,7 +2,7 @@
 ############ Aggregation functions  ##############
 ############  by Jared Looper       ##############
 ############  & edited by Kate Kim  ##############
-############     Jan. 2019           ##############
+############     Feb. 2019          ##############
 ##################################################
 
 #' Creating a query block for country restraint
@@ -153,7 +153,7 @@ returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = ""
 #' @description This function retuns  the list of combination two or more query blocks.
 #' @return A list of several query blocks corresponding to a particular data table
 #' @export
-#' @param query_prep A list of query blocks that should be entered in the `list()` format
+#' @param query_prep A list of query blocks that should be entered in the \code{list()} format
 #' @note Please make sure that specifying the same data table in all query block functions to avoid errors \cr
 #' This query may build a large data set that could cause the data size issue in a Windows machine.
 #' @examples \dontrun{# to subset real-time data with the constraint of a time range and a dyad
@@ -169,7 +169,7 @@ orList <- function(query_prep = list()) {
 #' @description This function retuns the list of comination two or more query blocks.
 #' @return A list of several query blocks corresponding to a particular data table
 #' @export
-#' @param query_prep A list of query blocks that should be entered in `the list()` format
+#' @param query_prep A list of query blocks that should be entered in the \code{list()} format
 #' @note Please make sure that specifying the same data table in all query block functions to avoid errors
 #' @examples \dontrun{# to subset real-time data with the constraint of a time range and a dyad
 #' t <- returnTimes("phoenix_rt", "20171015", "20171215")
@@ -244,6 +244,7 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   }
 }
 
+
 #' Estimating a size of data  queries that will be requested to the UTD API server
 #' @description This function retruns a data size in a string format
 #' @return A text of the data size in bytes
@@ -255,8 +256,11 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
 #' @param query A list of query blocks a user builds with other query block functions.
 #' Please type in "entire" to find the total size of a data table.
 #' @examples \dontrun{ # to measure the size of the query blocks builded with the other functions
-#' getQuerySize(api_key = "", table_name = "Phoenix_rt", query =  )}
+#' getQuerySize(api_key = "", table_name = "Phoenix_rt", query = list(q1, q2))
+#' # to get the size of the entire Real-time Phoenix data
+#' getQuerySize(api_key = , table_name = "Phoenix_rt", query = "entire")}
 getQuerySize <- function(api_key = "", table_name = "", query = list()) {
+  table_name = tolower(table_name)
   url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
   url_submit = ''
 
@@ -269,7 +273,6 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
     }
 
   else {query_string = rjson::toJSON(query)
-    table_name = tolower(table_name)
     if (table_name=="phoenix_rt" ) {
       query_string = relabel(query_string, "phoenix_rt")
     }
@@ -293,31 +296,53 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
 }
 
 
+#' Extracting the entire data of a specified data table
+#' @description This function allows users to obtain the entire dataset of a data table. The package
+#' citation is also printed . In the method, the entire data are directly downloaded to disk of a local machine,
+#' so please make sure that you have enough space for the data on your device. The size of
+#' a particular data set can be estimated by \code{getQuerySize()}.
+#' @return A list of data and an object of class \code{$citation}
+#' @importFrom curl curl_download
+#' @export
+#' @param api_key An API key provided by a server manager at UTD
+#' @param table_name A name of a data table. Your input is NOT case-sensitive.
+#' @param citation a logical indicating whether the package citation is printed (default is TRUE) or not.
+#' @examples \dontrun{
+#' # to get the size of the entire data for Cline_Phoeinx_NYT (
+#' getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
+#' # to download the entire data of Cline_Phoeinx_NYT after confirming its size
+#' data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
 
 
 
-entireData() <- function(api_key = "", table_name = "", citation = TRUE){
+entireData <- function(api_key = "", table_name = "", citation = TRUE){
   table_name = tolower(table_name)
-  url <- 'http://149.165.156.33:5002/api/data?api_key='
-  url_submit = ''
-  url_submit = paste(url_submit,url, api_key,'&query={}', sep='','&datasource=',table_name)
-  url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
-  url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
-  print(url_submit)
+    if(table_name == 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"
+     || table_name=='cline_phoenix_fbis'||table_name == 'icews' || table_name == "phoenix_rt"){
 
-  # download data to disk
-  tmp <- tempfile()
-  curl::curl_download(url_submit, tmp)
+    url <- 'http://149.165.156.33:5002/api/data?api_key='
+    url_submit = ''
+    url_submit = paste(url_submit,url, api_key,'&query={}', sep='','&datasource=',table_name)
+    url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
+    url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
+    print(url_submit)
 
-  # read the stored data
-  retrieved_data <- readLines(tmp, warn=FALSE)
-  parsed_data <- jsonlite::fromJSON(retrieved_data)$data
+    # download data to disk
+    tmp <- tempfile()
+    curl::curl_download(url_submit, tmp)
 
-  # package citation
-  if (citation) {
-    return(list(data=parsed_data, citation=citation("UTDEventData")))
-  }
+    # read the stored data
+    retrieved_data <- readLines(tmp, warn=FALSE)
+    parsed_data <- jsonlite::fromJSON(retrieved_data)$data
+
+    # package citation
+    if (citation) {
+      return(list(data=parsed_data, citation=citation("UTDEventData")))
+      }
+    else {
+      return(parsed_data)
+      }
+    }
   else {
-    return(parsed_data)
-  }
+    print("Please check the table name!")}
 }
