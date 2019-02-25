@@ -65,6 +65,14 @@
 #  # when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)
 #  obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 
+## ---- eval=FALSE---------------------------------------------------------
+#  # to estimate the data size of the entire Cline_Phoenix_NYT data
+#  getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
+#  
+#  # to download the data
+#  data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)
+#  View(data.nyt)
+
 ## ---- eval = FALSE-------------------------------------------------------
 #  # basic usage
 #  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)

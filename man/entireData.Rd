@@ -24,7 +24,7 @@ a particular data set can be estimated by \code{getQuerySize()}.
 }
 \examples{
 \dontrun{
-# to get the size of the entire data for Cline_Phoeinx_NYT (
+# to get the size of the entire data for Cline_Phoeinx_NYT 
 getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
 # to download the entire data of Cline_Phoeinx_NYT after confirming its size
 data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
