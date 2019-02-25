@@ -13,7 +13,8 @@ There are several functions to explore and extract data in the package. More det
 - tableVar( ): for looking up the variables in a specified data table
 - previewData( ): for previewing the data structure of a particular data table
 - pullData( ): for extracting a data set with countries and time range 
-- getQuerySize(): for measuring the size of requested data to the server
+- entireData( ): for extracting the entire data of a particular data table
+- getQuerySize(): for measuring the size of requested data from the server
 - sendQuery( ): for requesting specified data to the API server to extract a data set
 
 ****

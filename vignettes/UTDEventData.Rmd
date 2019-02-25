@@ -174,6 +174,20 @@ obj$tableVar("cline_Phoenix_NYT")
 obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ```
 
+### Extracting the entire data for a particular data set
+Someone may want to download the entire data of a certain data table. `entireData()` helps users to do this as specifying a data table into the function. This function returns the data frame of the requested data wit the package citation. The data are directed stored to your disk, so make sure that your device has enough space to store the data. The data can be estimated by `getQuerySize( )` with the  `entire` options. Please read the help file of `getQuerySize()`. 
+
+A data table is greater than 10GB, so it may occur the R errors. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time than subsets when you extract them from the API server, so please check your memory and disk limits before obtaining the entire data.  
+
+```{r, eval=FALSE}
+# to estimate the data size of the entire Cline_Phoenix_NYT data
+getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
+
+# to download the data
+data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)
+View(data.nyt)
+```
+
 &nbsp;
 
 ## Subsetting functions II
@@ -311,7 +325,7 @@ Please note that an issue may occur if the large size of data is extracted by `s
 ### An error message from `sendQuery()` 
 The aforementioned issue in  `sendQuery()` can occur when the size of requested data is greater than memory allocated to R. The error message will suggest a solution such as increasing a memory size of a user's computer with the original error. 
 
-This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data and machine' RAM, a user may need to increase its maximum. 
+This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, `getQuerySize()` should be drawn to estimate data sizes. After comparing the size of data to machine' RAM, a user may need to increase its maximum. If you apply `"entire"` in the query option, you can find the total size of a certain data table. 
 
 please see the following examples;
 
