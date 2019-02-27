@@ -1,32 +1,32 @@
 # UTDEventData ver. 0.8.0
 
-This R package helps a user to extract a data set from the UTD Event Data server with the country names and time ranges. The project of the UTDEventData R package has not fully completed and is updated everyday. Your comments, feedback, and suggestions are welcome to develop it.   
-If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).
+This R package helps users to extract data from the UTD Event Data server by country names and time ranges. The project of the UTDEventData R package has not fully completed and is daily updated. Your comments, feedback, and suggestions are welcome to enhence the package.   
+If you have any question regarding the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).
 
-This R library is a part of the project, titled "Modernizing Political Event Data for Big Data Social Science Research". More information can be found on [the project webpage](http://eventdata.utdallas.edu/data.html).
+This R package is part of a project, titled "Modernizing Political Event Data for Big Data Social Science Research". More information can be found on [the project webpage](http://eventdata.utdallas.edu/data.html).
 
-There are several functions to explore and extract data in the package. More details of these methods are illustrated in the vignettes of this package. 
+Several functions to explore and extract data in this package are listed below. More details of these methods are illustrated in the vignette of this package. 
 
 - Table: a reference class 
 - citeData( ): for citing the package and data tables in the UTD server for publications
-- DataTable( ): for looking up the data table at UTD data 
-- tableVar( ): for looking up the variables in a specified data table
-- previewData( ): for previewing the data structure of a particular data table
-- pullData( ): for extracting a data set with countries and time range 
-- entireData( ): for extracting the entire data of a particular data table
-- getQuerySize(): for measuring the size of requested data from the server
-- sendQuery( ): for requesting specified data to the API server to extract a data set
+- DataTable( ): for looking up data tables in the UTD server 
+- tableVar( ): for looking up the variables of a data table
+- previewData( ): for previewing the data structure of a data table
+- pullData( ): for extracting data by countries and time periods 
+- entireData( ): for extracting the entire data of a data table
+- getQuerySize(): for measuring the size of requested data from the UTD server
+- sendQuery( ): for requesting the built query from the API server to download data
 
 ****
 The Query Block functions:
 
-- retrunTimes( ): building a time constrain 
-- returnCountries( ): creating the query block of countries
-- returnLatLon( ): creating the query block of regions with latitude and longitude
-- returnDyad( ): creating the dyad query of source and target actors
-- returnRegExp( ): creating the query of features of attributes in a data table
-- orList( ): the function for a union of the query blocks 
-- andList( ): the function for an intersection of the query blocks
+- retrunTimes( ): creating a query block by time periods
+- returnCountries( ): creating a query block by countries
+- returnLatLon( ): creating a query block of region(s) with latitude and longitude
+- returnDyad( ): creating a dyad query of both source and target actors
+- returnRegExp( ): creating a query block by pattern of attributes in a data table
+- orList( ): creating a union of the query blocks 
+- andList( ): creating an intersection of the query blocks
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key. 
 <http://eventdata.utdallas.edu/signup>
