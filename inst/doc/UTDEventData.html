@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2019-02-19" />
+<meta name="date" content="2019-02-25" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -110,7 +110,7 @@ The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a 
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2019-02-19</em></h4>
+<h4 class="date"><em>2019-02-25</em></h4>
 
 
 
@@ -250,6 +250,17 @@ obj<span class="op">$</span><span class="kw">tableVar</span>(<span class="st">&q
 
 <span class="co"># when a user wants to subset real-time data ('phoenix_rt) from 20171101 to 20171102 on MEX(Mexico)</span>
 obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&quot;Phoenix_rt&quot;</span>, <span class="kw">list</span>(<span class="st">&quot;MEX&quot;</span>),<span class="dt">start=</span><span class="st">&quot;20171101&quot;</span>, <span class="dt">end=</span><span class="st">&quot;20171102&quot;</span>)</code></pre></div>
+</div>
+<div id="extracting-the-entire-data-for-a-particular-data-set" class="section level3">
+<h3>Extracting the entire data for a particular data set</h3>
+<p>Someone may want to download the entire data of a certain data table. <code>entireData()</code> helps users to do this as specifying a data table into the function. This function returns the data frame of the requested data wit the package citation. The data are directed stored to your disk, so make sure that your device has enough space to store the data. The data can be estimated by <code>getQuerySize( )</code> with the <code>entire</code> options. Please read the help file of <code>getQuerySize()</code>.</p>
+<p>A data table is greater than 10GB, so it may occur the R errors. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time than subsets when you extract them from the API server, so please check your memory and disk limits before obtaining the entire data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to estimate the data size of the entire Cline_Phoenix_NYT data</span>
+<span class="kw">getQuerySize</span>(<span class="dt">api_key =</span> , <span class="dt">table_name =</span><span class="st">'Cline_Phoenix_NYT'</span>, <span class="dt">query =</span> <span class="st">'entire'</span>)
+
+<span class="co"># to download the data</span>
+data.nyt &lt;-<span class="st"> </span><span class="kw">entireData</span>(<span class="dt">api_key =</span> , <span class="dt">table_name =</span><span class="st">'Cline_Phoenix_nyt'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)
+<span class="kw">View</span>(data.nyt)</code></pre></div>
 <p> </p>
 </div>
 </div>
@@ -349,7 +360,7 @@ data  &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k,<span cl
 <div id="an-error-message-from-sendquery" class="section level3">
 <h3>An error message from <code>sendQuery()</code></h3>
 <p>The aforementioned issue in <code>sendQuery()</code> can occur when the size of requested data is greater than memory allocated to R. The error message will suggest a solution such as increasing a memory size of a user’s computer with the original error.</p>
-<p>This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data and machine’ RAM, a user may need to increase its maximum.</p>
+<p>This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data to machine’ RAM, a user may need to increase its maximum. If you apply <code>&quot;entire&quot;</code> in the query option, you can find the total size of a certain data table.</p>
 <p>please see the following examples;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
 <span class="kw">getQuerySize</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot; &quot;</span>, <span class="dt">query =</span> <span class="kw">list</span>())
