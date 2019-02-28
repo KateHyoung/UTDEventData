@@ -25,8 +25,8 @@ The Query Block functions:
 - returnLatLon( ): creating a query block of region(s) with latitude and longitude
 - returnDyad( ): creating a dyad query of both source and target actors
 - returnRegExp( ): creating a query block by pattern of attributes in a data table
-- orList( ): creating a union of the query blocks 
-- andList( ): creating an intersection of the query blocks
+- orList( ): creating a union of query blocks 
+- andList( ): creating an intersection of query blocks
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key. 
 <http://eventdata.utdallas.edu/signup>
