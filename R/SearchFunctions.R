@@ -15,9 +15,10 @@
 #' \itemize{
 #' \item {Phoenix_RT:} {Real-time data from Oct. 2017 to today, please see more details in \href{http://openeventdata.org/}{Open Event Data Alliance}}.\cr
 #' \item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Oct. 2018. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
-#' \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
-#' \item {Phoenix FBIS:} {accumulated from 1995 to 2004, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
-#' \item {Phoenix SWB:} {accumulated from 1979 to 2015, the information of Phoenix Event Data are found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {Phoenix FBIS:} {accumulated from 1995 to 2004, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {Phoenix SWB:} {accumulated from 1979 to 2015, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+#' \item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrier.org}. }
 #'  }
 #' @return A list of the data tables currently downloadable from the UTD server as a character format
 #' @param api_key an API key provided by the UTD server manager
@@ -73,6 +74,24 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
 {
   # transfroming a string to lower cases
   tb=tolower(table)
+  # searching variables in Terrier
+  if (tb=='terrier'){
+
+  url = 'http://149.165.156.33:5002/api/fields?datasource='
+  url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+  # getting variables names
+  VarList <- readLines(url_submit, warn=FALSE)
+  List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
+  List<-gsub("u'", "", List);List<-gsub("'","",List)
+  varList<-strsplit(List, ",")[[1]]
+  varList[1] <- paste(" ", varList[1], sep="")
+
+  # looking up a word of variables
+  if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
+  return(varList[w])}
+
+  else(varList)}
+
 
   # searching variables in Phoenix-rt
   if (tb=='phoenix_rt'){

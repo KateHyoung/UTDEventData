@@ -23,7 +23,7 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{UTDEventData}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteEncoding{UTF-8}{inputenc}
 ---
 
 # Introduction
@@ -53,6 +53,7 @@ The UTD Event Data server has the five different event data tables.
 |Cline Phoenix NYT  | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
 |Cline Phoenix FBIS | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
 |Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
+|TERRIER            | 1979 - 2016        | [TERRIEDATA.org](http://terrierdata.org)|
 
 
 You can find the information of each data table in the specified websites such as the contents of data, their entities, and attributes. 

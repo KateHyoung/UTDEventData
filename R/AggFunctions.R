@@ -308,7 +308,7 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
 #' @param table_name A name of a data table. Your input is NOT case-sensitive.
 #' @param citation a logical indicating whether the package citation is printed (default is TRUE) or not.
 #' @examples \dontrun{
-#' # to get the size of the entire data for Cline_Phoeinx_NYT 
+#' # to get the size of the entire data for Cline_Phoeinx_NYT
 #' getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
 #' # to download the entire data of Cline_Phoeinx_NYT after confirming its size
 #' data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
@@ -316,7 +316,8 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
 entireData <- function(api_key = "", table_name = "", citation = TRUE){
   table_name = tolower(table_name)
     if(table_name == 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"
-     || table_name=='cline_phoenix_fbis'||table_name == 'icews' || table_name == "phoenix_rt"){
+     || table_name=='cline_phoenix_fbis'||table_name == 'icews' ||
+     table_name == "phoenix_rt" || table_name =="terrier"){
 
     url <- 'http://149.165.156.33:5002/api/data?api_key='
     url_submit = ''
