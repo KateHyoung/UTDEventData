@@ -13,9 +13,9 @@ Several functions to explore and extract data in this package are listed below. 
 - tableVar( ): for looking up the variables of a data table
 - previewData( ): for previewing the data structure of a data table
 - pullData( ): for extracting data by countries and time periods 
-- entireData( ): for extracting the entire data of a data table
+- entireData( ): for downloading an entire data table
 - getQuerySize(): for measuring the size of requested data from the UTD server
-- sendQuery( ): for requesting the built query from the API server to download data
+- sendQuery( ): for requesting built queries from the API server to download data
 
 ****
 The Query Block functions:

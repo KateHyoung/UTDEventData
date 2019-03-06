@@ -1,13 +1,12 @@
-#' A reference class to apply a given API key to the data extracting search functions in this package
+#' A reference class to apply an API key to the other functions in this package
 #'
 #'@description  Once a referece class is set, a user does not need to repeatedly put an API key into a function.
 #'An API key can be obtained after submitting an API request form in the sign-up website (\url{http://eventdata.utdallas.edu/signup}).
 #'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
-#'@importFrom methods new
-#'@name Table
-#'@fields api_key A string vector
+#'@name Table-class
+#'@field api_key A character vector
 #'@import methods
-#'@export Table
+#'@export
 #'@exportClass Table
 #'@examples \dontrun{# creating an object
 #'obj<-Table$new()
