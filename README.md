@@ -12,7 +12,7 @@ Several functions to explore and extract data in this package are listed below. 
 - DataTable( ): for looking up data tables in the UTD server 
 - tableVar( ): for looking up the variables of a data table
 - previewData( ): for previewing the data structure of a data table
-- pullData( ): for extracting data by countries and time periods 
+- pullData( ): for downloading data by countries and time periods 
 - entireData( ): for downloading an entire data table
 - getQuerySize(): for measuring the size of requested data from the UTD server
 - sendQuery( ): for requesting built queries from the API server to download data
