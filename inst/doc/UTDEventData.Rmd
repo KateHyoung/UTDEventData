@@ -361,6 +361,139 @@ citeData(table_name = "ICEWS")
 ```
 
 \newpage
+
+# Usage examples
+
+A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <http://eventdata.utdallas.edu/signup>. 
+
+
+## Example 1 - using `pullData()`
++ After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
+
+```{r, eval = F, fig.height=3, fig.width=5}
+# Note: k <- "...provided API key"
+dt <- pullData(k, "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
+
+## querying the fight event by CAMEO codes
+Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
+          dt$code=="193" | dt$code=="194" | dt$code=="195" |
+          dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
+
+Fgt <- Fgt[,1:23] ## removing url and oid
+
+tb <- table(Fgt$country_code, Fgt$month) # monthly incidents
+
+barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblue", "red"),
+        legend = rownames(tb), beside=TRUE,  xlab="Month in 2018")
+
+```
+![Example1](figures/fig1.jpg)
+\newpage
+
+## Example 2 - using `sendQuery()`
++ A similar data extraction to the previous example only with the functions of time and country query blocks. Please note that `sendQuery()` prints the API query syntax corresponding to user's specification. *If this syntax is thrown to your browser, you will have unstructured JSON data in the browser.* 
+
++ For extracting the data set of Russia and Syria from 1950 to 1960 from Cline Phoenix SWB and drawing the graph from the obtained data set:
+```{r, eval = F, tydi=TRUE}
+# querying the fight event by CAMEO codes
+# please checking the variable features and formats in a data set. Attribute names and formats vary by data tables
+
+ctr<- returnCountries('icews', list('RUS', 'SYR'))
+t <- returnTimes('icews', "20170101", '20171231')
+qr <- andList(list(ctr, t))
+dt1 <- sendQuery(k, 'icews', qr, citation = F)
+
+dt1$`Event Date1` <- as.POSIXct(dt1$`Event Date`)
+dt1$Month <-format.Date(dt1$`Event Date1`,"%m")
+tab <- table(dt1$Country,  dt1$Month)   
+
+barplot(tab, main = "Monthly Event Frequency of Syria in 2017 (ICEWS)", col="gray",
+        ylab = "Frequency", xlab="Month in 2018")
+```
+
+&nbsp;
+![Example2](figures/fig2.jpg)
+\newpage
+
+## Example 3 - using a dyad query block and `sendQuery()`
++ Comparing the data set with the consistent query that Pakistan is the source and India is the target of events:
+```{r, eval=FALSE, message=FALSE, warning=FALSE, results="asis"}
+# creating the query of source = 'PAK' and target = 'IND' for ICEWS
+query <- returnDyad('icews', 'PAK', 'IND')
+tmp <- sendQuery(k, 'icews', query, citation = F)
+# the query for Phoenix_Cline_SWB
+q.cline.swb <- returnDyad('cline_phoenix_swb', 'PAK', 'IND')
+tmp.swb <- sendQuery(k, 'cline_phoenix_swb', q.cline.swb, F)
+# the query for Phoenix_Cline_FBIS
+q.cline.fbis <- returnDyad('cline_phoenix_fbis', 'PAK', 'IND')
+tmp.fbis <- sendQuery(k, 'cline_phoenix_fbis', q.cline.fbis, F)
+# the query for Phoenix_Cline_NYT
+q.cline.nyt <- returnDyad('cline_phoenix_nyt', 'PAK', 'IND')
+tmp.nyt <- sendQuery(k, 'cline_phoenix_nyt', q.cline.nyt, F)
+# save each observation as a data set and print it
+Compare <- as.matrix(cbind(nrow(tmp), nrow(tmp.swb), nrow(tmp.fbis), nrow(tmp.nyt)))
+colnames(Compare) <- c("ICEWS", "Phoenix SWB", "Phoenix FBIS", "Phoenix NYT")
+xtable(Compare)
+```
+
+    Table 2:  The Result of Example 3  
+| ICEWS   | Phoenix SWB | Phoenix FBIS | Phoenix NYT|
+|:------:|:-----------:|:------------:|:----------:|
+|40731   |1140         | 633          | 272        | 
+
+## Example 4 - using a regular expression query block and `sendQuery()`
+A user can extract the data by the feature of an attribute in a data table with the function of `RegExp()`.
+
++ After extracting the data set of 'source': IGOEUREEC (EU) and 'target': United Kingdom (UK) and the one of _vice versa_ from the real-time Phoenix data, create the graphs of their trends:
+```{r, eval=FALSE, message=FALSE, warning=FALSE, results="asis" }
+# sorce actor is EU
+eu <- returnRegExp(k,"Phoenix_rt","IGOEUREEC", "source")
+# target actor is UK
+uk <- returnRegExp(k,"Phoenix_rt","GBR", "target")
+dyad1 <- andList(list(eu,uk))
+dd1 <- sendQuery(k, "Phoenix_rt", dyad1, F)
+
+# source actor is UK
+uk2 <- returnRegExp(k,"Phoenix_rt","GBR", "source")
+# target actor is EU
+eu2 <- returnRegExp(k,"Phoenix_rt","IGOEUREEC", "target")
+dyad2 <- andList(list(eu2,uk2))
+dd2 <- sendQuery(k, "Phoenix_rt", dyad2, F)
+
+# reshaping data
+EU_UK <- as.data.frame(table(dd1$date8, dd1$quad_class))
+colnames(EU_UK) <- c("day", "quadclass", "count")
+EU_UK  <- reshape(EU_UK, idvar = "day", timevar = "quadclass", direction = "wide")
+colnames(EU_UK) <- c("date","qc0","qc1","qc2","qc3","qc4")
+EU_UK <- t(EU_UK)
+EU_UK <- EU_UK[-1,]
+
+UK_EU <- as.data.frame(table(dd2$date8, dd2$quad_class))
+colnames(UK_EU) <- c("day", "quadclass", "count")
+UK_EU  <- reshape(UK_EU, idvar = "day", timevar = "quadclass", direction = "wide")
+colnames(UK_EU) <- c("date","qc0","qc1","qc2","qc3","qc4")
+UK_EU <- as.matrix(UK_EU)
+UK_EU <- t(UK_EU)
+colnames(UK_EU) <- UK_EU[1,]
+UK_EU <- UK_EU[-1,]
+
+# plotting
+par(mfrow=c(2,1))
+barplot(EU_UK, col=c("white","blue","purple","orange", "red"),
+        ylab= "Event counts",
+        main = expression(source:~E.U. %->% ~target:~U.K.))
+legend("topright", c("Neutral", "Verbal Cooperation", "Material Cooperation",
+                     "Verbal Conflict", "Material Conflict"),
+       fill=c("white","blue","purple","orange", "red"))
+barplot(UK_EU, col=c("white","blue","purple","orange", "red"),
+        ylab= "Event counts",
+        main = expression(source:~U.K. %->% ~target:~E.U.))
+```
+
+&nbsp;
+![Example4](figures/fig3.jpg){height=85%}
+
+\newpage
 # Further information of the Event Data server at UTD
 
 ## Real Time Event Data 
