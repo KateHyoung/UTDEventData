@@ -27,7 +27,7 @@ The details of data tables are illustrated in the linked websites. \cr
 \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 \item {Phoenix FBIS:} {accumulated from 1995 to 2004, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 \item {Phoenix SWB:} {accumulated from 1979 to 2015, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
-\item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrier.org}. }
+\item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrierdata.org}. }
  }
 }
 \examples{

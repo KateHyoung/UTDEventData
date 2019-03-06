@@ -18,7 +18,7 @@
 #' \item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #' \item {Phoenix FBIS:} {accumulated from 1995 to 2004, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
 #' \item {Phoenix SWB:} {accumulated from 1979 to 2015, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
-#' \item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrier.org}. }
+#' \item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrierdata.org}. }
 #'  }
 #' @return A list of the data tables currently downloadable from the UTD server as a character format
 #' @param api_key an API key provided by the UTD server manager
