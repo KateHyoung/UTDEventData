@@ -30,6 +30,8 @@ loadFormat <- function(format) {
     return(f2())
   else if(format=="cline")
     return(f3())
+  else if(format=="terrier")
+    return(f4())
 }
 
 #'A hiden function for relabeling query strings of one data format to the other
@@ -234,9 +236,12 @@ f2 <- function() {
   return(jsontext)
 }
 
+
 #'A hiden function for relabeling query strings of one data format to the other
 #'@importFrom jsonlite fromJSON
 #'@keywords internal
+
+### Cline datasets 
 f3 <- function() {
   jsontext = jsonlite::fromJSON("{
                                 \"<country_code>\": {
@@ -245,7 +250,7 @@ f3 <- function() {
                                 },
                                 \"<date>\": {
                                 \"name\": \"story_date\",
-                                \"format\": \"^\\\\d{4}/\\\\d{2}/\\\\d{2}$\"
+                                \"format\": \"^(\\\\d{4}/\\\\d{2}/\\\\d{2})$\"
                                 },
                                 \"<src_actor>\": {
                                 \"name\": \"source\",
@@ -264,5 +269,116 @@ f3 <- function() {
                                 \"format\": \"^(NA|[+-]?\\\\d?\\\\d\\\\.?\\\\d+)$\"
                                 }
         }")
+  return(jsontext)
+}
+
+#'A hiden function for relabeling query strings of one data format to the other
+#'@importFrom jsonlite fromJSON
+#'@keywords internal
+
+# for Terrier dataset
+f4 <- function() {
+  jsontext = jsonlite::fromJSON("[{
+                                \"<event_id>\": {
+                                \"name\": \"event_id\",
+                                \"format\": \".\"
+                                },
+                                \"<date>\": {
+                                \"name\": \"date8\",
+                                \"format\": \"^\\\\d{8}$\"
+                                },
+                                \"<year>\": {
+                                \"name\": \"year\",
+                                \"format\": \"^\\\\d{4}$\"
+                                },
+                                \"<month>\": {
+                                \"name\": \"month\",
+                                \"format\": \"^([1-9]|1[0-2])$\"
+                                },
+                                \"<day>\": {
+                                \"name\": \"day\",
+                                \"format\": \"^([1-9]|[12]\\\\d|3[01])$\"
+                                },
+                                \"<src_country>\": {
+                                \"name\": \"source\",
+                                \"format\": \"^(\\\\p{L}\\\\p{L}\\\\p{L})*$\"
+                                },
+                                \"<src_actor>\": {
+                                \"name\": \"src_actor\",
+                                \"format\": \"^\\\\p{L}\\\\p{L}\\\\p{L}$\"
+                                },
+                                \"<src_agent>\": {
+                                \"name\": \"src_agent\",
+                                \"format\": \"^(|\\\\p{L}\\\\p{L}\\\\p{L})$\"
+                                },
+                                \"<src_other_agent>\": {
+                                \"name\": \"src_other_agent\",
+                                \"format\": \"^(|(\\\\p{L}\\\\p{L}\\\\p{L}(|;))*)$\"
+                                },
+                                \"<tgt_country>\": {
+                                \"name\": \"target\",
+                                \"format\": \"^(\\\\p{L}\\\\p{L}\\\\p{L})*$\"
+                                },
+                                \"<tgt_actor>\": {
+                                \"name\": \"tgt_actor\",
+                                \"format\": \"^\\\\p{L}\\\\p{L}\\\\p{L}$\"
+                                },
+                                \"<tgt_agent>\": {
+                                \"name\": \"tgt_agent\",
+                                \"format\": \"^(|\\\\p{L}\\\\p{L}\\\\p{L})$\"
+                                },
+                                \"<tgt_other_agent>\": {
+                                \"name\": \"tgt_other_agent\",
+                                \"format\": \"^(|(\\\\p{L}\\\\p{L}\\\\p{L}(|;))*)$\"
+                                },
+                                \"<root_code>\": {
+                                \"name\": \"root_code\",
+                                \"format\": \"^(|1)\\\\d$\"
+                                },
+                                \"<quad_class>\": {
+                                \"name\": \"quad_class\",
+                                \"format\": \"^[0-4]$\"
+                                },
+                                \"<goldstein>\": {
+                                \"name\": \"goldstein\",
+                                \"format\": \"^[+-]?\\\\d+\\\\.?\\\\d+$\"
+                                },
+                                \"<latitude>\": {
+                                \"name\": \"latitude\",
+                                \"format\": \"^(NA|[+-]?\\\\d?\\\\d\\\\.?\\\\d+)$\"
+                                },
+                                \"<longitude>\": {
+                                \"name\": \"longitude\",
+                                \"format\": \"^(NA|[+-]?\\\\d?\\\\d\\\\.?\\\\d+)$\"
+                                },
+                                \"<geoname>\": {
+                                \"name\": \"geoname\",
+                                \"format\": \"^(|[\\\\p{L}\\\\s]+)$\"
+                                },
+                                \"<cameo>\": {
+                                \"name\": \"code\",
+                                \"format\": \"^\\\\d+$\"
+                                },
+                                \"<country_code>\": {
+                                \"name\": \"country_code\",
+                                \"format\": \"^(|\\\\p{L}\\\\p{L}\\\\p{L})$\"
+                                },
+                                \"<admin_info>\": {
+                                \"name\": \"admin_info\",
+                                \"format\": \"^(|[\\\\p{L}\\\\s]+)$\"
+                                },
+                                \"<id>\": {
+                                \"name\": \"id\",
+                                \"format\": \".\"
+                                },
+                                \"<url>\": {
+                                \"name\": \"url\",
+                                \"format\": \".\"
+                                },
+                                \"<publisher>\": {
+                                \"name\": \"source_text\",
+                                \"format\": \".\"
+                                }
+    }]")
   return(jsontext)
 }

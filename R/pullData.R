@@ -17,6 +17,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom countrycode countrycode
 #' @importFrom rjson toJSON
+#' @importFrom curl curl
 #' @export
 #' @examples \dontrun{pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112", citation = TRUE)
@@ -40,7 +41,9 @@
 #' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
 
 pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
-
+    
+    table_name = tolower(table_name)
+    
     ISO = TRUE
 
     for(i in 1:length(country))
@@ -51,26 +54,39 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       }
 
     if(ISO == TRUE) {
-      if(table_name == "icews"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt" || table_name=='cline_phoenix_fbis')
+      if(table_name == "icews"){
         for(i in 1:length(country))
-          country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
+          country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name") }
+      
+      else if(table_name == "terrier") {
+          for(i in 1:length(country))
+            country[[i]] = countrycode::countrycode(country[[i]], "iso3c", "iso2c")  }
     }
 
     else {
-       if(table_name != "icews")
+       if((table_name == "phoenix_rt") || (table_name== 'cline_phoenix_swb') || (table_name=="cline_phoenix_nyt") || 
+              (table_name=='cline_phoenix_fbis')) {
          for(i in 1:length(country))
-          country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c")
-         }
+          country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c") }
+         
+       else if(table_name == "terrier") {
+           for(i in 1:length(country))
+           country[[i]] = countrycode::countrycode(country[[i]], "country.name", "iso2c") }
+        
+       }
 
     if(table_name == "icews") {
       start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
       end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
     }
 
-  country_constraint = list('<country_code>'= list('$in'= country))
-
+    if((table_name== 'cline_phoenix_swb') || (table_name=="cline_phoenix_nyt") || (table_name=='cline_phoenix_fbis')) {
+      start = paste(substr(start,1,4),"/",substr(start,5,6),"/",substr(start,7,8),sep="")
+      end = paste(substr(end,1,4),"/",substr(end,5,6),"/",substr(end,7,8),sep="")
+    }
+    
+    country_constraint = list('<country_code>'= list('$in'= country))
     date_constraint = list('<date>'=list('$gte'=start,'$lte'=end))
-
     all_constraints = list(country_constraint, date_constraint)
     query = list('$and'=all_constraints)
     # Convert the data structure into a string
@@ -78,21 +94,25 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     query_string = gsub("\\", '', rjson::toJSON(query), fixed=TRUE)
     url <- 'http://149.165.156.33:5002/api/data?api_key='
     url_submit = ''
-    table_name = tolower(table_name)
     if (table_name=="phoenix_rt" ) {
       query_string = relabel(query_string, "phoenix_rt")
     }
-    else if (table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis'){
+    else if ((table_name== 'cline_phoenix_swb') | (table_name=='cline_phoenix_nyt') | (table_name=='cline_phoenix_fbis')){
       query_string = relabel(query_string, "cline")
     }
     else if(table_name == "icews") {
       query_string = relabel(query_string, "icews")
     }
+    else if(table_name == "terrier"){
+      query_string = relabel(query_string, "terrier")
+    }
     # getting data from url formatting
     url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
     url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
-    retrieved_data <- readLines(url_submit, warn=FALSE)
+    print(url_submit)
+    retrieved_data <- readLines(curl::curl(url_submit), warn=FALSE)
+    closeAllConnections()
     parsed_data <- jsonlite::fromJSON(retrieved_data)$data
 
     if (citation) {
