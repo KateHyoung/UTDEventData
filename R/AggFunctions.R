@@ -2,24 +2,24 @@
 ############ Aggregation functions  ##############
 ############  by Jared Looper       ##############
 ############  & edited by Kate Kim  ##############
-############     Feb. 2019          ##############
+############     March. 2019          ##############
 ##################################################
 
-#' Creating a query block for country restraint
-#' @description This function returns the list of countries a user specifies
-#' @return A list of country query blocks
+#' Creating a query element for country restraint
+#' @description This function returns a list of countries a user specifies
+#' @return A list of countries
 #' @importFrom countrycode countrycode
 #' @export
-#' @param table_name A name of a data table a user specifies. Your input is NOT
-#' case-sensitive.
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param country A list of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
-#' the full country name is also working in this function.\cr
-#'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
-#' @examples \dontrun{# to have a query block of the United States and Canada as a country restraint
+#' a full country name is also working in this function.\cr Several countries should be entered in the \code{list()} format.
+#'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and it is case-insensitive.
+#' @examples \dontrun{# to have a query of the United States and Canada as a country restraint
 #' ctr <- returnCountries("phoenix_rt", list("USA","CAN"))}
 returnCountries <- function(table_name =" ", country = list()) {
 
   # convert the strings to an appropriate format given the database
+  table_name = tolower(table_name)
   ISO = TRUE
 
   for(i in 1:length(country))
@@ -30,26 +30,35 @@ returnCountries <- function(table_name =" ", country = list()) {
     }
 
   if(ISO == TRUE) {
-    if(table_name == "icews")
+    if(table_name == "icews"){
       for(i in 1:length(country))
         country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name")
+        }
+      else if(table_name =="terrier"){
+        for(i in 1:length(country))
+          country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "iso2c")
+      }
   }
   else {
-    if(table_name != "icews")
+    if(table_name != "icews" & table_name != "terrier"){
       for(i in 1:length(country))
         country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c")
+    }
+    else if(table_name != "icews" & table_name == "terrier"){
+      for(i in 1:length(country))
+        country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso2c")
+    }
   }
   #set up the query
   query <- list('<country_code>'= list('$in' = country))
   return(query)
 }
 
-#' Creating of a query block of a time range before applying the query to `sendQuery()`
-#' @description This function returns the list of a time range a user specifies
+#' Creating of a query element of a time period  
+#' @description This function returns a list of a time range 
 #' @return A list of dates for start and end of a time range
 #' @export
-#' @param table_name A name of a data table a user specifies. Your input is NOT
-#' case-sensitive.
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param start The "YYYYMMDD" format of the first date of a data set
 #' @param end The "YYYYMMDD" format of the last date of a data set
 #' @examples \dontrun{# to create the time ragne between Nov. 2, 2017 and
@@ -58,25 +67,27 @@ returnCountries <- function(table_name =" ", country = list()) {
 returnTimes <- function(table_name =" ", start = " ", end = " ") {
 
   table_name = tolower(table_name)
-
-  if(table_name == "icews" || table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
+  
+  if(table_name == "icews" || table_name== "cline_phoenix_swb" || table_name=="cline_phoenix_nyt"|| 
+     table_name=="cline_phoenix_fbis") {
     start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
     end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
   }
+  
   if(substr(table_name,1,5)=="cline") {
     start = gsub("-", "/", start)
     end = gsub("-", "/", end)
   }
+  
   return(list('<date>'=list('$gte'=start,'$lte'=end)))
 }
 
-#' Building a list of the dayd query block as source and target actors respectively
-#' @description This function returns a list of a query block of a source-target country dyad
-#' @return A list of the queary block of source and target countries
+#' Building a l dayd query element as source and target actors respectively
+#' @description This function returns a list of a query element of a source-target country dyad
+#' @return A list of a dyad queary element of source and target countries
 #' @export
 #' @importFrom countrycode countrycode
-#' @param table_name A name of a data table a user specifies. Your input is NOT
-#' case-sensitive.
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param source The name of a source country either an ISO code or a country name format
 #' @param target The name of a target country either an ISO code or a country name format
 #' @note Please use the consistent format for source and target countries such as `"USA", "CAN"`` or `"Uniated States", "Canada"`
@@ -99,7 +110,8 @@ returnDyad <- function(table_name, source, target) {
     }
   }
   else {
-    if(table_name == "phoenix_rt"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| table_name=='cline_phoenix_fbis') {
+    if(table_name == "phoenix_rt"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| 
+       table_name=='cline_phoenix_fbis' || table_name == "terrier") {
       source = countrycode::countrycode(source, "country.name", "iso3c")
       target = countrycode::countrycode(target,"country.name", "iso3c")
     }
@@ -108,31 +120,30 @@ returnDyad <- function(table_name, source, target) {
   return(query)
 }
 
-#' Creating the location query block with the longitudes and lattidues
-#' @description This function returns a list of a query block of geo-locations
-#' @return A list of geo-location query blocks
+#' Creating a geo-location query element with longitudes and lattidues
+#' @description This function returns a list of a query element of geo-locations
+#' @return A list of geo-location query elements
 #' @export
 #' @param lat1 the minimum value of lattitude of a geo-location boundary
 #' @param lat2 the maximum value of latitidue of a geo-location boundary
 #' @param lon1 the minimum value of longitude of a geo-location boundary
 #' @param lon2 the maximum value of longitude of a geo-location boundary
-#' @examples \dontrun{# to build the location constraint with the ranges of latitudes the longitudes
+#' @examples \dontrun{# to build a location constraint with the ranges of latitudes the longitudes
 #' geo <- returnLatLon(-10,30,40,70)}
 returnLatLon <- function(lat1, lat2, lon1, lon2) {
   return(list('<latitude>'=list('$gte'=lat1,'$lte'=lat2),'<longitude>'=list('$gte'=lon1,'$lte'=lon2)))
 }
 
-#' Building a query block, which indicates a certain pattern of the variables in a particular data table
-#' @description This function creates a query block to indicate the certain pattern of a variable
-#' @return A list of the query block of a certain pattern of a particular variable in a data table
+#' Building a query element, which indicates a certain pattern of variables in a particular data table
+#' @description This function creates a query element to indicate a certain pattern of a variable
+#' @return A list of the query element of a certain pattern of a particular variable in a data table
 #' @importFrom stats setNames
 #' @export
 #' @param api_key An API key provided by a UTD server manager
-#' @param table_name A name of a data table a user specifies. Your input is NOT
-#' case-sensitive.
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param pattern A pattern or a feature of a specified variable
 #' @param field A field (variable) of a data table
-#' @note Please use this function only with the field that is not used in the other query block function.
+#' @note Please use this function only with the field that is not used in the other query element function.
 #' For instance; if you subset the data with a certain country, use the function, `returnCountries()`.
 #' @examples \dontrun{
 #' # to get all source actors related to governments in ICEWS
@@ -141,7 +152,7 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 #' myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
-  f = paste(" ",field,sep='')
+  f = paste(" ",field, sep='')
   if(is.element(f, tableVar(api_key, table_name))) {
     query = list('field'= list('$regex' = pattern))
     return(setNames(query,field))
@@ -149,12 +160,12 @@ returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = ""
   else {print("Please check the field and the pattern with tableVar()")}
 }
 
-#' Obtaining an OR query to use two and more query blocks
-#' @description This function retuns  the list of combination two or more query blocks.
-#' @return A list of several query blocks corresponding to a particular data table
+#' Obtaining an OR query to use two and more query elements
+#' @description This function retuns  a list of combination two or more query elements.
+#' @return A list of several query elements corresponding to a particular data table
 #' @export
-#' @param query_prep A list of query blocks that should be entered in the \code{list()} format
-#' @note Please make sure that specifying the same data table in all query block functions to avoid errors \cr
+#' @param query_prep A list of query elements that should be entered in the \code{list()} format
+#' @note Please make sure that specifying the same data table in all query element functions to avoid errors \cr
 #' This query may build a large data set that could cause the data size issue in a Windows machine.
 #' @examples \dontrun{# to subset real-time data with the constraint of a time range and a dyad
 #' t <- returnTimes("phoenix_rt", "20171015", "20171215")
@@ -165,12 +176,12 @@ orList <- function(query_prep = list()) {
   return(list('$or'=query_prep))
 }
 
-#' Obtaining an AND query syntax to use two and more query blocks
-#' @description This function retuns the list of comination two or more query blocks.
-#' @return A list of several query blocks corresponding to a particular data table
+#' Obtaining an AND query syntax to use two and more query elements
+#' @description This function retuns a list of comination two or more query elements.
+#' @return A list of several query elements corresponding to a particular data table
 #' @export
-#' @param query_prep A list of query blocks that should be entered in the \code{list()} format
-#' @note Please make sure that specifying the same data table in all query block functions to avoid errors
+#' @param query_prep A list of query elements that should be entered in the \code{list()} format
+#' @note Please make sure that specifying the same data table in all query element functions to avoid errors
 #' @examples \dontrun{# to subset real-time data with the constraint of a time range and a dyad
 #' t <- returnTimes("phoenix_rt", "20171015", "20171215")
 #' dyad <- returnDyad('Phoexnix_rt', 'RUS', 'SYR')
@@ -180,8 +191,8 @@ andList <- function(query_prep = list()) {
   return(list('$and'=query_prep))
 }
 
-#' Sending queries to the API server in order to retrieve the data set
-#' @description This function retruns the data and the package citation a user requests
+#' Sending queries to the UTD API server in order to download data with a built query
+#' @description This function retruns the data and a package citation 
 #' @return A list with components
 #'     \itemize{
 #'          \item{}{\code{$data    }   a data frame of requested data. An attribute of the data can be formatted as data.frame. Please check the features of data if it's necessary}
@@ -192,13 +203,13 @@ andList <- function(query_prep = list()) {
 #' @importFrom curl curl
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
-#' @param table_name A name of a data table a user specifies. Your input is NOT case-sensitive.
-#' @param query A list of query blocks or a single query block a user builds with the other query functions.
-#' @note If an error message is returned, please increase the memory size your R is allocated. This error is more
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
+#' @param query A list of query elements or a single query element a user builds with other query functions.
+#' @note If an error message is returned, please increase the memory size of R. This error is more
 #' frequently occurred in a Windows machine.
-#' @param citation The option for printing a package citation at the end of data retrival. The default of option is TRUE.
+#' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival. 
 #' @examples \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
-#' myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)}
+#' myData <- sendQuery(api_key,"icews", query_element, citation = FALSE)}
 sendQuery <- function(api_key = "", table_name = "", query = list(), citation = TRUE){
   if(is.null(query)) {
     print("The query is empty.")
@@ -217,6 +228,9 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   }
   else if(table_name == "icews") {
     query_string = relabel(query_string, "icews")
+  }
+  else if(table_name == "terrier"){
+    query_string = relabel(query_string, "terrier")
   }
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
@@ -245,17 +259,17 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
 }
 
 
-#' Estimating a size of data  queries that will be requested to the UTD API server
+#' Estimating a size of data queries that will be requested to the UTD API server
 #' @description This function retruns a data size in a string format
 #' @return A text of the data size in bytes
 #' @importFrom rjson toJSON
 #' @importFrom curl curl
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
-#' @param table_name A name of a data table a user specifies. Your input is NOT case-sensitive.
-#' @param query A list of query blocks a user builds with other query block functions.
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
+#' @param query A list of query elements a user builds with other query element functions.
 #' Please type in "entire" to find the total size of a data table.
-#' @examples \dontrun{ # to measure the size of the query blocks builded with the other functions
+#' @examples \dontrun{ # to measure the size of the query elements builded with the other functions
 #' getQuerySize(api_key = "", table_name = "Phoenix_rt", query = list(q1, q2))
 #' # to get the size of the entire Real-time Phoenix data
 #' getQuerySize(api_key = , table_name = "Phoenix_rt", query = "entire")}
@@ -282,6 +296,9 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
     else if(table_name == "icews") {
       query_string = relabel(query_string, "icews")
     }
+    else if(table_name == "terrier"){
+    query_string = relabel(query_string, "terrier")
+    }
   }
 
   url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
@@ -297,15 +314,16 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
 
 
 #' Extracting the entire data of a specified data table
-#' @description This function allows users to obtain the entire dataset of a data table. The package
+#' @description This function allows users to obtain a entire dataset of a data table. The package
 #' citation is also printed . In the method, the entire data are directly downloaded to disk of a local machine,
 #' so please make sure that you have enough space for the data on your device. The size of
-#' a particular data set can be estimated by \code{getQuerySize()}.
+#' a particular data set can be estimated by \code{getQuerySize()}. 
 #' @return A list of data and an object of class \code{$citation}
+#' @note Some datasets are greather than 10GB. Please check a size of a dataset before downloading it on your device. 
 #' @importFrom curl curl_download
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
-#' @param table_name A name of a data table. Your input is NOT case-sensitive.
+#' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param citation a logical indicating whether the package citation is printed (default is TRUE) or not.
 #' @examples \dontrun{
 #' # to get the size of the entire data for Cline_Phoeinx_NYT

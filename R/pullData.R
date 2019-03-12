@@ -37,7 +37,7 @@
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
 #' @param start The "YYYYMMDD" format of the first date of a data set
 #' @param end The "YYYYMMDD" format of the end date of a data set
-#' @param citation The option for printing a package citation at the end of data retrival.
+#' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival. 
 #' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
 
 pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
@@ -80,7 +80,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
     }
 
-    if((table_name== 'cline_phoenix_swb') || (table_name=="cline_phoenix_nyt") || (table_name=='cline_phoenix_fbis')) {
+    if(substr(table_name,1,5)=="cline") {
       start = paste(substr(start,1,4),"/",substr(start,5,6),"/",substr(start,7,8),sep="")
       end = paste(substr(end,1,4),"/",substr(end,5,6),"/",substr(end,7,8),sep="")
     }
@@ -110,7 +110,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
     url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
     url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
-    print(url_submit)
+    # print(url_submit)
     retrieved_data <- readLines(curl::curl(url_submit), warn=FALSE)
     closeAllConnections()
     parsed_data <- jsonlite::fromJSON(retrieved_data)$data
