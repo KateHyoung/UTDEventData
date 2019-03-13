@@ -1,4 +1,4 @@
-# UTDEventData ver. 0.8.0
+# UTDEventData ver. 1.0.0
 
 This R package helps users to extract data from the UTD Event Data server by country names and time ranges. The project of the UTDEventData R package has not fully completed and is daily updated. Your comments, feedback, and suggestions are welcome to enhence the package.   
 If you have any question regarding the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).
