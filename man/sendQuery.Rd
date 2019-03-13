@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{sendQuery}
 \alias{sendQuery}
-\title{Sending queries to the API server in order to retrieve the data set}
+\title{Sending queries to the UTD API server in order to download data with a built query}
 \usage{
 sendQuery(api_key = "", table_name = "", query = list(),
   citation = TRUE)
@@ -10,11 +10,11 @@ sendQuery(api_key = "", table_name = "", query = list(),
 \arguments{
 \item{api_key}{An API key provided by a server manager at UTD}
 
-\item{table_name}{A name of a data table a user specifies. Your input is NOT case-sensitive.}
+\item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
-\item{query}{A list of query blocks or a single query block a user builds with the other query functions.}
+\item{query}{A list of query elements or a single query element a user builds with other query functions.}
 
-\item{citation}{The option for printing a package citation at the end of data retrival. The default of option is TRUE.}
+\item{citation}{logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.}
 }
 \value{
 A list with components
@@ -24,13 +24,13 @@ A list with components
           }
 }
 \description{
-This function retruns the data and the package citation a user requests
+This function retruns the data and a package citation
 }
 \note{
-If an error message is returned, please increase the memory size your R is allocated. This error is more
+If an error message is returned, please increase the memory size of R. This error is more
 frequently occurred in a Windows machine.
 }
 \examples{
 \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
-myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)}
+myData <- sendQuery(api_key,"icews", query_element, citation = FALSE)}
 }

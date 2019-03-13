@@ -2,13 +2,12 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnTimes}
 \alias{returnTimes}
-\title{Creating of a query block of a time range before applying the query to `sendQuery()`}
+\title{Creating of a query element of a time period}
 \usage{
 returnTimes(table_name = " ", start = " ", end = " ")
 }
 \arguments{
-\item{table_name}{A name of a data table a user specifies. Your input is NOT
-case-sensitive.}
+\item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
 \item{start}{The "YYYYMMDD" format of the first date of a data set}
 
@@ -18,7 +17,7 @@ case-sensitive.}
 A list of dates for start and end of a time range
 }
 \description{
-This function returns the list of a time range a user specifies
+This function returns a list of a time range
 }
 \examples{
 \dontrun{# to create the time ragne between Nov. 2, 2017 and

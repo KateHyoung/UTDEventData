@@ -20,7 +20,7 @@ the full country name is also working in this function.\cr
 
 \item{end}{The "YYYYMMDD" format of the end date of a data set}
 
-\item{citation}{The option for printing a package citation at the end of data retrival.
+\item{citation}{logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival. 
 The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
 }
 \value{

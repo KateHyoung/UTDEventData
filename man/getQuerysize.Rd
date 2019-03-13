@@ -2,16 +2,16 @@
 % Please edit documentation in R/AggFunctions.R
 \name{getQuerySize}
 \alias{getQuerySize}
-\title{Estimating a size of data  queries that will be requested to the UTD API server}
+\title{Estimating a size of data queries that will be requested to the UTD API server}
 \usage{
 getQuerySize(api_key = "", table_name = "", query = list())
 }
 \arguments{
 \item{api_key}{An API key provided by a server manager at UTD}
 
-\item{table_name}{A name of a data table a user specifies. Your input is NOT case-sensitive.}
+\item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
-\item{query}{A list of query blocks a user builds with other query block functions.
+\item{query}{A list of query elements a user builds with other query element functions.
 Please type in "entire" to find the total size of a data table.}
 }
 \value{
@@ -21,7 +21,7 @@ A text of the data size in bytes
 This function retruns a data size in a string format
 }
 \examples{
-\dontrun{ # to measure the size of the query blocks builded with the other functions
+\dontrun{ # to measure the size of the query elements builded with the other functions
 getQuerySize(api_key = "", table_name = "Phoenix_rt", query = list(q1, q2))
 # to get the size of the entire Real-time Phoenix data
 getQuerySize(api_key = , table_name = "Phoenix_rt", query = "entire")}

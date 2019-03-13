@@ -2,28 +2,27 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnRegExp}
 \alias{returnRegExp}
-\title{Building a query block, which indicates a certain pattern of the variables in a particular data table}
+\title{Building a query element, which indicates a certain pattern of variables in a particular data table}
 \usage{
 returnRegExp(api_key = "", table_name = "", pattern = "", field = "")
 }
 \arguments{
 \item{api_key}{An API key provided by a UTD server manager}
 
-\item{table_name}{A name of a data table a user specifies. Your input is NOT
-case-sensitive.}
+\item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
 \item{pattern}{A pattern or a feature of a specified variable}
 
 \item{field}{A field (variable) of a data table}
 }
 \value{
-A list of the query block of a certain pattern of a particular variable in a data table
+A list of the query element of a certain pattern of a particular variable in a data table
 }
 \description{
-This function creates a query block to indicate the certain pattern of a variable
+This function creates a query element to indicate a certain pattern of a variable
 }
 \note{
-Please use this function only with the field that is not used in the other query block function.
+Please use this function only with the field that is not used in the other query element function.
 For instance; if you subset the data with a certain country, use the function, `returnCountries()`.
 }
 \examples{

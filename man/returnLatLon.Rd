@@ -2,7 +2,7 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnLatLon}
 \alias{returnLatLon}
-\title{Creating the location query block with the longitudes and lattidues}
+\title{Creating a geo-location query element with longitudes and lattidues}
 \usage{
 returnLatLon(lat1, lat2, lon1, lon2)
 }
@@ -16,12 +16,12 @@ returnLatLon(lat1, lat2, lon1, lon2)
 \item{lon2}{the maximum value of longitude of a geo-location boundary}
 }
 \value{
-A list of geo-location query blocks
+A list of geo-location query elements
 }
 \description{
-This function returns a list of a query block of geo-locations
+This function returns a list of a query element of geo-locations
 }
 \examples{
-\dontrun{# to build the location constraint with the ranges of latitudes the longitudes
+\dontrun{# to build a location constraint with the ranges of latitudes the longitudes
 geo <- returnLatLon(-10,30,40,70)}
 }

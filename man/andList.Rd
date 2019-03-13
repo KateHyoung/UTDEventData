@@ -2,21 +2,21 @@
 % Please edit documentation in R/AggFunctions.R
 \name{andList}
 \alias{andList}
-\title{Obtaining an AND query syntax to use two and more query blocks}
+\title{Obtaining an AND query syntax to use two and more query elements}
 \usage{
 andList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of query blocks that should be entered in the \code{list()} format}
+\item{query_prep}{A list of query elements that should be entered in the \code{list()} format}
 }
 \value{
-A list of several query blocks corresponding to a particular data table
+A list of several query elements corresponding to a particular data table
 }
 \description{
-This function retuns the list of comination two or more query blocks.
+This function retuns a list of comination two or more query elements.
 }
 \note{
-Please make sure that specifying the same data table in all query block functions to avoid errors
+Please make sure that specifying the same data table in all query element functions to avoid errors
 }
 \examples{
 \dontrun{# to subset real-time data with the constraint of a time range and a dyad

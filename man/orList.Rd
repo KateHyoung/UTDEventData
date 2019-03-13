@@ -2,21 +2,21 @@
 % Please edit documentation in R/AggFunctions.R
 \name{orList}
 \alias{orList}
-\title{Obtaining an OR query to use two and more query blocks}
+\title{Obtaining an OR query to use two and more query elements}
 \usage{
 orList(query_prep = list())
 }
 \arguments{
-\item{query_prep}{A list of query blocks that should be entered in the \code{list()} format}
+\item{query_prep}{A list of query elements that should be entered in the \code{list()} format}
 }
 \value{
-A list of several query blocks corresponding to a particular data table
+A list of several query elements corresponding to a particular data table
 }
 \description{
-This function retuns  the list of combination two or more query blocks.
+This function retuns  a list of combination two or more query elements.
 }
 \note{
-Please make sure that specifying the same data table in all query block functions to avoid errors \cr
+Please make sure that specifying the same data table in all query element functions to avoid errors \cr
 This query may build a large data set that could cause the data size issue in a Windows machine.
 }
 \examples{

@@ -2,25 +2,24 @@
 % Please edit documentation in R/AggFunctions.R
 \name{returnCountries}
 \alias{returnCountries}
-\title{Creating a query block for country restraint}
+\title{Creating a query element for country restraint}
 \usage{
 returnCountries(table_name = " ", country = list())
 }
 \arguments{
-\item{table_name}{A name of a data table a user specifies. Your input is NOT
-case-sensitive.}
+\item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
 \item{country}{A list of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
-the full country name is also working in this function.\cr
-     e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.}
+a full country name is also working in this function.\cr Several countries should be entered in the \code{list()} format.
+     e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and it is case-insensitive.}
 }
 \value{
-A list of country query blocks
+A list of countries
 }
 \description{
-This function returns the list of countries a user specifies
+This function returns a list of countries a user specifies
 }
 \examples{
-\dontrun{# to have a query block of the United States and Canada as a country restraint
+\dontrun{# to have a query of the United States and Canada as a country restraint
 ctr <- returnCountries("phoenix_rt", list("USA","CAN"))}
 }
