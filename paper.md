@@ -23,7 +23,7 @@ authors:
     orcid: 0000-0002-7254-749X
     affiliation: 2
   - name: Latifur Khan
-    orcid: 000-0002-9300-1576
+    orcid: 0000-0002-9300-1576
     affiliation: 2
   - name: Michael Shoemate
     orcid: 0000-0003-1190-3363
