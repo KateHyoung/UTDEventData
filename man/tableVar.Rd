@@ -4,7 +4,7 @@
 \alias{tableVar}
 \title{Searching the variables in a particular data table}
 \usage{
-tableVar(api_key = " ", table = " ", lword = " ")
+tableVar(api_key = "", table = "", lword = "")
 }
 \arguments{
 \item{api_key}{an API key from the developer at UTD}

@@ -70,7 +70,7 @@ DataTables<-function (api_key=" ")
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
-tableVar <-function(api_key=' ', table=' ', lword=' ')
+tableVar <-function(api_key='', table='', lword='')
 {
   # transfroming a string to lower cases
   tb=tolower(table)
@@ -84,7 +84,8 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
   List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
   List<-gsub("u'", "", List);List<-gsub("'","",List)
   varList<-strsplit(List, ",")[[1]]
-  varList[1] <- paste(" ", varList[1], sep="")
+  varList<-trimws(varList, "left")
+  # varList[1] <- paste(" ", varList[1], sep="")
 
   # looking up a word of variables
   if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -103,7 +104,8 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
-    varList[1] <- paste(" ", varList[1], sep="")
+    varList<-trimws(varList, "left")
+    # varList[1] <- paste(" ", varList[1], sep="")
 
      # looking up a word of variables
        if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -121,7 +123,8 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
-    varList[1] <- paste(" ", varList[1], sep="")
+    varList<-trimws(varList, "left")
+    # varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -139,7 +142,8 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
-    varList[1] <- paste(" ", varList[1], sep="")
+    varList<-trimws(varList, "left")
+    # varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -157,7 +161,8 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
-    varList[1] <- paste(" ", varList[1], sep="")
+    varList<-trimws(varList, "left")
+    # varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
@@ -175,7 +180,8 @@ tableVar <-function(api_key=' ', table=' ', lword=' ')
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
     List<-gsub("u'", "", List);List<-gsub("'","",List)
     varList<-strsplit(List, ",")[[1]]
-    varList[1] <- paste(" ", varList[1], sep="")
+    varList<-trimws(varList, "left")
+    # varList[1] <- paste(" ", varList[1], sep="")
 
     # looking up a word of variables
     if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
