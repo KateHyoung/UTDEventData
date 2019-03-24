@@ -54,8 +54,8 @@ returnCountries <- function(table_name =" ", country = list()) {
   return(query)
 }
 
-#' Creating of a query element of a time period  
-#' @description This function returns a list of a time range 
+#' Creating of a query element of a time period
+#' @description This function returns a list of a time range
 #' @return A list of dates for start and end of a time range
 #' @export
 #' @param table_name A name of a data table. Input strings are NOT case-sensitive.
@@ -67,18 +67,18 @@ returnCountries <- function(table_name =" ", country = list()) {
 returnTimes <- function(table_name =" ", start = " ", end = " ") {
 
   table_name = tolower(table_name)
-  
-  if(table_name == "icews" || table_name== "cline_phoenix_swb" || table_name=="cline_phoenix_nyt"|| 
+
+  if(table_name == "icews" || table_name== "cline_phoenix_swb" || table_name=="cline_phoenix_nyt"||
      table_name=="cline_phoenix_fbis") {
     start = paste(substr(start,1,4),"-",substr(start,5,6),"-",substr(start,7,8),sep="")
     end = paste(substr(end,1,4),"-",substr(end,5,6),"-",substr(end,7,8),sep="")
   }
-  
+
   if(substr(table_name,1,5)=="cline") {
     start = gsub("-", "/", start)
     end = gsub("-", "/", end)
   }
-  
+
   return(list('<date>'=list('$gte'=start,'$lte'=end)))
 }
 
@@ -110,7 +110,7 @@ returnDyad <- function(table_name, source, target) {
     }
   }
   else {
-    if(table_name == "phoenix_rt"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"|| 
+    if(table_name == "phoenix_rt"|| table_name== 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"||
        table_name=='cline_phoenix_fbis' || table_name == "terrier") {
       source = countrycode::countrycode(source, "country.name", "iso3c")
       target = countrycode::countrycode(target,"country.name", "iso3c")
@@ -152,7 +152,7 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
 #' myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
-  f = paste(" ",field, sep='')
+  f = paste("",field, sep='')
   if(is.element(f, tableVar(api_key, table_name))) {
     query = list('field'= list('$regex' = pattern))
     return(setNames(query,field))
@@ -192,7 +192,7 @@ andList <- function(query_prep = list()) {
 }
 
 #' Sending queries to the UTD API server in order to download data with a built query
-#' @description This function retruns the data and a package citation 
+#' @description This function retruns the data and a package citation
 #' @return A list with components
 #'     \itemize{
 #'          \item{}{\code{$data    }   a data frame of requested data. An attribute of the data can be formatted as data.frame. Please check the features of data if it's necessary}
@@ -207,7 +207,7 @@ andList <- function(query_prep = list()) {
 #' @param query A list of query elements or a single query element a user builds with other query functions.
 #' @note If an error message is returned, please increase the memory size of R. This error is more
 #' frequently occurred in a Windows machine.
-#' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival. 
+#' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
 #' @examples \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
 #' myData <- sendQuery(api_key,"icews", query_element, citation = FALSE)}
 sendQuery <- function(api_key = "", table_name = "", query = list(), citation = TRUE){
@@ -317,9 +317,9 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
 #' @description This function allows users to obtain a entire dataset of a data table. The package
 #' citation is also printed . In the method, the entire data are directly downloaded to disk of a local machine,
 #' so please make sure that you have enough space for the data on your device. The size of
-#' a particular data set can be estimated by \code{getQuerySize()}. 
+#' a particular data set can be estimated by \code{getQuerySize()}.
 #' @return A list of data and an object of class \code{$citation}
-#' @note Some datasets are greather than 10GB. Please check a size of a dataset before downloading it on your device. 
+#' @note Some datasets are greather than 10GB. Please check a size of a dataset before downloading it on your device.
 #' @importFrom curl curl_download
 #' @export
 #' @param api_key An API key provided by a server manager at UTD
