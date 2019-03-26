@@ -29,7 +29,7 @@
 #'  k <- "api_key"
 #'  DataTables(k)}
 
-DataTables<-function (api_key=" ")
+DataTables<-function (api_key="")
 {
   # constructing a url
   url = 'http://149.165.156.33:5002/api/datasources?api_key='
@@ -38,7 +38,12 @@ DataTables<-function (api_key=" ")
   TableList <- readLines(url_submit, warn=FALSE)
   List<-gsub(".*\\[(.*)\\].*", "\\1", TableList)
   List<-toupper(List)
-  return(List)
+  ER <- strsplit(List, "'")
+  if(grepl("INVALID API KEY", ER)==TRUE) {
+    {print("This API key is invalid. Please check that you have entered your key correctly.")}
+  }
+
+  else {return(List)}
 }
 
 
