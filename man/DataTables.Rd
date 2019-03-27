@@ -4,7 +4,7 @@
 \alias{DataTables}
 \title{Searching data tables in the UTD event data server}
 \usage{
-DataTables(api_key = " ")
+DataTables(api_key = "")
 }
 \arguments{
 \item{api_key}{an API key provided by the UTD server manager}
