@@ -4,24 +4,22 @@
 \alias{andList}
 \title{Obtaining an AND query syntax to use two and more query elements}
 \usage{
-andList(query_prep = list())
+andList(query_prep = c())
 }
 \arguments{
-\item{query_prep}{A list of query elements that should be entered in the \code{list()} format}
+\item{query_prep}{ne or more query vectors created by other query functions.
+if query vectors are more than one than \code{c()} should be used for lising within the function.}
 }
 \value{
 A list of several query elements corresponding to a particular data table
 }
 \description{
-This function retuns a list of comination two or more query elements.
-}
-\note{
-Please make sure that specifying the same data table in all query element functions to avoid errors
+This function retuns a list of a comination two or more query elements.
 }
 \examples{
 \dontrun{# to subset real-time data with the constraint of a time range and a dyad
 t <- returnTimes("phoenix_rt", "20171015", "20171215")
 dyad <- returnDyad('Phoexnix_rt', 'RUS', 'SYR')
 # building an AND-query of a certain time and the country dyad
-and_query <- andList(list(t,dyad))}
+and_query <- andList(c(t,dyad))}
 }

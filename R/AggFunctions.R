@@ -160,35 +160,36 @@ returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = ""
   else {print("Please check the field and the pattern with tableVar()")}
 }
 
-#' Obtaining an OR query to use two and more query elements
-#' @description This function retuns  a list of combination two or more query elements.
+#' Obtaining an OR query to combine two and more query elements
+#' @description This function retuns  a list of a combination two or more query elements.
 #' @return A list of several query elements corresponding to a particular data table
 #' @export
-#' @param query_prep A list of query elements that should be entered in the \code{list()} format
+#' @param query_prep one or more query vectors created by other query functions.
+#' if query vectors are more than one than \code{c()} should be used for lising within the function.
 #' @note Please make sure that specifying the same data table in all query element functions to avoid errors \cr
 #' This query may build a large data set that could cause the data size issue in a Windows machine.
 #' @examples \dontrun{# to subset real-time data with the constraint of a time range and a dyad
 #' t <- returnTimes("phoenix_rt", "20171015", "20171215")
 #' dyad <- returnDyad('Phoexnix_rt', 'RUS', 'SYR')
 #' # building an OR-query of a certain time and the country dyad
-#' or_query <- orList(list(t,dyad)) # it requires a large memory size to retrieve the data set}
-orList <- function(query_prep = list()) {
-  return(list('$or'=query_prep))
+#' or_query <- orList(c(t,dyad)) # it requires a large memory size to retrieve the data set}
+orList <- function(query_prep = c()) {
+  return(list('$or'= list(query_prep)))
 }
 
 #' Obtaining an AND query syntax to use two and more query elements
-#' @description This function retuns a list of comination two or more query elements.
+#' @description This function retuns a list of a comination two or more query elements.
 #' @return A list of several query elements corresponding to a particular data table
 #' @export
-#' @param query_prep A list of query elements that should be entered in the \code{list()} format
-#' @note Please make sure that specifying the same data table in all query element functions to avoid errors
+#' @param query_prep ne or more query vectors created by other query functions.
+#' if query vectors are more than one than \code{c()} should be used for lising within the function.
 #' @examples \dontrun{# to subset real-time data with the constraint of a time range and a dyad
 #' t <- returnTimes("phoenix_rt", "20171015", "20171215")
 #' dyad <- returnDyad('Phoexnix_rt', 'RUS', 'SYR')
 #' # building an AND-query of a certain time and the country dyad
-#' and_query <- andList(list(t,dyad))}
-andList <- function(query_prep = list()) {
-  return(list('$and'=query_prep))
+#' and_query <- andList(c(t,dyad))}
+andList <- function(query_prep = c()) {
+  return(list('$and'= list(query_prep)))
 }
 
 #' Sending queries to the UTD API server in order to download data with a built query

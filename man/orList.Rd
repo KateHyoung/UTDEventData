@@ -2,18 +2,19 @@
 % Please edit documentation in R/AggFunctions.R
 \name{orList}
 \alias{orList}
-\title{Obtaining an OR query to use two and more query elements}
+\title{Obtaining an OR query to combine two and more query elements}
 \usage{
-orList(query_prep = list())
+orList(query_prep = c())
 }
 \arguments{
-\item{query_prep}{A list of query elements that should be entered in the \code{list()} format}
+\item{query_prep}{one or more query vectors created by other query functions.
+if query vectors are more than one than \code{c()} should be used for lising within the function.}
 }
 \value{
 A list of several query elements corresponding to a particular data table
 }
 \description{
-This function retuns  a list of combination two or more query elements.
+This function retuns  a list of a combination two or more query elements.
 }
 \note{
 Please make sure that specifying the same data table in all query element functions to avoid errors \cr
@@ -24,5 +25,5 @@ This query may build a large data set that could cause the data size issue in a 
 t <- returnTimes("phoenix_rt", "20171015", "20171215")
 dyad <- returnDyad('Phoexnix_rt', 'RUS', 'SYR')
 # building an OR-query of a certain time and the country dyad
-or_query <- orList(list(t,dyad)) # it requires a large memory size to retrieve the data set}
+or_query <- orList(c(t,dyad)) # it requires a large memory size to retrieve the data set}
 }
