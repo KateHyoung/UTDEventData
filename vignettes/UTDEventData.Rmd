@@ -28,8 +28,10 @@ vignette: >
 
 # Introduction
 
-This R package allows users to extract a data set from the API Event Data server at the University of Texas at Dallas (UTD). The project of the UTDEventData R package is in progress and has been updated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly methods are prepared in the library.
-If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>) at UTD.  
+The R library, `UTDEventData`, provides the direct access to the political event database at the University of Texas at Dallas (UTD). Using this library, researchers can query the event data stored at the UTD's API server and load them into R for subsequent analysis. Several functions are prepared in the library to extract and to analize the data according to users' preference. This library also provides the citation functions ont only for data tables but also the library itself. 
+
+The project of the UTDEventData R package is in progress and has been updated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly functions are prepared in the library.
+If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).  
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <http://eventdata.utdallas.edu/signup>. 
 
@@ -42,8 +44,18 @@ devtools::install_github("KateHyoung/UTDEventData")
 devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
 
+To cite the package, an excution function `citation()` can be used, and users can find the citatation texts when using the data obtaining functions, `pullData()` and `sendQuery()` with a defualt option of `citation = TRUE`. Moreover, the function of `citeData()` in the package will print data ciatation texts in a R console. 
+```{r, eval = FALSE}
+# to cite the package 
+citation("UTDEventData")
 
-The UTD Event Data server has the five different event data tables. 
+# to cite a data table
+citeData(table_name = "Data table name")
+```
+
+
+The UTD API server contains the six different data tables; Real-time Phoenix, ICEWS, three other Cline's Phoenix data sets, and TERRIER. With the several searching and extracting methods in this library, political and social scientists can explore the contents of each data table and can obtain the historic and real-time data for their research.  We expect that this R library provides the better evivornment in accessing to the event data for R users, so the number of studies on the large scale event data will increase in this drawing of the big data age.
+
 
     Table 1:  Data Table Information       
 |Data Table         | Timeline          |  Further Information|
@@ -158,10 +170,27 @@ data <- pullData(k, "phoenix_rt", list('canada','China'), '20171101', '20171102'
 As illustrated, data are able to be retrieved by the country names and time ranges a user specified. A country in a data set means the country where a particular event happened. This country might not be the same with the source or target countries of an event. A researcher should pay attention to this attribute when conducting research. This feature of each variable can be scrutinized by exploring the variables of a sample data downloaded by `tableVar()` or `previewData()`. 
 
 
-### Reference class for appying an API key to functions 
+### Handing an API key
 
-The package has a reference class, named `Table()` for users to submit an API key only onec. This function works only with `DataTables()`, `tableVar()`, and `pullData()`. Some basic usages are as follows;
+Throwing an API key into functions evvery time could be annoying tasks for users. To avoid troublesome work, we suggest some convenient approaches. 
 
+#### Store an API key in a R memory
+This approach is to simply store an API key in a global environment of R and call it when you want to use it. Although it is simple, the API key should be re-entered when a R is re-run. 
+```{r, eval=FALSE}
+k <- '...your API key....'
+DataTables(k)
+```
+
+#### Store an API key as an environment variable 
+This option is to declare user's API key as an environemtn variable and use it by `Sys.getenv()`. This option helps users to avoid a hassle to input the key each time. 
+```{r, eval=FALSE}
+Sys.setenv(APIKEY = "...your API key...")
+DataTables(Sys.getenv("APIKEY"))
+```
+
+
+#### Using a reference class
+Theird option is using a reference class, named `Table()` , prepared in this library. One downsiade of this is that the function works only with `DataTables()`, `tableVar()`, and `pullData()`. 
 ```{r, eval=FALSE}
 # creating an object
 obj <- Table$new()
@@ -178,7 +207,7 @@ obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ### Extracting the entire data for a particular data set
 Someone may want to download the entire data of a certain data table. `entireData()` helps users to do this as specifying a data table into the function. This function returns a dataframe of the requested data with the package citation. The data are directly stored to your disk, so make sure that your device has enough space to store them. The size of data can be estimated by `getQuerySize( )` with the  `entire` options. More detials are illustrated in a hlep page of `getQuerySize()`. 
 
-SOme data tables are greater than 10GB, so it may occur R errors if a local devise does not have enoguth space. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time to request and download them, so please check your memory and disk limits before obtaining the entire data.  
+Some data tables are greater than 10GB, so it may occur R errors if a local devise does not have enoguth space. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time to request and download them, so please check your memory and disk limits before obtaining the entire data.  
 
 ```{r, eval=FALSE}
 # to estimate the data size of the entire Cline_Phoenix_NYT data
@@ -207,7 +236,7 @@ A dataset can be retrieved with the combinations generated with query block func
 
 ```{r, eval = FALSE}
 # basic usage
-sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
+sendQuery(api_key='', tabl_name ='', query = c(), citation = TRUE)
 
 # to store the ICEWS subset in the vector of myData without the citation
 # query_block is a list of the quries built by the query block functions illustrated in subchapters
@@ -265,62 +294,18 @@ dyad <- returnDyad(table_name =" " , source = "SYR", target = "USA")
 
 ### Connective functions 
 
-These functions play a role to connect several query blocks created by the aforementioned functions. The two functions, `andList()` and `orList()`, work as logical operators, **"and"** and **"or"**, respectively. `andList()` is the function that returns the list of an intersection of two or more query blocks. The stored queries should be specified in the `list()` format in the function. `orList()` returns the list of a union of two or more query blocks. The stored queries should be specified in the `list()` format in the function as shown in the following examples. 
+These functions play a role to connect several query elements created by the aforementioned functions. The two functions, `andList()` and `orList()`, work as logical operators, **"and"** and **"or"**, respectively. `andList()` is the function that returns the list of an intersection of two or more query blocks. The stored queries should be specified in the `c()` format in the function. `orList()` returns the list of a union of two or more query blocks. The stored queries should be specified in the `c()` format in the function as shown in the following examples. 
 
 ```{r, eval = FALSE}
 # combine stored query blocks such as 'time' or 'locQuery' created before
-and_query <- andList(query_prep = list(locQuery, time))
+and_query <- andList(query_prep = c(locQuery, time))
 
 # subset with two or more stored query blocks such as 'locQuery' or 'dyad'
-or_query <- orList(query_prep = list(locQuery, dyad))
+or_query <- orList(query_prep = c(locQuery, dyad))
 ```
 
 
-### Examples of subsetting II
-
-```{r, eval=FALSE}
-
-# examples of subsetting functions II
-
-# creating query blocks
-# a country constrain of 'CHN' and 'USA'
-k <- 'api_key'
-ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
-
-# A query of time between 2017-11-1 and 2017-11-5
-time <- returnTimes("phoenix_rt", "20171101","20171105")
-
-# a boolean logic, or, with the two query blocks
-or_query <- orList(list(ctr, time))
-# request a data set to the API server with the package citation
-d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
-
-# to view the subset
-head(d1$data, 10)
-View(d1)
-
-# a boolean logic, and, with the two query blocks
-and_query <- andList(list(ctr, time))
-d2 <- sendQuery(k, "phoenix_rt", and_query, TRUE)
-
-# to view the subset
-head(d2$data, 10)
-View(d2)
-
-# when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
-rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
-q <- andList(list(ctr, rgex))
-data  <- sendQuery(k,"phoenix_rt",q , citation = FALSE) # no citation
-
-# to view the data
-# because the option for citation was off, package's citation was not printed. 
-head(data, 10) 
-View(data)
-
-```
-
-
-Please note that an issue may occur if the large size of data is extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so you may encounter the memory issue when using `orList()` with several query blocks. Once the issue occurs, please increase a memory size allocated to your R  and re-run the functions. If a user keeps having the issue, please consider using `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`. Specific information is illustrated in the next section.
+Please note that you may have an error if the large size of data is extracted by `sendQuery()`. More specifically, the issue can more frequently come with the `orList()` function, so you may encounter the memory issue when using `orList()` with several query blocks. Once the issue occurs, please increase a memory size allocated to your R  and re-run the functions. If a user keeps having the issue, please consider using `pullData()` for data subsetting. `pullData()` works more efficiently than `sendQuery()`. Specific information is illustrated in the next section.
 
 
 ### An error message from `sendQuery()` 
@@ -361,24 +346,38 @@ citeData(table_name = "Phoenix_rt")
 citeData(table_name = "ICEWS")
 ```
 
-\newpage
+&nbsp;
 
 # Usage examples
 
 A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <http://eventdata.utdallas.edu/signup>. 
 
 
-## Example 1 - using `pullData()`
-+ After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
+## Example 1 - extracting data by a time range and contries
++ Extracting data with contries and time can be acheived with two ways in this package: 1) `pullData()` and 2) `sendQuery()`. This exmaple shows how to complete the following task with the two methods. 
++ Task: After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
 
 ```{r, eval = F, fig.height=3, fig.width=5}
+
+# Option 1: pullData() 
 # Note: k <- "...provided API key"
 dt <- pullData(k, "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
+
+# Option 2: SendQuery() and the query block functions: returnTimes(), returnCountries()
+
+ctr<- returnCountries("Phoenix_rt", list('RUS', 'SYR'))
+t <- returnTimes("Phoenix_rt", "20180101", '20180331')
+q <- andList(c(ctr, t))
+dt1 <- sendQuery(k, "Phoenix_rt", q, citation = F)
+
+# the data set d1 and d2 are identical
 
 ## querying the fight event by CAMEO codes
 Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
           dt$code=="193" | dt$code=="194" | dt$code=="195" |
           dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
+
+
 
 Fgt <- Fgt[,1:23] ## removing url and oid
 
@@ -388,35 +387,10 @@ barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblu
         legend = rownames(tb), beside=TRUE,  xlab="Month in 2018")
 
 ```
-![Example1](figures/fig1.jpg)
-\newpage
+![Example1](figures/fig1.jpg){width=70%}
 
-## Example 2 - using `sendQuery()`
-+ A similar data extraction to the previous example only with the functions of time and country query blocks. Please note that `sendQuery()` prints the API query syntax corresponding to user's specification. *If this syntax is thrown to your browser, you will have unstructured JSON data in the browser.* 
 
-+ For extracting the data set of Russia and Syria from 1950 to 1960 from Cline Phoenix SWB and drawing the graph from the obtained data set:
-```{r, eval = F, tydi=TRUE}
-# querying the fight event by CAMEO codes
-# please checking the variable features and formats in a data set. Attribute names and formats vary by data tables
-
-ctr<- returnCountries('icews', list('RUS', 'SYR'))
-t <- returnTimes('icews', "20170101", '20171231')
-qr <- andList(list(ctr, t))
-dt1 <- sendQuery(k, 'icews', qr, citation = F)
-
-dt1$`Event Date1` <- as.POSIXct(dt1$`Event Date`)
-dt1$Month <-format.Date(dt1$`Event Date1`,"%m")
-tab <- table(dt1$Country,  dt1$Month)   
-
-barplot(tab, main = "Monthly Event Frequency of Syria in 2017 (ICEWS)", col="gray",
-        ylab = "Frequency", xlab="Month in 2018")
-```
-
-&nbsp;
-![Example2](figures/fig2.jpg)
-\newpage
-
-## Example 3 - using a dyad query block and `sendQuery()`
+## Example 2 - using a dyad query block and `sendQuery()`
 + Comparing the data set with the consistent query that Pakistan is the source and India is the target of events:
 ```{r, eval=FALSE, message=FALSE, warning=FALSE, results="asis"}
 # creating the query of source = 'PAK' and target = 'IND' for ICEWS
@@ -437,28 +411,30 @@ colnames(Compare) <- c("ICEWS", "Phoenix SWB", "Phoenix FBIS", "Phoenix NYT")
 xtable(Compare)
 ```
 
-    Table 2:  The Result of Example 3  
+    Table 2:  The Result of Example 2  
 | ICEWS   | Phoenix SWB | Phoenix FBIS | Phoenix NYT|
 |:------:|:-----------:|:------------:|:----------:|
 |40731   |1140         | 633          | 272        | 
 
-## Example 4 - using a regular expression query block and `sendQuery()`
-A user can extract the data by the feature of an attribute in a data table with the function of `RegExp()`.
 
-+ After extracting the data set of 'source': IGOEUREEC (EU) and 'target': United Kingdom (UK) and the one of _vice versa_ from the real-time Phoenix data, create the graphs of their trends:
+## Example 3 - Designing complex queries, with `returnRegExp()`
+Users may need to create the query elements that are unable to build with prepared functions in this package. For users discretion in building queries, `returnRegExp()` provides flexible options to extract the data by the feature of an attribute in each data table. The following code chuck will illustrate some examples of complex queries.   
+
++ Task: After extracting the data set of 'source': IGOEUREEC (EU) and 'target': United Kingdom (UK) and the one of _vice versa_ from the real-time Phoenix data, create the graphs of their trends:
+
 ```{r, eval=FALSE, message=FALSE, warning=FALSE, results="asis" }
 # sorce actor is EU
 eu <- returnRegExp(k,"Phoenix_rt","IGOEUREEC", "source")
 # target actor is UK
 uk <- returnRegExp(k,"Phoenix_rt","GBR", "target")
-dyad1 <- andList(list(eu,uk))
+dyad1 <- andList(c(eu,uk))
 dd1 <- sendQuery(k, "Phoenix_rt", dyad1, F)
 
 # source actor is UK
 uk2 <- returnRegExp(k,"Phoenix_rt","GBR", "source")
 # target actor is EU
 eu2 <- returnRegExp(k,"Phoenix_rt","IGOEUREEC", "target")
-dyad2 <- andList(list(eu2,uk2))
+dyad2 <- andList(c(eu2,uk2))
 dd2 <- sendQuery(k, "Phoenix_rt", dyad2, F)
 
 # reshaping data
@@ -491,10 +467,11 @@ barplot(UK_EU, col=c("white","blue","purple","orange", "red"),
         main = expression(source:~U.K. %->% ~target:~E.U.))
 ```
 
-&nbsp;
-![Example4](figures/fig3.jpg){height=85%}
 
-\newpage
+![Example3](figures/fig3.jpg){height=75%, width=85%}
+
+&nbsp;
+
 # Further information of the Event Data server at UTD
 
 ## Real Time Event Data 
