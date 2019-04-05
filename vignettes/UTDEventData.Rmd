@@ -28,10 +28,24 @@ vignette: >
 
 # Introduction
 
-The R library, `UTDEventData`, provides the direct access to the political event database at the University of Texas at Dallas (UTD). Using this library, researchers can query the event data stored at the UTD's API server and load them into R for subsequent analysis. Several functions are prepared in the library to extract and to analize the data according to users' preference. This library also provides the citation functions ont only for data tables but also the library itself. 
+The R library, `UTDEventData`, provides the direct access to the political event database at the University of Texas at Dallas (UTD). Using this library, researchers can query the event data stored at the UTD's API server and load them into R for subsequent analyses. Several functions are prepared in the library to extract and to analyze the data according to users' preference. This library also provides the citation functions not only for data tables but also or the library itself. 
+
+The UTD API server contains the six different data tables; Real-time Phoenix, ICEWS, three other Cline's Phoenix data sets, and TERRIER. With the several searching and extracting methods in this library, political and social scientists can explore the contents of each data table and can obtain the historic and real-time data for their research.  We expect that this R library provides the better environment in accessing to the event data for R users, so the number of studies on the large scale event data will increase in this drawing of the big data age.
+
+    Table 1:  Data Table Information       
+|Data Table         | Timeline          |  Further Information|
+|-------------------| :----------------:|---------------------|
+|Phoenix RT         | Oct. 2017 - Today | [OEDA](http://openeventdata.org/)|
+|ICEWS              | 1995 - Oct. 2018  | [ICEWS Dataverse](https://dataverse.harvard.edu/dataverse/icews)|
+|Cline Phoenix NYT  | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
+|Cline Phoenix FBIS | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
+|Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
+|TERRIER            | 1979 - 2016       | [TERRIERDATA.org](http://terrierdata.org)|
+
+The data, _Real-time Phoenix_, are real-time political conflict event data, extracted and processed from over 380 different English written news media on a daily basis since October 2017. As increasing the number of real-time news reports on the web, the UTD research team has developed an automated machine-coded system, titled "Spark-based Political Event Coding (SPEC)", in order to extract the political event data in a real time manner based on the Conflict Analysis and Mediation Event Ontology (CAMEO) event dictionary. Along with the other event data illustrated in Table 1, therefore, we expect that _Real-time Phoenix_ will be employed to explore immediate changes of international relations  and situations for academic and government communities. 
 
 The project of the UTDEventData R package is in progress and has been updated day by day. Your comments, feedback, and suggestions are welcome so that more user friendly functions are prepared in the library.
-If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).  
+If you have questions in using the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>). 
 
 This package requires you to have an API key to access to the UTD data server. Please find the following link and fill out the form to obtain an API key: <http://eventdata.utdallas.edu/signup>. 
 
@@ -44,7 +58,7 @@ devtools::install_github("KateHyoung/UTDEventData")
 devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
 
-To cite the package, an excution function `citation()` can be used, and users can find the citatation texts when using the data obtaining functions, `pullData()` and `sendQuery()` with a defualt option of `citation = TRUE`. Moreover, the function of `citeData()` in the package will print data ciatation texts in a R console. 
+To cite the package, an execution function `citation()` can be used, and users can find the citation texts when using the data obtaining functions, `pullData()` and `sendQuery()` with a default option of `citation = TRUE`. Moreover, the function of `citeData()` in the package will print data citation texts in a R console. 
 ```{r, eval = FALSE}
 # to cite the package 
 citation("UTDEventData")
@@ -53,22 +67,6 @@ citation("UTDEventData")
 citeData(table_name = "Data table name")
 ```
 
-
-The UTD API server contains the six different data tables; Real-time Phoenix, ICEWS, three other Cline's Phoenix data sets, and TERRIER. With the several searching and extracting methods in this library, political and social scientists can explore the contents of each data table and can obtain the historic and real-time data for their research.  We expect that this R library provides the better evivornment in accessing to the event data for R users, so the number of studies on the large scale event data will increase in this drawing of the big data age.
-
-
-    Table 1:  Data Table Information       
-|Data Table         | Timeline          |  Further Information|
-|-------------------| :----------------:|---------------------|
-|Phoenix RT         | Oct. 2017 - Today | [OEDA](http://openeventdata.org/)|
-|ICEWS              | 1995 - Oct. 2018  | [ICEWS Dataverse](https://dataverse.harvard.edu/dataverse/icews)|
-|Cline Phoenix NYT  | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
-|Cline Phoenix FBIS | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
-|Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
-|TERRIER            | 1979 - 2016       | [TERRIERDATA.org](http://terrierdata.org)|
-
-
-You can find the information of each data table in the specified websites such as the contents of data, their entities, and attributes. 
 
 ## Computer Enviroments This Package Has Tested
 The codes/functions in this documentation have been tested in the following versions of:
