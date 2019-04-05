@@ -5,6 +5,13 @@
 #  # install the package with the vignette
 #  devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 
+## ---- eval = FALSE-------------------------------------------------------
+#  # to cite the package
+#  citation("UTDEventData")
+#  
+#  # to cite a data table
+#  citeData(table_name = "Data table name")
+
 ## ----eval = FALSE--------------------------------------------------------
 #  # returning all data table the server contains with entering an API key
 #  DataTables(api_key = " ")
@@ -54,6 +61,14 @@
 #           citation = FALSE)
 
 ## ---- eval=FALSE---------------------------------------------------------
+#  k <- '...your API key....'
+#  DataTables(k)
+
+## ---- eval=FALSE---------------------------------------------------------
+#  Sys.setenv(APIKEY = "...your API key...")
+#  DataTables(Sys.getenv("APIKEY"))
+
+## ---- eval=FALSE---------------------------------------------------------
 #  # creating an object
 #  obj <- Table$new()
 #  
@@ -75,7 +90,7 @@
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # basic usage
-#  sendQuery(api_key='', tabl_name ='', query = list(), citation = TRUE)
+#  sendQuery(api_key='', tabl_name ='', query = c(), citation = TRUE)
 #  
 #  # to store the ICEWS subset in the vector of myData without the citation
 #  # query_block is a list of the quries built by the query block functions illustrated in subchapters
@@ -112,50 +127,10 @@
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # combine stored query blocks such as 'time' or 'locQuery' created before
-#  and_query <- andList(query_prep = list(locQuery, time))
+#  and_query <- andList(query_prep = c(locQuery, time))
 #  
 #  # subset with two or more stored query blocks such as 'locQuery' or 'dyad'
-#  or_query <- orList(query_prep = list(locQuery, dyad))
-
-## ---- eval=FALSE---------------------------------------------------------
-#  
-#  # examples of subsetting functions II
-#  
-#  # creating query blocks
-#  # a country constrain of 'CHN' and 'USA'
-#  k <- 'api_key'
-#  ctr <- returnCountries("phoenix_rt", list("CHN", "USA"))
-#  
-#  # A query of time between 2017-11-1 and 2017-11-5
-#  time <- returnTimes("phoenix_rt", "20171101","20171105")
-#  
-#  # a boolean logic, or, with the two query blocks
-#  or_query <- orList(list(ctr, time))
-#  # request a data set to the API server with the package citation
-#  d1 <- sendQuery(k,"phoenix_rt",or_query, TRUE)
-#  
-#  # to view the subset
-#  head(d1$data, 10)
-#  View(d1)
-#  
-#  # a boolean logic, and, with the two query blocks
-#  and_query <- andList(list(ctr, time))
-#  d2 <- sendQuery(k, "phoenix_rt", and_query, TRUE)
-#  
-#  # to view the subset
-#  head(d2$data, 10)
-#  View(d2)
-#  
-#  # when a user wants to extract all event in US and China with the events for which the source was a government actor from the Phoenix real-time data
-#  rgex <- returnRegExp(k, "phoenix_rt","GOV", "src_agent")
-#  q <- andList(list(ctr, rgex))
-#  data  <- sendQuery(k,"phoenix_rt",q , citation = FALSE) # no citation
-#  
-#  # to view the data
-#  # because the option for citation was off, package's citation was not printed.
-#  head(data, 10)
-#  View(data)
-#  
+#  or_query <- orList(query_prep = c(locQuery, dyad))
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # estimate the data size you want to extract
@@ -181,13 +156,26 @@
 #  citeData(table_name = "ICEWS")
 
 ## ---- eval = F, fig.height=3, fig.width=5--------------------------------
+#  
+#  # Option 1: pullData()
 #  # Note: k <- "...provided API key"
 #  dt <- pullData(k, "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
+#  
+#  # Option 2: SendQuery() and the query block functions: returnTimes(), returnCountries()
+#  
+#  ctr<- returnCountries("Phoenix_rt", list('RUS', 'SYR'))
+#  t <- returnTimes("Phoenix_rt", "20180101", '20180331')
+#  q <- andList(c(ctr, t))
+#  dt1 <- sendQuery(k, "Phoenix_rt", q, citation = F)
+#  
+#  # the data set d1 and d2 are identical
 #  
 #  ## querying the fight event by CAMEO codes
 #  Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
 #            dt$code=="193" | dt$code=="194" | dt$code=="195" |
 #            dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
+#  
+#  
 #  
 #  Fgt <- Fgt[,1:23] ## removing url and oid
 #  
@@ -196,22 +184,6 @@
 #  barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblue", "red"),
 #          legend = rownames(tb), beside=TRUE,  xlab="Month in 2018")
 #  
-
-## ---- eval = F, tydi=TRUE------------------------------------------------
-#  # querying the fight event by CAMEO codes
-#  # please checking the variable features and formats in a data set. Attribute names and formats vary by data tables
-#  
-#  ctr<- returnCountries('icews', list('RUS', 'SYR'))
-#  t <- returnTimes('icews', "20170101", '20171231')
-#  qr <- andList(list(ctr, t))
-#  dt1 <- sendQuery(k, 'icews', qr, citation = F)
-#  
-#  dt1$`Event Date1` <- as.POSIXct(dt1$`Event Date`)
-#  dt1$Month <-format.Date(dt1$`Event Date1`,"%m")
-#  tab <- table(dt1$Country,  dt1$Month)
-#  
-#  barplot(tab, main = "Monthly Event Frequency of Syria in 2017 (ICEWS)", col="gray",
-#          ylab = "Frequency", xlab="Month in 2018")
 
 ## ---- eval=FALSE, message=FALSE, warning=FALSE, results="asis"-----------
 #  # creating the query of source = 'PAK' and target = 'IND' for ICEWS
@@ -236,14 +208,14 @@
 #  eu <- returnRegExp(k,"Phoenix_rt","IGOEUREEC", "source")
 #  # target actor is UK
 #  uk <- returnRegExp(k,"Phoenix_rt","GBR", "target")
-#  dyad1 <- andList(list(eu,uk))
+#  dyad1 <- andList(c(eu,uk))
 #  dd1 <- sendQuery(k, "Phoenix_rt", dyad1, F)
 #  
 #  # source actor is UK
 #  uk2 <- returnRegExp(k,"Phoenix_rt","GBR", "source")
 #  # target actor is EU
 #  eu2 <- returnRegExp(k,"Phoenix_rt","IGOEUREEC", "target")
-#  dyad2 <- andList(list(eu2,uk2))
+#  dyad2 <- andList(c(eu2,uk2))
 #  dd2 <- sendQuery(k, "Phoenix_rt", dyad2, F)
 #  
 #  # reshaping data
