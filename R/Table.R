@@ -6,7 +6,7 @@
 #'@name Table-class
 #'@field api_key A character vector
 #'@import methods
-#'@export
+#'@export Table
 #'@exportClass Table
 #'@examples \dontrun{# creating an object
 #'obj<-Table$new()
@@ -118,7 +118,7 @@ Table <- setRefClass("Table",
                          url = 'http://149.165.156.33:5002/api/fields?datasource='
 
                          # searching variables in different data tables
-                         if (tb=='phoenix_rt' || tb=='icews' || tb=='cline_phoenix_swb' || tb=='cline_phoenix_fbis' || tb=='cline_phoenix_nyt'){
+                         if (tb=='phoenix_rt' || tb=='icews' || tb=='cline_phoenix_swb' || tb=='cline_phoenix_fbis' || tb=='cline_phoenix_nyt' || tb=="terrier"){
 
                            url_submit = paste(url,tb,'&api_key=',api_key,sep='')
 
