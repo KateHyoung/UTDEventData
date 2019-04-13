@@ -83,13 +83,13 @@ Download the PDF version [here](https://github.com/KateHyoung/UTDEventData/raw/U
 
 
 ## Authors  
-Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)
+Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)  
 Dr. Patrick T. Brandt <pbrandt@utdallas.edu>  
-Dr. Vito D'Orazio <dorazio@utdallas.edu>
-Dr. Latifur Khan <lkhan@utdallas.edu>
-Micheal J. Shoemate <michael.shoemate@utdallas.edu>  
-Sayeed Salam <sxs149331@utdallas.edu>
-Jared Looper <jrl140030@utdallas.edu>  
+Dr. Vito D'Orazio <dorazio@utdallas.edu>  
+Dr. Latifur Khan <lkhan@utdallas.edu>  
+Micheal J. Shoemate <michael.shoemate@utdallas.edu>   
+Sayeed Salam <sxs149331@utdallas.edu>  
+Jared Looper <jrl140030@utdallas.edu>    
  
  
 ## Community Guidelines
