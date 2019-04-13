@@ -19,7 +19,7 @@
 #' @importFrom rjson toJSON
 #' @importFrom curl curl
 #' @export
-#' @examples \dontrun{pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
+#' @examples \dontrun{pullData(utd_api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
 #'  start="20171101", end="20171112", citation = TRUE)
 #'
 #'  ## Another way to avoid repeating an API key into the function
@@ -30,20 +30,20 @@
 #'
 #'  ## Data retreval without the citation
 #'  pullData(k, "phoenix_rt", list("USA"), "20171115", "20171120", citation = FALSE)}
-#' @param api_key An API key provided by the server manager at UTD.
+#' @param utd_api_key An API key provided by the server manager at UTD.
 #' @param table_name The name of data table you want to have. You may find available data tables from DataTables( )
 #' @param country List of countries. We recommend to use the \href{https://unstats.un.org/unsd/tradekb/knowledgebase/country-code}{ISO ALPHA-3 Code} format, but
 #' the full country name is also working in this function.\cr
 #'      e.g. either \code{list("USA","CAN")} or \code{list("United States", "Canada")} are working and not case-sensitive.
 #' @param start The "YYYYMMDD" format of the first date of a data set
 #' @param end The "YYYYMMDD" format of the end date of a data set
-#' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival. 
+#' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
 #' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
 
-pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
-    
+pullData<-function(utd_api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
+
     table_name = tolower(table_name)
-    
+
     ISO = TRUE
 
     for(i in 1:length(country))
@@ -57,22 +57,22 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       if(table_name == "icews"){
         for(i in 1:length(country))
           country[[i]] = countrycode::countrycode(country[[i]],"iso3c", "country.name") }
-      
+
       else if(table_name == "terrier") {
           for(i in 1:length(country))
             country[[i]] = countrycode::countrycode(country[[i]], "iso3c", "iso2c")  }
     }
 
     else {
-       if((table_name == "phoenix_rt") || (table_name== 'cline_phoenix_swb') || (table_name=="cline_phoenix_nyt") || 
+       if((table_name == "phoenix_rt") || (table_name== 'cline_phoenix_swb') || (table_name=="cline_phoenix_nyt") ||
               (table_name=='cline_phoenix_fbis')) {
          for(i in 1:length(country))
           country[[i]] = countrycode::countrycode(country[[i]],"country.name", "iso3c") }
-         
+
        else if(table_name == "terrier") {
            for(i in 1:length(country))
            country[[i]] = countrycode::countrycode(country[[i]], "country.name", "iso2c") }
-        
+
        }
 
     if(table_name == "icews") {
@@ -84,7 +84,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       start = paste(substr(start,1,4),"/",substr(start,5,6),"/",substr(start,7,8),sep="")
       end = paste(substr(end,1,4),"/",substr(end,5,6),"/",substr(end,7,8),sep="")
     }
-    
+
     country_constraint = list('<country_code>'= list('$in'= country))
     date_constraint = list('<date>'=list('$gte'=start,'$lte'=end))
     all_constraints = list(country_constraint, date_constraint)
@@ -107,7 +107,7 @@ pullData<-function(api_key=" ", table_name=" ", country=list(), start=" ", end="
       query_string = relabel(query_string, "terrier")
     }
     # getting data from url formatting
-    url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
+    url_submit = paste(url_submit,url, utd_api_key,'&query=', query_string, sep='','&datasource=',table_name)
     url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
     # print(url_submit)

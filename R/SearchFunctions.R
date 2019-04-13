@@ -21,19 +21,19 @@
 #' \item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrierdata.org}. }
 #'  }
 #' @return A list of the data tables currently downloadable from the UTD server as a character format
-#' @param api_key an API key provided by the UTD server manager
+#' @param utd_api_key an API key provided by the UTD server manager
 #' @export
-#' @examples \dontrun{DataTables(api_key=" ")
+#' @examples \dontrun{DataTables(utd_api_key=" ")
 #'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #'
-#'  k <- "api_key"
+#'  k <- "utd_api_key"
 #'  DataTables(k)}
 
-DataTables<-function (api_key="")
+DataTables<-function (utd_api_key="")
 {
   # constructing a url
   url = 'http://149.165.156.33:5002/api/datasources?api_key='
-  url_submit = paste(url,api_key,sep='')
+  url_submit = paste(url,utd_api_key,sep='')
   # getting table names
   TableList <- readLines(url_submit, warn=FALSE)
   List<-gsub(".*\\[(.*)\\].*", "\\1", TableList)
@@ -56,26 +56,26 @@ DataTables<-function (api_key="")
 #' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #' You can also use this function through the reference class, \code{Table()}.
 #' Please find the help document of the \code{Table()} function for more details of its usage.
-#' @param api_key an API key from the developer at UTD
+#' @param utd_api_key an API key from the developer at UTD
 #' @param table a specific data table a user wants to explore its variables
 #' @param lword a look-up word for a particular variable name you need
 #' @return A list of variable names of the specified data table
 #' @export
 #' @examples
 #' # when searching the variables in Phoenix_RT
-#' tableVar(api_key="...", table="phoenix_rt")
+#' tableVar(utd_api_key="...", table="phoenix_rt")
 #'
 #' # when searhing the variable which includes the word of "tar" in ICEWS
-#' tableVar(api_key="...", table="icews", lword="tar")
+#' tableVar(utd_api_key="...", table="icews", lword="tar")
 #'
 #' # a simple way of applying an API key
-#' k <- "api_key"
+#' k <- "utd_api_key"
 #' tableVar(k, table="phoeni_rt")
 #' tableVar(k, table="icews", lword="tar")
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
-tableVar <-function(api_key='', table='', lword='')
+tableVar <-function(utd_api_key='', table='', lword='')
 {
   # transfroming a string to lower cases
   tb=tolower(table)
@@ -83,7 +83,7 @@ tableVar <-function(api_key='', table='', lword='')
   if (tb=='terrier'){
 
   url = 'http://149.165.156.33:5002/api/fields?datasource='
-  url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+  url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
   # getting variables names
   VarList <- readLines(url_submit, warn=FALSE)
   List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
@@ -103,7 +103,7 @@ tableVar <-function(api_key='', table='', lword='')
   if (tb=='phoenix_rt'){
 
     url = 'http://149.165.156.33:5002/api/fields?datasource='
-    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
@@ -122,7 +122,7 @@ tableVar <-function(api_key='', table='', lword='')
   if (tb=='cline_phoenix_nyt'){
 
     url = 'http://149.165.156.33:5002/api/fields?datasource='
-    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
@@ -141,7 +141,7 @@ tableVar <-function(api_key='', table='', lword='')
   if (tb=='cline_phoenix_fbis'){
 
     url = 'http://149.165.156.33:5002/api/fields?datasource='
-    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
@@ -160,7 +160,7 @@ tableVar <-function(api_key='', table='', lword='')
   if (tb=='cline_phoenix_swb'){
 
     url = 'http://149.165.156.33:5002/api/fields?datasource='
-    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)
@@ -179,7 +179,7 @@ tableVar <-function(api_key='', table='', lword='')
   if (tb=='icews'){
 
     url = 'http://149.165.156.33:5002/api/fields?datasource='
-    url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+    url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
     List<-gsub(".*\\[(.*)\\].*", "\\1", VarList)

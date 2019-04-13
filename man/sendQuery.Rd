@@ -4,11 +4,11 @@
 \alias{sendQuery}
 \title{Sending queries to the UTD API server in order to download data with a built query}
 \usage{
-sendQuery(api_key = "", table_name = "", query = list(),
+sendQuery(utd_api_key = "", table_name = "", query = list(),
   citation = TRUE)
 }
 \arguments{
-\item{api_key}{An API key provided by a server manager at UTD}
+\item{utd_api_key}{An API key provided by a server manager at UTD}
 
 \item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
@@ -32,5 +32,5 @@ frequently occurred in a Windows machine.
 }
 \examples{
 \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
-myData <- sendQuery(api_key,"icews", query_element, citation = FALSE)}
+myData <- sendQuery(utd_api_key,"icews", query_element, citation = FALSE)}
 }

@@ -4,7 +4,7 @@
 #'An API key can be obtained after submitting an API request form in the sign-up website (\url{http://eventdata.utdallas.edu/signup}).
 #'Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 #'@name Table-class
-#'@field api_key A character vector
+#'@field utd_api_key A character vector
 #'@import methods
 #'@export Table
 #'@exportClass Table
@@ -18,10 +18,10 @@
 #'obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")}
 
 Table <- setRefClass("Table",
-                     fields = list (api_key = "character"),
+                     fields = list (utd_api_key = "character"),
                      methods = list(
                        setAPIKey = function(key) {
-                         api_key <<- key
+                         utd_api_key <<- key
                        },
                        pullData = function(table_name, country, start, end) {
                          "This is the main function to extract subdata from
@@ -81,7 +81,7 @@ Table <- setRefClass("Table",
                            query_string = relabel(query_string, "icews")
                          }
                          # getting data from url formatting
-                         url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
+                         url_submit = paste(url_submit,url, utd_api_key,'&query=', query_string, sep='','&datasource=',table_name)
                          url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
                          url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
                          retrieved_data <- readLines(url_submit, warn=FALSE)
@@ -95,7 +95,7 @@ Table <- setRefClass("Table",
                          \\subsection{Return Value}{a list of a data table}"
                          # constructing a url
                          url = 'http://149.165.156.33:5002/api/datasources?api_key='
-                         url_submit = paste(url,api_key,sep='')
+                         url_submit = paste(url,utd_api_key,sep='')
                          # getting table names
                          TableList <- readLines(url_submit, warn=FALSE)
                          List<-gsub(".*\\[(.*)\\].*", "\\1", TableList)
@@ -120,7 +120,7 @@ Table <- setRefClass("Table",
                          # searching variables in different data tables
                          if (tb=='phoenix_rt' || tb=='icews' || tb=='cline_phoenix_swb' || tb=='cline_phoenix_fbis' || tb=='cline_phoenix_nyt' || tb=="terrier"){
 
-                           url_submit = paste(url,tb,'&api_key=',api_key,sep='')
+                           url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
 
                            # getting variable names
                            VarList <- readLines(url_submit, warn=FALSE)

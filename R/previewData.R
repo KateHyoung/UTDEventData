@@ -9,16 +9,16 @@
 #' with `edit()`, the variable of `_id` needs to be dropped.
 #' @importFrom jsonlite fromJSON
 #' @export
-#' @param api_key An API key provided by a server manager at UTD
+#' @param utd_api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table a user specifies. Your input is NOT
 #' case-sensitive.
-#' @examples \dontrun{ data <- previewData(api_key, "icews")
+#' @examples \dontrun{ data <- previewData(utd_api_key, "icews")
 #' View(data) # the 100 observations of ICEWS data are shown }
-previewData <- function(api_key = "", table_name = ""){
+previewData <- function(utd_api_key = "", table_name = ""){
   url <- 'http://149.165.156.33:5002/api/data?api_key='
   url_submit = ''
   table_name = tolower(table_name)
-  url_submit = paste(url_submit,url, api_key,'&query={}', '&limit=100', sep='','&datasource=',table_name)
+  url_submit = paste(url_submit,url, utd_api_key,'&query={}', '&limit=100', sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   retrieved_data <- readLines(url_submit, warn=FALSE)

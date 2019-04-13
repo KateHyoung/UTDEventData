@@ -14,7 +14,7 @@
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # returning all data table the server contains with entering an API key
-#  DataTables(api_key = " ")
+#  DataTables(utd_api_key = " ")
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #  
 #  # suggesting a way to avoid repetitive typing an API key into functions
@@ -23,7 +23,7 @@
 #  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  tableVar(api_key="...", table = "phoenix_rt")
+#  tableVar(utd_api_key="...", table = "phoenix_rt")
 #  
 #  # an easy way of applying a stored API text to avoid the repeation of API key typing
 #  k <-"...api key...."
@@ -34,7 +34,7 @@
 #  tableVar(k, "Cline_Phoenix_swb")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  tableVar(api_key = "...", table = "icews", lword = "target")
+#  tableVar(utd_api_key = "...", table = "icews", lword = "target")
 #  
 #  # when a user wants to know the attribute that labeled as 'target' in ICEWS
 #  k <- "..api key..."
@@ -42,13 +42,13 @@
 #  '" Target Name"    " Target Sectors", ....'
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  dataSample <- previewData(api_key = " ", table_name = "PHOENIX_RT")
+#  dataSample <- previewData(utd_api_key = " ", table_name = "PHOENIX_RT")
 #  View(dataSample)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  ## several examples of different data tables with citation texts
-#  k <-'api key...'
-#  subset1 <- pullData(api_key = k, table_name = "phoenix_rt", country = list('canada','China'), start = '20171101',  end = '20171102', T)
+#  k <-'utd api key...'
+#  subset1 <- pullData(utd_api_key = k, table_name = "phoenix_rt", country = list('canada','China'), start = '20171101',  end = '20171102', T)
 #  
 #  # to store the data only
 #  data <- subset1$data
@@ -65,8 +65,8 @@
 #  DataTables(k)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  Sys.setenv(APIKEY = "...your API key...")
-#  DataTables(Sys.getenv("APIKEY"))
+#  Sys.setenv(UTDAPIKEY = "...your API key...")
+#  DataTables(Sys.getenv("UTDAPIKEY"))
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  # creating an object
@@ -82,32 +82,35 @@
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  # to estimate the data size of the entire Cline_Phoenix_NYT data
-#  getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
+#  getQuerySize(utd_api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
 #  
 #  # to download the data
-#  data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)
+#  data.nyt <- entireData(utd_api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)
 #  View(data.nyt)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # basic usage
-#  sendQuery(api_key='', tabl_name ='', query = c(), citation = TRUE)
+#  sendQuery(utd_api_key='', tabl_name ='', query = c(), citation = TRUE)
 #  
 #  # to store the ICEWS subset in the vector of myData without the citation
 #  # query_block is a list of the quries built by the query block functions illustrated in subchapters
-#  myData <- sendQuery(api_key,"icews", query_block, citation = TRUE)
+#  dyad <- returnDyad('icews', 'PAK', 'IND')
+#  time <- returnTimes("icews","20180901","20181031")
+#  query_block <- andList(c(time, dyad))
+#  myData <- sendQuery('utd_api_key',"icews", query_block, citation = TRUE)
 #  # store the data only
 #  myData <- myData$data
 #  # print citation texts only
 #  myData$citation
 #  
 #  # without the citation text
-#  myData <- sendQuery(api_key,"icews", query_block, citation = FALSE)
+#  myData <- sendQuery(utd_api_key,"icews", query_block, citation = FALSE)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # genrate a query for all source actors that involved in governments in events
-#  govQuery <- returnRegExp( api_key = " " , table_name = "phoenix_rt", pattern = "GOV", field = "src_agent")
+#  govQuery <- returnRegExp( utd_api_key = " " , table_name = "phoenix_rt", pattern = "GOV", field = "src_agent")
 #  # to subset the cline_phoenix_nyt data by year == 2001
-#  nytQuery <- returnRegExp( api_key = " ", 'cline_phoenix_nyt', '2001', 'year')
+#  nytQuery <- returnRegExp( utd_api_key = " ", 'cline_phoenix_nyt', '2001', 'year')
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # generate a query of the United States and Canada as a country restraint for real-time event data
@@ -134,7 +137,7 @@
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  # estimate the data size you want to extract
-#  getQuerySize(api_key = " ", table_name = " ", query = list())
+#  getQuerySize(utd_api_key = " ", table_name = " ", query = list())
 #  
 #  # if the error message is noted, estimate the data a user has requested
 #  getQuerySize(k, 'phoenix_rt', q)
@@ -168,14 +171,10 @@
 #  q <- andList(c(ctr, t))
 #  dt1 <- sendQuery(k, "Phoenix_rt", q, citation = F)
 #  
-#  # the data set d1 and d2 are identical
-#  
 #  ## querying the fight event by CAMEO codes
 #  Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
 #            dt$code=="193" | dt$code=="194" | dt$code=="195" |
 #            dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
-#  
-#  
 #  
 #  Fgt <- Fgt[,1:23] ## removing url and oid
 #  
@@ -201,7 +200,7 @@
 #  # save each observation as a data set and print it
 #  Compare <- as.matrix(cbind(nrow(tmp), nrow(tmp.swb), nrow(tmp.fbis), nrow(tmp.nyt)))
 #  colnames(Compare) <- c("ICEWS", "Phoenix SWB", "Phoenix FBIS", "Phoenix NYT")
-#  xtable(Compare)
+#  knitr::kable(Compare)
 
 ## ---- eval=FALSE, message=FALSE, warning=FALSE, results="asis"-----------
 #  # sorce actor is EU

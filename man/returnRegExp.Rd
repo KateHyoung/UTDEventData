@@ -4,10 +4,11 @@
 \alias{returnRegExp}
 \title{Building a query element, which indicates a certain pattern of variables in a particular data table}
 \usage{
-returnRegExp(api_key = "", table_name = "", pattern = "", field = "")
+returnRegExp(utd_api_key = "", table_name = "", pattern = "",
+  field = "")
 }
 \arguments{
-\item{api_key}{An API key provided by a UTD server manager}
+\item{utd_api_key}{An API key provided by a UTD server manager}
 
 \item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
@@ -28,8 +29,8 @@ For instance; if you subset the data with a certain country, use the function, `
 \examples{
 \dontrun{
 # to get all source actors related to governments in ICEWS
-reg <- returnRegExp(api_key, "icews","GOV","Source Name")
+reg <- returnRegExp(utd_api_key, "icews","GOV","Source Name")
 # to subset the cline_phoenix_nyt data by year == 2001
-nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
-myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
+nytQuery <- returnRegExp(utd_api_key, 'cline_phoenix_nyt', '2001', 'year')
+myNYTdata <- sendQuery(utd_api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 }

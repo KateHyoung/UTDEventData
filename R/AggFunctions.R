@@ -139,7 +139,7 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' @return A list of the query element of a certain pattern of a particular variable in a data table
 #' @importFrom stats setNames
 #' @export
-#' @param api_key An API key provided by a UTD server manager
+#' @param utd_api_key An API key provided by a UTD server manager
 #' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param pattern A pattern or a feature of a specified variable
 #' @param field A field (variable) of a data table
@@ -147,13 +147,13 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' For instance; if you subset the data with a certain country, use the function, `returnCountries()`.
 #' @examples \dontrun{
 #' # to get all source actors related to governments in ICEWS
-#' reg <- returnRegExp(api_key, "icews","GOV","Source Name")
+#' reg <- returnRegExp(utd_api_key, "icews","GOV","Source Name")
 #' # to subset the cline_phoenix_nyt data by year == 2001
-#' nytQuery <- returnRegExp(api_key, 'cline_phoenix_nyt', '2001', 'year')
-#' myNYTdata <- sendQuery(api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
-returnRegExp <- function(api_key = "", table_name = "", pattern = "", field = "") {
+#' nytQuery <- returnRegExp(utd_api_key, 'cline_phoenix_nyt', '2001', 'year')
+#' myNYTdata <- sendQuery(utd_api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
+returnRegExp <- function(utd_api_key = "", table_name = "", pattern = "", field = "") {
   f = paste("",field, sep='')
-  if(is.element(f, tableVar(api_key, table_name))) {
+  if(is.element(f, tableVar(utd_api_key, table_name))) {
     query = list('field'= list('$regex' = pattern))
     return(setNames(query,field))
   }
@@ -203,15 +203,15 @@ andList <- function(query_prep = c()) {
 #' @importFrom rjson toJSON
 #' @importFrom curl curl
 #' @export
-#' @param api_key An API key provided by a server manager at UTD
+#' @param utd_api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param query A list of query elements or a single query element a user builds with other query functions.
 #' @note If an error message is returned, please increase the memory size of R. This error is more
 #' frequently occurred in a Windows machine.
 #' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
 #' @examples \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
-#' myData <- sendQuery(api_key,"icews", query_element, citation = FALSE)}
-sendQuery <- function(api_key = "", table_name = "", query = list(), citation = TRUE){
+#' myData <- sendQuery(utd_api_key,"icews", query_element, citation = FALSE)}
+sendQuery <- function(utd_api_key = "", table_name = "", query = list(), citation = TRUE){
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
@@ -233,7 +233,7 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
   else if(table_name == "terrier"){
     query_string = relabel(query_string, "terrier")
   }
-  url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
+  url_submit = paste(url_submit,url, utd_api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
@@ -266,15 +266,15 @@ sendQuery <- function(api_key = "", table_name = "", query = list(), citation = 
 #' @importFrom rjson toJSON
 #' @importFrom curl curl
 #' @export
-#' @param api_key An API key provided by a server manager at UTD
+#' @param utd_api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param query A list of query elements a user builds with other query element functions.
 #' Please type in "entire" to find the total size of a data table.
 #' @examples \dontrun{ # to measure the size of the query elements builded with the other functions
-#' getQuerySize(api_key = "", table_name = "Phoenix_rt", query = list(q1, q2))
+#' getQuerySize(utd_api_key = "", table_name = "Phoenix_rt", query = list(q1, q2))
 #' # to get the size of the entire Real-time Phoenix data
-#' getQuerySize(api_key = , table_name = "Phoenix_rt", query = "entire")}
-getQuerySize <- function(api_key = "", table_name = "", query = list()) {
+#' getQuerySize(utd_api_key = , table_name = "Phoenix_rt", query = "entire")}
+getQuerySize <- function(utd_api_key = "", table_name = "", query = list()) {
   table_name = tolower(table_name)
   url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
   url_submit = ''
@@ -302,7 +302,7 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
     }
   }
 
-  url_submit = paste(url_submit,url, api_key,'&query=', query_string, sep='','&datasource=',table_name)
+  url_submit = paste(url_submit,url, utd_api_key,'&query=', query_string, sep='','&datasource=',table_name)
   url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
   url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
   print(url_submit)
@@ -323,16 +323,16 @@ getQuerySize <- function(api_key = "", table_name = "", query = list()) {
 #' @note Some datasets are greather than 10GB. Please check a size of a dataset before downloading it on your device.
 #' @importFrom curl curl_download
 #' @export
-#' @param api_key An API key provided by a server manager at UTD
+#' @param utd_api_key An API key provided by a server manager at UTD
 #' @param table_name A name of a data table. Input strings are NOT case-sensitive.
 #' @param citation a logical indicating whether the package citation is printed (default is TRUE) or not.
 #' @examples \dontrun{
 #' # to get the size of the entire data for Cline_Phoeinx_NYT
-#' getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
+#' getQuerySize(utd_api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
 #' # to download the entire data of Cline_Phoeinx_NYT after confirming its size
-#' data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
+#' data.nyt <- entireData(utd_api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
 
-entireData <- function(api_key = "", table_name = "", citation = TRUE){
+entireData <- function(utd_api_key = "", table_name = "", citation = TRUE){
   table_name = tolower(table_name)
     if(table_name == 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"
      || table_name=='cline_phoenix_fbis'||table_name == 'icews' ||
@@ -340,7 +340,7 @@ entireData <- function(api_key = "", table_name = "", citation = TRUE){
 
     url <- 'http://149.165.156.33:5002/api/data?api_key='
     url_submit = ''
-    url_submit = paste(url_submit,url, api_key,'&query={}', sep='','&datasource=',table_name)
+    url_submit = paste(url_submit,url, utd_api_key,'&query={}', sep='','&datasource=',table_name)
     url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
     print(url_submit)

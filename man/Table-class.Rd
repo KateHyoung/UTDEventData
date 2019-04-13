@@ -13,7 +13,7 @@ Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD 
 \section{Fields}{
 
 \describe{
-\item{\code{api_key}}{A character vector}
+\item{\code{utd_api_key}}{A character vector}
 }}
 
 \section{Methods}{

@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2019-04-05" />
+<meta name="date" content="2019-04-13" />
 
 <title>UTDEventData: Extracting and aggregating event data from the UTD server</title>
 
@@ -82,6 +82,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
+
+
+
 </head>
 
 <body>
@@ -90,27 +93,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">UTDEventData: Extracting and aggregating event data from the UTD server</h1>
-<h4 class="author"><em>Dr. Patrick T. Brandt</em></h4>
+<h4 class="author">Dr. Patrick T. Brandt</h4>
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:pbrandt@utdallas.edu">pbrandt@utdallas.edu</a></a>
 </address>
-<h4 class="author"><em>Dr. Vito D’Orazio</em></h4>
+<h4 class="author">Dr. Vito D’Orazio</h4>
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:dorazio@utdallas.edu">dorazio@utdallas.edu</a></a>
 </address>
-<h4 class="author"><em>HyoungAh (Kate) Kim</em></h4>
+<h4 class="author">HyoungAh (Kate) Kim</h4>
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:hyoungah.kim@utdallas.edu">hyoungah.kim@utdallas.edu</a></a>
 </address>
-<h4 class="author"><em>Jared Looper</em></h4>
+<h4 class="author">Jared Looper</h4>
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:jrl140030@utdallas.edu">jrl140030@utdallas.edu</a></a>
 </address>
-<h4 class="author"><em>Micheal J. Shoemate</em></h4>
+<h4 class="author">Micheal J. Shoemate</h4>
 <address class="author_afil">
 The University of Texas at Dallas<br><a class="author_email" href="mailto:#"><a href="mailto:michael.shoemate@utdallas.edu">michael.shoemate@utdallas.edu</a></a>
 </address>
-<h4 class="date"><em>2019-04-05</em></h4>
+<h4 class="date">2019-04-13</h4>
 
 
 
@@ -194,7 +197,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <p>The search functions help users to explore 1) the data tables in the UTD API server and 2) the attributes (variables) in a particular table. Moreover, users can view the 100 sample data of each data table so as to check its structure, particular values, and patterns of attributes before downloading them on your local machines.</p>
 <p><code>DataTables()</code> returns a list of all data tables in the UTD server.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># returning all data table the server contains with entering an API key</span>
-<span class="kw">DataTables</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>)
+<span class="kw">DataTables</span>(<span class="dt">utd_api_key =</span> <span class="st">&quot; &quot;</span>)
 <span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span>
 
 <span class="co"># suggesting a way to avoid repetitive typing an API key into functions</span>
@@ -202,7 +205,7 @@ k &lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">DataTables</span>(k)
 <span class="st">&quot;'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'&quot;</span></code></pre></div>
 <p><code>tableVar()</code> returns a list of variables (attributes) in a particular data table a user specified in the function. For example, the variables in the Phoenix real-time (RT) data table can be obtained as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;phoenix_rt&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">utd_api_key=</span><span class="st">&quot;...&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;phoenix_rt&quot;</span>)
 
 <span class="co"># an easy way of applying a stored API text to avoid the repeation of API key typing </span>
 k &lt;-<span class="st">&quot;...api key....&quot;</span>
@@ -213,14 +216,14 @@ k &lt;-<span class="st">&quot;...api key....&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="st">&quot;Cline_Phoenix_swb&quot;</span>)</code></pre></div>
 <p>This function is <strong>not</strong> case sensitive, so users may type either lower case or upper case of a data table name. However, a text of the full name as returned by <code>Table()</code> should be entered in the function when applying the table name in other functions. For example, inputs of <code>&quot;cline_Phoenix_swb&quot;</code> and <code>&quot;CLINE_PHOENIX_SWB&quot;</code> will return the same variables, but one of <code>&quot;cline_phenix&quot;</code> will return a message that ask users to check a table name again.</p>
 <p>This function has another feature that a user can look up a particular variable users may want. For example, one who may wonder the ICEWS data have a variable named “target”, can type the string of ‘target’ as follows;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">api_key =</span> <span class="st">&quot;...&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;icews&quot;</span>, <span class="dt">lword =</span> <span class="st">&quot;target&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tableVar</span>(<span class="dt">utd_api_key =</span> <span class="st">&quot;...&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;icews&quot;</span>, <span class="dt">lword =</span> <span class="st">&quot;target&quot;</span>)
 
 <span class="co"># when a user wants to know the attribute that labeled as 'target' in ICEWS</span>
 k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <span class="kw">tableVar</span>(k, <span class="dt">table=</span><span class="st">&quot;icews&quot;</span>, <span class="dt">lword=</span><span class="st">&quot;target&quot;</span>)
 <span class="st">'&quot; Target Name&quot;    &quot; Target Sectors&quot;, ....'</span></code></pre></div>
 <p><code>previewData()</code> shows 100 observations of a data table as an example. Occasionally, users need to know a pattern of variables or a data structure to analyze the data in R dataframes. This function can be useful when users want to see some pattenrs of an interesting variable to build a query block with a regular expression (<code>returnRegExp()</code>) function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataSample &lt;-<span class="st"> </span><span class="kw">previewData</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot;PHOENIX_RT&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataSample &lt;-<span class="st"> </span><span class="kw">previewData</span>(<span class="dt">utd_api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot;PHOENIX_RT&quot;</span>)
 <span class="kw">View</span>(dataSample)</code></pre></div>
 <p> </p>
 </div>
@@ -233,8 +236,8 @@ k &lt;-<span class="st"> &quot;..api key...&quot;</span>
 <p>The function returns citation texts &amp; BibTeX for publication at the end of data retrieval. To avoid printing them in your R-console, please turn off the <code>citation</code> option by logiscally choosing “FALSE” in the function.</p>
 <p>The following code is an example usage of <code>pullData()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## several examples of different data tables with citation texts
-k &lt;-<span class="st">'api key...'</span>
-subset1 &lt;-<span class="st"> </span><span class="kw">pullData</span>(<span class="dt">api_key =</span> k, <span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">country =</span> <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="dt">start =</span> <span class="st">'20171101'</span>,  <span class="dt">end =</span> <span class="st">'20171102'</span>, T)
+k &lt;-<span class="st">'utd api key...'</span>
+subset1 &lt;-<span class="st"> </span><span class="kw">pullData</span>(<span class="dt">utd_api_key =</span> k, <span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">country =</span> <span class="kw">list</span>(<span class="st">'canada'</span>,<span class="st">'China'</span>), <span class="dt">start =</span> <span class="st">'20171101'</span>,  <span class="dt">end =</span> <span class="st">'20171102'</span>, T)
 
 <span class="co"># to store the data only</span>
 data &lt;-<span class="st"> </span>subset1<span class="op">$</span>data
@@ -261,8 +264,8 @@ data &lt;-<span class="st"> </span><span class="kw">pullData</span>(k, <span cla
 <div id="store-an-api-key-as-an-environment-variable" class="section level4">
 <h4>Store an API key as an environment variable</h4>
 <p>This option is to declare user’s API key as an environemtn variable and use it by <code>Sys.getenv()</code>. This option helps users to avoid a hassle to input the key each time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">APIKEY =</span> <span class="st">&quot;...your API key...&quot;</span>)
-<span class="kw">DataTables</span>(<span class="kw">Sys.getenv</span>(<span class="st">&quot;APIKEY&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">UTDAPIKEY =</span> <span class="st">&quot;...your API key...&quot;</span>)
+<span class="kw">DataTables</span>(<span class="kw">Sys.getenv</span>(<span class="st">&quot;UTDAPIKEY&quot;</span>))</code></pre></div>
 </div>
 <div id="using-a-reference-class" class="section level4">
 <h4>Using a reference class</h4>
@@ -284,10 +287,10 @@ obj<span class="op">$</span><span class="kw">pullData</span>(<span class="st">&q
 <p>Someone may want to download the entire data of a certain data table. <code>entireData()</code> helps users to do this as specifying a data table into the function. This function returns a dataframe of the requested data with the package citation. The data are directly stored to your disk, so make sure that your device has enough space to store them. The size of data can be estimated by <code>getQuerySize( )</code> with the <code>entire</code> options. More detials are illustrated in a hlep page of <code>getQuerySize()</code>.</p>
 <p>Some data tables are greater than 10GB, so it may occur R errors if a local devise does not have enoguth space. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time to request and download them, so please check your memory and disk limits before obtaining the entire data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to estimate the data size of the entire Cline_Phoenix_NYT data</span>
-<span class="kw">getQuerySize</span>(<span class="dt">api_key =</span> , <span class="dt">table_name =</span><span class="st">'Cline_Phoenix_NYT'</span>, <span class="dt">query =</span> <span class="st">'entire'</span>)
+<span class="kw">getQuerySize</span>(<span class="dt">utd_api_key =</span> , <span class="dt">table_name =</span><span class="st">'Cline_Phoenix_NYT'</span>, <span class="dt">query =</span> <span class="st">'entire'</span>)
 
 <span class="co"># to download the data</span>
-data.nyt &lt;-<span class="st"> </span><span class="kw">entireData</span>(<span class="dt">api_key =</span> , <span class="dt">table_name =</span><span class="st">'Cline_Phoenix_nyt'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)
+data.nyt &lt;-<span class="st"> </span><span class="kw">entireData</span>(<span class="dt">utd_api_key =</span> , <span class="dt">table_name =</span><span class="st">'Cline_Phoenix_nyt'</span>, <span class="dt">citation =</span> <span class="ot">FALSE</span>)
 <span class="kw">View</span>(data.nyt)</code></pre></div>
 <p> </p>
 </div>
@@ -302,27 +305,30 @@ data.nyt &lt;-<span class="st"> </span><span class="kw">entireData</span>(<span 
 <p>A dataset can be retrieved with the combinations generated with query block functions. <code>sendQuery()</code> is a main function to request data to the API server. A user should input an API key, a data table, and a list of queries created by <code>andList()</code>, <code>orList()</code>, or a single query block in the function as shown in the following example code. The function print the citation texts of publication and BibTeX formats at the end of the extracted data as default. To avoid this printing, please turn off the option by choosing “FALSE” in the method.</p>
 <p><code>sendQuery()</code> returns a list of data and citation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># basic usage</span>
-<span class="kw">sendQuery</span>(<span class="dt">api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">c</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
+<span class="kw">sendQuery</span>(<span class="dt">utd_api_key=</span><span class="st">''</span>, <span class="dt">tabl_name =</span><span class="st">''</span>, <span class="dt">query =</span> <span class="kw">c</span>(), <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 
 <span class="co"># to store the ICEWS subset in the vector of myData without the citation</span>
 <span class="co"># query_block is a list of the quries built by the query block functions illustrated in subchapters</span>
-myData &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(api_key,<span class="st">&quot;icews&quot;</span>, query_block, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
+dyad &lt;-<span class="st"> </span><span class="kw">returnDyad</span>(<span class="st">'icews'</span>, <span class="st">'PAK'</span>, <span class="st">'IND'</span>)
+time &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class="st">&quot;icews&quot;</span>,<span class="st">&quot;20180901&quot;</span>,<span class="st">&quot;20181031&quot;</span>)
+query_block &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">c</span>(time, dyad))
+myData &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(<span class="st">'utd_api_key'</span>,<span class="st">&quot;icews&quot;</span>, query_block, <span class="dt">citation =</span> <span class="ot">TRUE</span>)
 <span class="co"># store the data only</span>
 myData &lt;-<span class="st"> </span>myData<span class="op">$</span>data
 <span class="co"># print citation texts only</span>
 myData<span class="op">$</span>citation
 
 <span class="co"># without the citation text</span>
-myData &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(api_key,<span class="st">&quot;icews&quot;</span>, query_block, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
+myData &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(utd_api_key,<span class="st">&quot;icews&quot;</span>, query_block, <span class="dt">citation =</span> <span class="ot">FALSE</span>)</code></pre></div>
 </div>
 <div id="query-block-functions" class="section level3">
 <h3>Query block functions</h3>
 <p><code>returnRegExp()</code> can be used for a special case as indicating a particular value or a pattern of the variables in the API data table. To use this function, a user must aware the patten of a variable in a certain data table. The variable list in a particular table can be found with the function of <code>tableVar()</code> in the package and the pattern can be confirmed by <code>previewData()</code>. The function requires users to have an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in a data table.</p>
 <p>This function returns a list of specified queries.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genrate a query for all source actors that involved in governments in events</span>
-govQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( <span class="dt">api_key =</span> <span class="st">&quot; &quot;</span> , <span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;GOV&quot;</span>, <span class="dt">field =</span> <span class="st">&quot;src_agent&quot;</span>)
+govQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( <span class="dt">utd_api_key =</span> <span class="st">&quot; &quot;</span> , <span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;GOV&quot;</span>, <span class="dt">field =</span> <span class="st">&quot;src_agent&quot;</span>)
 <span class="co"># to subset the cline_phoenix_nyt data by year == 2001</span>
-nytQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( <span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>, <span class="st">'cline_phoenix_nyt'</span>, <span class="st">'2001'</span>, <span class="st">'year'</span>)</code></pre></div>
+nytQuery &lt;-<span class="st"> </span><span class="kw">returnRegExp</span>( <span class="dt">utd_api_key =</span> <span class="st">&quot; &quot;</span>, <span class="st">'cline_phoenix_nyt'</span>, <span class="st">'2001'</span>, <span class="st">'year'</span>)</code></pre></div>
 <p><code>returnCountries()</code> is the function that creates a country query block. The country means the geo-location where a certain event occurred in a news article. The function requires users to specify the names of the data table and countries. The ISO-3 Code format is recommended for its input, but full country names can work in the function. The inputs are <strong>case-insensitive</strong>. But we recommend to use a consistent way in the country name input.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a query of the United States and Canada as a country restraint for real-time event data</span>
 ctr &lt;-<span class="st"> </span><span class="kw">returnCountries</span>(<span class="dt">table_name =</span> <span class="st">&quot;phoenix_rt&quot;</span>, <span class="dt">country =</span> <span class="kw">list</span>(<span class="st">&quot;USA&quot;</span>,<span class="st">&quot;CAN&quot;</span>))</code></pre></div>
@@ -352,7 +358,7 @@ or_query &lt;-<span class="st"> </span><span class="kw">orList</span>(<span clas
 <p>This issue is more frequently occurred in a Windows machine because of the memory cap the R program is assigned. Once a user has the issue, <code>getQuerySize()</code> should be drawn to estimate data sizes. After comparing the size of data to machine’ RAM, a user may need to increase its maximum. If you apply <code>&quot;entire&quot;</code> in the query option, you can find the total size of a certain data table.</p>
 <p>please see the following examples;</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the data size you want to extract</span>
-<span class="kw">getQuerySize</span>(<span class="dt">api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot; &quot;</span>, <span class="dt">query =</span> <span class="kw">list</span>())
+<span class="kw">getQuerySize</span>(<span class="dt">utd_api_key =</span> <span class="st">&quot; &quot;</span>, <span class="dt">table_name =</span> <span class="st">&quot; &quot;</span>, <span class="dt">query =</span> <span class="kw">list</span>())
 
 <span class="co"># if the error message is noted, estimate the data a user has requested</span>
 <span class="kw">getQuerySize</span>(k, <span class="st">'phoenix_rt'</span>, q)
@@ -399,14 +405,10 @@ t &lt;-<span class="st"> </span><span class="kw">returnTimes</span>(<span class=
 q &lt;-<span class="st"> </span><span class="kw">andList</span>(<span class="kw">c</span>(ctr, t))
 dt1 &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span class="st">&quot;Phoenix_rt&quot;</span>, q, <span class="dt">citation =</span> F)
 
-<span class="co"># the data set d1 and d2 are identical</span>
-
 ## querying the fight event by CAMEO codes
 Fgt &lt;-<span class="st"> </span>dt[dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;190&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;191&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;192&quot;</span> <span class="op">|</span>
 <span class="st">          </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;193&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;194&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;195&quot;</span> <span class="op">|</span>
 <span class="st">          </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;1951&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;1952&quot;</span> <span class="op">|</span><span class="st"> </span>dt<span class="op">$</span>code<span class="op">==</span><span class="st">&quot;196&quot;</span>,]
-
-
 
 Fgt &lt;-<span class="st"> </span>Fgt[,<span class="dv">1</span><span class="op">:</span><span class="dv">23</span>] ## removing url and oid
 
@@ -439,7 +441,7 @@ tmp.nyt &lt;-<span class="st"> </span><span class="kw">sendQuery</span>(k, <span
 <span class="co"># save each observation as a data set and print it</span>
 Compare &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">cbind</span>(<span class="kw">nrow</span>(tmp), <span class="kw">nrow</span>(tmp.swb), <span class="kw">nrow</span>(tmp.fbis), <span class="kw">nrow</span>(tmp.nyt)))
 <span class="kw">colnames</span>(Compare) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ICEWS&quot;</span>, <span class="st">&quot;Phoenix SWB&quot;</span>, <span class="st">&quot;Phoenix FBIS&quot;</span>, <span class="st">&quot;Phoenix NYT&quot;</span>)
-<span class="kw">xtable</span>(Compare)</code></pre></div>
+knitr<span class="op">::</span><span class="kw">kable</span>(Compare)</code></pre></div>
 <pre><code>Table 2:  The Result of Example 2  </code></pre>
 <table>
 <thead>

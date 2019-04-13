@@ -4,10 +4,10 @@
 \alias{previewData}
 \title{Previewing a data structure and its variables which a user requests}
 \usage{
-previewData(api_key = "", table_name = "")
+previewData(utd_api_key = "", table_name = "")
 }
 \arguments{
-\item{api_key}{An API key provided by a server manager at UTD}
+\item{utd_api_key}{An API key provided by a server manager at UTD}
 
 \item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
@@ -24,6 +24,6 @@ in the data is a datafame, so it returns error if you view them by `edit()`. To 
 with `edit()`, the variable of `_id` needs to be dropped.
 }
 \examples{
-\dontrun{ data <- previewData(api_key, "icews")
+\dontrun{ data <- previewData(utd_api_key, "icews")
 View(data) # the 100 observations of ICEWS data are shown }
 }

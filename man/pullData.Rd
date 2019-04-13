@@ -4,11 +4,11 @@
 \alias{pullData}
 \title{Extracting event data from the UTD real-time event data server.}
 \usage{
-pullData(api_key = " ", table_name = " ", country = list(), start = " ",
-  end = " ", citation = TRUE)
+pullData(utd_api_key = " ", table_name = " ", country = list(),
+  start = " ", end = " ", citation = TRUE)
 }
 \arguments{
-\item{api_key}{An API key provided by the server manager at UTD.}
+\item{utd_api_key}{An API key provided by the server manager at UTD.}
 
 \item{table_name}{The name of data table you want to have. You may find available data tables from DataTables( )}
 
@@ -20,7 +20,7 @@ the full country name is also working in this function.\cr
 
 \item{end}{The "YYYYMMDD" format of the end date of a data set}
 
-\item{citation}{logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival. 
+\item{citation}{logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
 The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
 }
 \value{
@@ -38,7 +38,7 @@ This is the main function to extract subdata from the UTD Event data server by c
              Please find the help document of the \code{Table()} function for more details for its usage.
 }
 \examples{
-\dontrun{pullData(api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
+\dontrun{pullData(utd_api_key=" ", table_name="Phoenix_rt", country=list("USA","MEX","SYR","CHN"),
  start="20171101", end="20171112", citation = TRUE)
 
  ## Another way to avoid repeating an API key into the function

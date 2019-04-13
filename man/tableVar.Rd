@@ -4,10 +4,10 @@
 \alias{tableVar}
 \title{Searching the variables in a particular data table}
 \usage{
-tableVar(api_key = "", table = "", lword = "")
+tableVar(utd_api_key = "", table = "", lword = "")
 }
 \arguments{
-\item{api_key}{an API key from the developer at UTD}
+\item{utd_api_key}{an API key from the developer at UTD}
 
 \item{table}{a specific data table a user wants to explore its variables}
 
@@ -28,13 +28,13 @@ Please find the help document of the \code{Table()} function for more details of
 }
 \examples{
 # when searching the variables in Phoenix_RT
-tableVar(api_key="...", table="phoenix_rt")
+tableVar(utd_api_key="...", table="phoenix_rt")
 
 # when searhing the variable which includes the word of "tar" in ICEWS
-tableVar(api_key="...", table="icews", lword="tar")
+tableVar(utd_api_key="...", table="icews", lword="tar")
 
 # a simple way of applying an API key
-k <- "api_key"
+k <- "utd_api_key"
 tableVar(k, table="phoeni_rt")
 tableVar(k, table="icews", lword="tar")
 }

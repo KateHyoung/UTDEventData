@@ -4,10 +4,10 @@
 \alias{entireData}
 \title{Extracting the entire data of a specified data table}
 \usage{
-entireData(api_key = "", table_name = "", citation = TRUE)
+entireData(utd_api_key = "", table_name = "", citation = TRUE)
 }
 \arguments{
-\item{api_key}{An API key provided by a server manager at UTD}
+\item{utd_api_key}{An API key provided by a server manager at UTD}
 
 \item{table_name}{A name of a data table. Input strings are NOT case-sensitive.}
 
@@ -28,7 +28,7 @@ Some datasets are greather than 10GB. Please check a size of a dataset before do
 \examples{
 \dontrun{
 # to get the size of the entire data for Cline_Phoeinx_NYT
-getQuerySize(api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
+getQuerySize(utd_api_key = , table_name ='Cline_Phoenix_NYT', query = 'entire')
 # to download the entire data of Cline_Phoeinx_NYT after confirming its size
-data.nyt <- entireData(api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
+data.nyt <- entireData(utd_api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
 }

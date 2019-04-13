@@ -4,10 +4,10 @@
 \alias{DataTables}
 \title{Searching data tables in the UTD event data server}
 \usage{
-DataTables(api_key = "")
+DataTables(utd_api_key = "")
 }
 \arguments{
-\item{api_key}{an API key provided by the UTD server manager}
+\item{utd_api_key}{an API key provided by the UTD server manager}
 }
 \value{
 A list of the data tables currently downloadable from the UTD server as a character format
@@ -31,9 +31,9 @@ The details of data tables are illustrated in the linked websites. \cr
  }
 }
 \examples{
-\dontrun{DataTables(api_key=" ")
+\dontrun{DataTables(utd_api_key=" ")
  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 
- k <- "api_key"
+ k <- "utd_api_key"
  DataTables(k)}
 }
