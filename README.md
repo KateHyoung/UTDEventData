@@ -94,7 +94,7 @@ barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblu
 
 ![](vignettes/figures/fig1.jpg){width=70%}
 
-Military related fights between Rusia and Syria from January 2018 to March 2018 are depicted by month. Event types are articulated by CAMEO codes in a phoenix real-time data. Various ways to analysis these data can be made by research topics and interests. 
+Military related fights between Rusia and Syria from January 2018 to March 2018 are depicted by month. Event types are articulated by [CAMEO codes](http://eventdata.parusanalytics.com/data.dir/cameo.html) in Phoenix real-time data. Various ways to analysis these data can be made by research topics and interests. 
 
 ## Vignette
 The vignette is shown after installing the package and typing the following code in R console.
