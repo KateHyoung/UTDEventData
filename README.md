@@ -1,6 +1,6 @@
 # UTDEventData ver. 1.0.0
 
-This R package helps users to extract data from the UTD Event Data server by country names and time ranges. The project of the UTDEventData R package has not fully completed and is daily updated. Your comments, feedback, and suggestions are welcome to enhence the package.   
+This R package helps users to extract data from the UTD Event Data server. The project of the UTDEventData R package has not fully completed and is daily updated. Your comments, feedback, and suggestions are welcome to enhence the package.   
 If you have any question regarding the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>).
 
 This R package is part of a project, titled "Modernizing Political Event Data for Big Data Social Science Research". More information can be found on [the project webpage](http://eventdata.utdallas.edu/data.html).
@@ -64,13 +64,37 @@ Users can download 100 observations of data tables stored in the UTD server.
 dataSample <- previewData(utd_api_key = " ", table_name = "PHOENIX_RT")
 View(dataSample)
 ```
-## Downloading Data
-The simaple way to retreive data is using `pullData()` with country names and date of interestring events. 
+## Data extracting 
+A simaple way to retreive data is using `pullData()` with country names and date of interestring events. 
 ```
 k <-'utd api key...'
 subset1 <- pullData(utd_api_key = k, table_name = "phoenix_rt", country = list('canada','China'), start = '20171101',  end = '20171102', T)
 ```
 This package also prepares the more flexible and customer building data query method with the `sendQuery()` function. More details on this method is illustrated in package's vignette. 
+
+## An Example
+
+An example of data extracting of Real-time event data is illustrated in the following code chuck.    
+
+```
+dt <- pullData("UTD API KEY", "Phoenix_rt", list("RUS", "SYR"),start="20180101", end="20180331", citation = F)
+
+## querying the fight event by CAMEO codes
+Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
+          dt$code=="193" | dt$code=="194" | dt$code=="195" |
+          dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
+
+Fgt <- Fgt[,1:23] ## removing url and oid
+
+tb <- table(Fgt$country_code, Fgt$month) # monthly incidents
+
+barplot(tb, main = "Monthly Fight Incidents between RUS and SYR", col=c("darkblue", "red"),
+        legend = rownames(tb), beside=TRUE,  xlab="Month in 2018")
+```
+
+![](vignettes/figures/fig1.jpg){width=70%}
+
+Military related fights between Rusia and Syria from January 2018 to March 2018 are depicted by month. Event types are articulated by CAMEO codes in a phoenix real-time data. Various ways to analysis these data can be made by research topics and interests. 
 
 ## Vignette
 The vignette is shown after installing the package and typing the following code in R console.
