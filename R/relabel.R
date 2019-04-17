@@ -3,7 +3,7 @@
 #'@param format a format returned
 #'@importFrom jsonlite fromJSON
 #'@keywords internal
-#'@author Micheal J. Shoemate
+#'@author Michael J. Shoemate
 
 relabel = function(queryString, format) {
 
@@ -241,7 +241,7 @@ f2 <- function() {
 #'@importFrom jsonlite fromJSON
 #'@keywords internal
 
-### Cline datasets 
+### Cline datasets
 f3 <- function() {
   jsontext = jsonlite::fromJSON("{
                                 \"<country_code>\": {

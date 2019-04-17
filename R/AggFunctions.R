@@ -211,7 +211,10 @@ andList <- function(query_prep = c()) {
 #' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
 #' @examples \dontrun{ # to store the ICEWS subset in the vector of myData without the citation
 #' myData <- sendQuery(utd_api_key,"icews", query_element, citation = FALSE)}
-sendQuery <- function(utd_api_key = "", table_name = "", query = list(), citation = TRUE){
+sendQuery <- function(utd_api_key = NA, table_name = "", query = list(), citation = TRUE){
+  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
+
   if(is.null(query)) {
     print("The query is empty.")
     return(list())
@@ -274,7 +277,9 @@ sendQuery <- function(utd_api_key = "", table_name = "", query = list(), citatio
 #' getQuerySize(utd_api_key = "", table_name = "Phoenix_rt", query = list(q1, q2))
 #' # to get the size of the entire Real-time Phoenix data
 #' getQuerySize(utd_api_key = , table_name = "Phoenix_rt", query = "entire")}
-getQuerySize <- function(utd_api_key = "", table_name = "", query = list()) {
+getQuerySize <- function(utd_api_key = NA, table_name = "", query = list()) {
+  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
   table_name = tolower(table_name)
   url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
   url_submit = ''
@@ -332,7 +337,10 @@ getQuerySize <- function(utd_api_key = "", table_name = "", query = list()) {
 #' # to download the entire data of Cline_Phoeinx_NYT after confirming its size
 #' data.nyt <- entireData(utd_api_key = , table_name ='Cline_Phoenix_nyt', citation = FALSE)}
 
-entireData <- function(utd_api_key = "", table_name = "", citation = TRUE){
+entireData <- function(utd_api_key = NA, table_name = "", citation = TRUE){
+  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
+
   table_name = tolower(table_name)
     if(table_name == 'cline_phoenix_swb' || table_name=="cline_phoenix_nyt"
      || table_name=='cline_phoenix_fbis'||table_name == 'icews' ||

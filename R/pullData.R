@@ -38,9 +38,11 @@
 #' @param start The "YYYYMMDD" format of the first date of a data set
 #' @param end The "YYYYMMDD" format of the end date of a data set
 #' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
-#' The defualt is TRUE, and you can trun it off by adding FALSE in the option.
+#' The default is TRUE, and you can turn it off by adding FALSE in the option.
 
-pullData<-function(utd_api_key=" ", table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
+pullData<-function(utd_api_key=NA, table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
+    if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+    if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
 
     table_name = tolower(table_name)
 
@@ -107,7 +109,7 @@ pullData<-function(utd_api_key=" ", table_name=" ", country=list(), start=" ", e
       query_string = relabel(query_string, "terrier")
     }
     # getting data from url formatting
-    url_submit = paste(url_submit,url, utd_api_key,'&query=', query_string, sep='','&datasource=',table_name)
+    url_submit = paste(url_submit,url, utd_api_key, '&query=', query_string, sep='','&datasource=',table_name)
     url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
     # print(url_submit)
