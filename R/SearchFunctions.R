@@ -1,15 +1,15 @@
 ## function for indicating a specific data table in MongoDB
-## Currently updated on Jan. 2019
+## Currently updated on APR. 2019
 ## Kate Kim
 ## this returns all data tables the UTD database has
 ####################################################################
 #' Searching data tables in the UTD event data server
-#' @description Searching available data tables in the event data server.
+#' @description Searching available data tables in the UTD data server.
 #' It returns the list of data tables in the UTD server and requires an API key.
 #' The API key can be obtained after filling out the form in the UTD event data sign-up website
 #' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
-#' You can also use this function through the reference class, \code{Table()}.
-#' Please find the help document of the \code{Table()} function for more details on its usage.\cr
+#' You can also use this function through the reference class, \code{Table()}. \cr
+#' The option of storing an API key in an environment variable is prepared to run the function without passing an API key every time. Please see the examples bellow.
 #'
 #' The details of data tables are illustrated in the linked websites. \cr
 #' \itemize{
@@ -24,18 +24,18 @@
 #' @param utd_api_key an API key provided by the UTD server manager
 #' @export
 #' @examples \dontrun{DataTables(utd_api_key=' your API key')
-#'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
-#'
+#'  # method 1: passing a key as the first argument
 #'  k <- "utd_api_key"
 #'  DataTables(k)
 #'
+#'  # Method 2: storing the key in an environment variable
 #'  Sys.setenv(UTDAPIKEY = "...your API key...")
 #'  DataTables()}
 
-DataTables<-function (utd_api_key=NA)
+DataTables<-function (utd_api_key=NULL)
 {
-  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
-  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
+  if (is.null(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.null(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
 
   # constructing a url
   url = 'http://149.165.156.33:5002/api/datasources?api_key='
@@ -60,8 +60,8 @@ DataTables<-function (utd_api_key=NA)
 #' specified data table has the certain variables you need. \cr
 #' The API key can be obtained after submitting the form in the UTD event data sign-up website
 #' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
-#' You can also use this function through the reference class, \code{Table()}.
-#' Please find the help document of the \code{Table()} function for more details of its usage.
+#' You can also use this function through the reference class, \code{Table()}. \cr
+#' The option of storing an API key in an environment variable is prepared to run the function without passing an API key every time. Please see the examples bellow.
 #' @param utd_api_key an API key from the developer at UTD
 #' @param table a specific data table a user wants to explore its variables
 #' @param lword a look-up word for a particular variable name you need
@@ -70,24 +70,24 @@ DataTables<-function (utd_api_key=NA)
 #' @examples
 #' \dontrun{
 #' # when searching the variables in Phoenix_RT
-#' tableVar(utd_api_key="...", table="phoenix_rt")
+#' tableVar(table="phoenix_rt", utd_api_key="...")
 #'
 #' # when searhing the variable which includes the word of "tar" in ICEWS
-#' tableVar(utd_api_key="...", table="icews", lword="tar")
+#' tableVar(table="icews", lword="tar", utd_api_key="...")
 #'
-#' # a simple way of applying an API key
+#' # method 1: passing a key as the first argument
 #' k <- "utd_api_key"
-#' tableVar(k, table="phoenix_rt")
-#' tableVar(k, table="icews", lword="tar")
+#' tableVar(table="phoenix_rt", utd_api_key = k)
+#' tableVar(table="icews", utd_api_key = k, lword="target")
 #'
-#' # set the default API key by setting it as an environment variable
+#' # Method 2: storing the key in an environment variable
 #' Sys.setenv(UTDAPIKEY = "...your API key...")
-#' tableVar("icews", "target")}
+#' tableVar(table = "icews", lword = "target")}
 
-tableVar <-function(utd_api_key=NA, table='', lword='')
+tableVar <-function(table='', utd_api_key=NULL, lword='')
 {
-  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
-  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
+  if (is.null(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.null(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
   # transfroming a string to lower cases
   tb=tolower(table)
   # searching variables in Terrier

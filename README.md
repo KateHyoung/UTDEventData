@@ -8,18 +8,20 @@ This package is part of the "Modernizing Political Event Data for Big Data Socia
 
 Several functions to preview and download data are listed below. More details of these methods are illustrated in the vignette. 
 
-- Table: a reference class 
 - citeData( ): for citing the package and data tables in the UTD server for publications
-- DataTable( ): for looking up data tables in the UTD server 
+- DataTables( ): for looking up data tables in the UTD server 
 - tableVar( ): for looking up the variables of a data table
 - previewData( ): for previewing the data structure of a data table
 - pullData( ): for downloading data by countries and time periods 
 - entireData( ): for downloading an entire data table
 - getQuerySize(): for measuring the size of requested data from the UTD server
 - sendQuery( ): for requesting built queries from the API server to download data
+- Table: a reference class 
 
 ****
+
 Leaf Query Block functions:
+
 - returnTimes( ): create a query block by time periods
 - returnCountries( ): create a query block by countries
 - returnLatLon( ): create a query block by latitude and longitude
@@ -27,6 +29,7 @@ Leaf Query Block functions:
 - returnRegExp( ): create a query block by pattern of attributes in a data table
 
 Branch Query Block functions:
+
 - orList( ): match records that satisfy any of the child query blocks 
 - andList( ): match records that satisfy all of the child query blocks 
 
@@ -47,7 +50,7 @@ devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 Access to the UTD data server requires an API key. To obtain an API key, follow the link and fill the form: <http://eventdata.utdallas.edu/signup>.
 
 ## Using the API key
-#### Method 1: Pass the key as the first argument.
+#### Method 1: Pass the key as the first argument
 You will need to pass the key on every function call.  
 ```
 k <- '...your API key....'
@@ -58,8 +61,11 @@ DataTables(utd_api_key = k)
 Set the default API key by setting the environment variable `UTDAPIKEY`.
 ```
 Sys.setenv(UTDAPIKEY = "...your API key...")
+
 DataTables()
+tableVar(table = "icews", lword = "target")
 ```
+*Note: Method 2 currently works only with `DataTabes()`, `tableVar()`, and `previewData()`. We plan to expand this method to other functions that require an API key.*
 
 Further examples will assume the api key is set in an environment variable. 
 
@@ -80,10 +86,9 @@ More complex queries with intersections, unions and multiple sets of constraints
 
 
 ## Example Usage
+   
 ```
-# To pass unnamed arguments, pass NA as a first argument for the API key, 
-# NA defaults to the API key stored in the environment variable "UTDAPIKEY".
-dt <- pullData(NA, "Phoenix_rt", list("RUS", "SYR"), start="20180101", end="20180331", citation = F)
+dt <- pullData('utd_api_key', "Phoenix_rt", list("RUS", "SYR"), start="20180101", end="20180331", citation = F)
 
 ## querying the fight event by CAMEO codes
 

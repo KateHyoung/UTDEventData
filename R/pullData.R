@@ -1,7 +1,7 @@
 #################################################################
 #############    A Main function of subsetting ##################
 #############    Combined by Kate Kim          ##################
-#############    Last update: Jan. 2019        ##################
+#############    Last update: Apr. 2019        ##################
 #################################################################
 #' Extracting event data from the UTD real-time event data server.
 #' @description This is the main function to extract subdata from the UTD Event data server by country names and time ranges.
@@ -39,10 +39,10 @@
 #' @param end The "YYYYMMDD" format of the end date of a data set
 #' @param citation logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
 #' The default is TRUE, and you can turn it off by adding FALSE in the option.
-
-pullData<-function(utd_api_key=NA, table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
-    if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
-    if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
+#'
+pullData<-function(utd_api_key=NULL, table_name=" ", country=list(), start=" ", end=" ", citation = TRUE){
+    # if (is.null(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+    # if (is.null(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
 
     table_name = tolower(table_name)
 
