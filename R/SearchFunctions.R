@@ -23,11 +23,14 @@
 #' @return A list of the data tables currently downloadable from the UTD server as a character format
 #' @param utd_api_key an API key provided by the UTD server manager
 #' @export
-#' @examples \dontrun{DataTables(utd_api_key=" ")
+#' @examples \dontrun{DataTables(utd_api_key=' your API key')
 #'  # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
 #'
 #'  k <- "utd_api_key"
-#'  DataTables(k)}
+#'  DataTables(k)
+#'
+#'  Sys.setenv(UTDAPIKEY = "...your API key...")
+#'  DataTables()}
 
 DataTables<-function (utd_api_key=NA)
 {
@@ -65,6 +68,7 @@ DataTables<-function (utd_api_key=NA)
 #' @return A list of variable names of the specified data table
 #' @export
 #' @examples
+#' \dontrun{
 #' # when searching the variables in Phoenix_RT
 #' tableVar(utd_api_key="...", table="phoenix_rt")
 #'
@@ -75,9 +79,11 @@ DataTables<-function (utd_api_key=NA)
 #' k <- "utd_api_key"
 #' tableVar(k, table="phoenix_rt")
 #' tableVar(k, table="icews", lword="tar")
+#'
+#' # set the default API key by setting it as an environment variable
+#' Sys.setenv(UTDAPIKEY = "...your API key...")
+#' tableVar("icews", "target")}
 
-## Searching variable nemes under a data table
-## returns the variables names a specified table has
 tableVar <-function(utd_api_key=NA, table='', lword='')
 {
   if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
@@ -121,7 +127,7 @@ tableVar <-function(utd_api_key=NA, table='', lword='')
        if (!is.null(lword)){ w<- grep(lword, varList, ignore.case = TRUE)
        return(varList[w])}
 
-     else(varList)}
+      else(varList)}
 
   # searching variables in cline_Phoenix_nyt
   if (tb=='cline_phoenix_nyt'){
@@ -199,5 +205,5 @@ tableVar <-function(utd_api_key=NA, table='', lword='')
 
     else(varList)}
 
-  else{print('Please check the table name!')}
+  else print('Please check the table name!')
 }

@@ -13,7 +13,7 @@ author:
 - name: "Jared Looper" 
   affiliation: *utd
   email: jrl140030@utdallas.edu
-- name: "Micheal J. Shoemate" 
+- name: "Michael J. Shoemate" 
   affiliation: *utd
   email: michael.shoemate@utdallas.edu
   
@@ -28,7 +28,7 @@ vignette: >
 
 # Introduction
 
-The R library, `UTDEventData`, provides the direct access to the political event database at the University of Texas at Dallas (UTD). Using this library, researchers can query the event data stored at the UTD's API server and load them into R for subsequent analyses. Several functions are prepared in the library to extract and to analyze the data according to users' preference. This library also provides the citation functions not only for data tables but also or the library itself. 
+The R library, `UTDEventData`, provides the direct access to the political event database at the University of Texas at Dallas (UTD). Using this library, researchers can query the event data stored at the UTD's API server and load them into R for subsequent analyses. Several functions are prepared in the library to extract and to analyze the data according to users' interests. This library also provides the citation functions not only for data tables but also or the library itself. 
 
 The UTD API server contains the six different data tables; Real-time Phoenix, ICEWS, three other Cline's Phoenix data sets, and TERRIER. With the several searching and extracting methods in this library, political and social scientists can explore the contents of each data table and can obtain the historic and real-time data for their research.  We expect that this R library provides the better environment in accessing to the event data for R users, so the number of studies on the large scale event data will increase in this drawing of the big data age.
 
@@ -111,7 +111,7 @@ tableVar(k, "Icews")
 tableVar(k, "Cline_Phoenix_swb")
 ```
 
-This function is __not__ case sensitive, so users may type either lower case or upper case of a data table name. However, a text of the full name as returned by `Table()` should be entered in the function when applying the table name in other functions. For example, inputs of `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but one of `"cline_phenix"` will return a message that ask users to check a table name again. 
+This function is __not__ case sensitive, so users may type either lower case or upper case of a data table name. However, a text of the full name as returned by `Table()` should be entered in the function when applying the table name in other functions. For example, inputs of `"cline_Phoenix_swb"` and `"CLINE_PHOENIX_SWB"` will return the same variables, but one of `"cline_phoenix"` will return a message that ask users to check a table name again. 
 
 This function has another feature that a user can look up a particular variable users may want. For example, one who may wonder the ICEWS data have a variable named "target", can type the string of 'target' as follows;
 
