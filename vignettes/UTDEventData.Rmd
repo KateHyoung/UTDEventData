@@ -129,6 +129,7 @@ tableVar(table="icews", lword = "target")
 ```
 
 
+<<<<<<< HEAD
 `previewData()` shows 100 observations of a data table as an example. Occasionally, users need to know a pattern of variables or a data structure to analyze the data in R dataframes. This function can be useful when users want to see some patterns of an interesting variable to build a query block with a regular expression (`returnRegExp()`) function. This function has the option of storing an API key in an environmental variable. 
 
 ```{r, eval = FALSE }
@@ -187,6 +188,7 @@ k <- "your utd_api_key"
 DataTables(k)
 ```
 
+<<<<<<< HEAD
 #### Method 2: Store the key in an environment variable
 This option is to declare user's API key as an environment variable and use it by `Sys.getenv()`. This option helps users to avoid a hassle to input the key each time. This option is embeded in the functions of `DataTables()`, `tableVar()`, and `previewData()`. We plan to expand this method to other API key requried functions. 
 ```{r, eval=FALSE}
@@ -196,6 +198,7 @@ DataTables()
 
 
 #### Using a reference class
+<<<<<<< HEAD
 The last option is using a reference class, named `Table()` , prepared in this library. One downside of this is that the function works only with `DataTables()`, `tableVar()`, and `pullData()`. 
 ```{r, eval=FALSE}
 # creating an object
@@ -362,6 +365,7 @@ citeData(table_name = "ICEWS")
 A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <http://eventdata.utdallas.edu/signup>. 
 
 
+<<<<<<< HEAD
 ## Example 1 - extracting data by a time range and contries
 + Extracting data with countries and time can be achieved with two ways in this package: 1) `pullData()` and 2) `sendQuery()`. This example shows how to complete the following task with the two methods. 
 + Task: After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
