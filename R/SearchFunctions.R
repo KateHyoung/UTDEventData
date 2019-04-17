@@ -29,8 +29,11 @@
 #'  k <- "utd_api_key"
 #'  DataTables(k)}
 
-DataTables<-function (utd_api_key="")
+DataTables<-function (utd_api_key=NA)
 {
+  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
+
   # constructing a url
   url = 'http://149.165.156.33:5002/api/datasources?api_key='
   url_submit = paste(url,utd_api_key,sep='')
@@ -70,13 +73,15 @@ DataTables<-function (utd_api_key="")
 #'
 #' # a simple way of applying an API key
 #' k <- "utd_api_key"
-#' tableVar(k, table="phoeni_rt")
+#' tableVar(k, table="phoenix_rt")
 #' tableVar(k, table="icews", lword="tar")
 
 ## Searching variable nemes under a data table
 ## returns the variables names a specified table has
-tableVar <-function(utd_api_key='', table='', lword='')
+tableVar <-function(utd_api_key=NA, table='', lword='')
 {
+  if (is.na(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
+  if (is.na(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
   # transfroming a string to lower cases
   tb=tolower(table)
   # searching variables in Terrier
