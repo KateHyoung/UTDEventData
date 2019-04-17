@@ -68,7 +68,7 @@ citeData(table_name = "Data table name")
 ```
 
 
-## Computer Enviroments This Package Has Tested
+## Computer Environments This Package Has Tested
 The codes/functions in this documentation have been tested in the following versions of:
 
   - Microsoft Open R 3.4.0 
@@ -125,7 +125,7 @@ tableVar(k, table="icews", lword="target")
 ```
 
 
-`previewData()` shows 100 observations of a data table as an example. Occasionally, users need to know a pattern of variables or a data structure to analyze the data in R dataframes. This function can be useful when users want to see some pattenrs of an interesting variable to build a query block with a regular expression (`returnRegExp()`) function. 
+`previewData()` shows 100 observations of a data table as an example. Occasionally, users need to know a pattern of variables or a data structure to analyze the data in R dataframes. This function can be useful when users want to see some patterns of an interesting variable to build a query block with a regular expression (`returnRegExp()`) function. 
 
 ```{r, eval = FALSE }
 dataSample <- previewData(utd_api_key = " ", table_name = "PHOENIX_RT")
@@ -144,7 +144,7 @@ An input format of dates is "YYYYMMDD", and a time range should be within a time
 
 The country indicates the geolocation of events such as the places in which a particular event happened in a news article. The country inputs can be either full names or the ISO-Alpha3 code. In this inputs, please use a consistent format when you type countries names. We recommend the ISO-3 code format in order to reduce systemic errors in the function.
 
-The function returns citation texts \& BibTeX for publication at the end of data retrieval. To avoid printing them in your R-console, please turn off the `citation` option by logiscally choosing "FALSE" in the function. 
+The function returns citation texts \& BibTeX for publication at the end of data retrieval. To avoid printing them in your R-console, please turn off the `citation` option by logically choosing "FALSE" in the function. 
 
 The following code is an example usage of `pullData()`. 
 
@@ -170,7 +170,7 @@ As illustrated, data are able to be retrieved by the country names and time rang
 
 ### Handing an API key
 
-Throwing an API key into functions evvery time could be annoying tasks for users. To avoid troublesome work, we suggest some convenient approaches. 
+Throwing an API key into functions every time could be annoying tasks for users. To avoid troublesome work, we suggest some convenient approaches. 
 
 #### Store an API key in a R memory
 This approach is to simply store an API key in a global environment of R and call it when you want to use it. Although it is simple, the API key should be re-entered when a R is re-run. 
@@ -180,7 +180,7 @@ DataTables(k)
 ```
 
 #### Store an API key as an environment variable 
-This option is to declare user's API key as an environemtn variable and use it by `Sys.getenv()`. This option helps users to avoid a hassle to input the key each time. 
+This option is to declare user's API key as an environment variable and use it by `Sys.getenv()`. This option helps users to avoid a hassle to input the key each time. 
 ```{r, eval=FALSE}
 Sys.setenv(UTDAPIKEY = "...your API key...")
 DataTables(Sys.getenv("UTDAPIKEY"))
@@ -188,7 +188,7 @@ DataTables(Sys.getenv("UTDAPIKEY"))
 
 
 #### Using a reference class
-Theird option is using a reference class, named `Table()` , prepared in this library. One downsiade of this is that the function works only with `DataTables()`, `tableVar()`, and `pullData()`. 
+Third option is using a reference class, named `Table()` , prepared in this library. One downside of this is that the function works only with `DataTables()`, `tableVar()`, and `pullData()`. 
 ```{r, eval=FALSE}
 # creating an object
 obj <- Table$new()
@@ -203,9 +203,9 @@ obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")
 ```
 
 ### Extracting the entire data for a particular data set
-Someone may want to download the entire data of a certain data table. `entireData()` helps users to do this as specifying a data table into the function. This function returns a dataframe of the requested data with the package citation. The data are directly stored to your disk, so make sure that your device has enough space to store them. The size of data can be estimated by `getQuerySize( )` with the  `entire` options. More detials are illustrated in a hlep page of `getQuerySize()`. 
+Someone may want to download the entire data of a certain data table. `entireData()` helps users to do this as specifying a data table into the function. This function returns a dataframe of the requested data with the package citation. The data are directly stored to your disk, so make sure that your device has enough space to store them. The size of data can be estimated by `getQuerySize( )` with the  `entire` options. More details are illustrated in a help page of `getQuerySize()`. 
 
-Some data tables are greater than 10GB, so it may occur R errors if a local devise does not have enoguth space. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time to request and download them, so please check your memory and disk limits before obtaining the entire data.  
+Some data tables are greater than 10GB, so it may occur R errors if a local devise does not have enough space. If it is the case, please increase your memory allocated to your R. The large data usually takes a longer time to request and download them, so please check your memory and disk limits before obtaining the entire data.  
 
 ```{r, eval=FALSE}
 # to estimate the data size of the entire Cline_Phoenix_NYT data
@@ -253,7 +253,7 @@ myData <- sendQuery(utd_api_key,"icews", query_block, citation = FALSE)
 
 ### Query block functions
 
-`returnRegExp()` can be used for a special case as indicating a particular value or a pattern of the variables in the API data table. To use this function, a user must aware the patten of a variable in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package and the pattern can be confirmed by `previewData()`. The function requires users to have an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in a data table.
+`returnRegExp()` can be used for a special case as indicating a particular value or a pattern of the variables in the API data table. To use this function, a user must aware the pattern of a variable in a certain data table. The variable list in a particular table can be found with the function of `tableVar()` in the package and the pattern can be confirmed by `previewData()`. The function requires users to have an API key, and a data table name, a pattern of interest events, and a field name (attribute or variable) in a data table.
 
 This function returns a list of specified queries. 
 
@@ -354,8 +354,8 @@ citeData(table_name = "ICEWS")
 A user should prepare the R library and an API key from the UTD API server. Again, an API can be obtained on the sign-up page: <http://eventdata.utdallas.edu/signup>. 
 
 
-## Example 1 - extracting data by a time range and contries
-+ Extracting data with contries and time can be acheived with two ways in this package: 1) `pullData()` and 2) `sendQuery()`. This exmaple shows how to complete the following task with the two methods. 
+## Example 1 - extracting data by a time range and countries
++ Extracting data with countries and time can be achieved with two ways in this package: 1) `pullData()` and 2) `sendQuery()`. This example shows how to complete the following task with the two methods. 
 + Task: After extracting all real-time event data between Russia and Syria from 20180101 to 20180331, draw the bar graphs by types of fights defined in the CAMEO code:
 
 ```{r, eval = F, fig.height=3, fig.width=5}
