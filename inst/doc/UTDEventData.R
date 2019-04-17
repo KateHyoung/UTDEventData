@@ -14,35 +14,43 @@
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # returning all data table the server contains with entering an API key
-#  DataTables(utd_api_key = " ")
-#  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+#  DataTables(utd_api_key = NULL)
 #  
 #  # suggesting a way to avoid repetitive typing an API key into functions
-#  k <-"...api key...."
+#  k <-"your utd_api_key"
 #  DataTables(k)
-#  "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
+#  
+#  # storing an api key in an environment variable
+#  Sys.setenv(UTDAPIKEY = "your utd_api_key")
+#  DataTables()
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  tableVar(utd_api_key="...", table = "phoenix_rt")
+#  tableVar(table='', utd_api_key=NULL, lword='')
 #  
 #  # an easy way of applying a stored API text to avoid the repeation of API key typing
-#  k <-"...api key...."
-#  tableVar(k, "Phoenix_rt")
+#  k <-"your utd_api_key"
+#  tableVar(table = "Icews", utd_api_key = k)
 #  
-#  tableVar(k, "Icews")
-#  
-#  tableVar(k, "Cline_Phoenix_swb")
+#  # storing an api key in an environment variable
+#  Sys.setenv(UTDAPIKEY = "your utd_api_key") # if you set it before, this line is unnecessary
+#  tableVar(table = "icews")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  tableVar(utd_api_key = "...", table = "icews", lword = "target")
+#  tableVar(table = "icews", utd_api_key = "utd_api_key", lword = "target")
 #  
 #  # when a user wants to know the attribute that labeled as 'target' in ICEWS
-#  k <- "..api key..."
-#  tableVar(k, table="icews", lword="target")
+#  k <- "your utd_api_key."
+#  tableVar(table="icews", utd_api_key = k, lword="target")
 #  '" Target Name"    " Target Sectors", ....'
+#  # if an API key is stored in an environmental variable
+#  tableVar(table="icews", lword = "target")
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  dataSample <- previewData(utd_api_key = " ", table_name = "PHOENIX_RT")
+#  # if an API key is stored in an environmental variable
+#  dataSample <- previewData(table_name = "PHOENIX_RT")
+#  
+#  # if not an API key is stored in an environmental variable
+#  dataSample <- previewData(table_name = "PHOENIX_RT", utd_api_key = "your utd_api_key")
 #  View(dataSample)
 
 ## ---- eval = FALSE-------------------------------------------------------
@@ -61,12 +69,12 @@
 #           citation = FALSE)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  k <- '...your API key....'
+#  k <- "your utd_api_key"
 #  DataTables(k)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  Sys.setenv(UTDAPIKEY = "...your API key...")
-#  DataTables(Sys.getenv("UTDAPIKEY"))
+#  Sys.setenv(UTDAPIKEY = "your utd_api_key")
+#  DataTables()
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  # creating an object
@@ -172,9 +180,7 @@
 #  dt1 <- sendQuery(k, "Phoenix_rt", q, citation = F)
 #  
 #  ## querying the fight event by CAMEO codes
-#  Fgt <- dt[dt$code=="190" | dt$code=="191" | dt$code=="192" |
-#            dt$code=="193" | dt$code=="194" | dt$code=="195" |
-#            dt$code=="1951" | dt$code=="1952" | dt$code=="196",]
+#  Fgt <- dt[dt$code %in% c("190", "191", "192", "193", "194", "195", "1951", "1952", "196"),]
 #  
 #  Fgt <- Fgt[,1:23] ## removing url and oid
 #  

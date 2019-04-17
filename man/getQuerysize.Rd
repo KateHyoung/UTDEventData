@@ -4,7 +4,7 @@
 \alias{getQuerySize}
 \title{Estimating a size of data queries that will be requested to the UTD API server}
 \usage{
-getQuerySize(utd_api_key = "", table_name = "", query = list())
+getQuerySize(utd_api_key = NULL, table_name = "", query = list())
 }
 \arguments{
 \item{utd_api_key}{An API key provided by a server manager at UTD}

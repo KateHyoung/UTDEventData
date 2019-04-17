@@ -4,7 +4,7 @@
 \alias{sendQuery}
 \title{Sending queries to the UTD API server in order to download data with a built query}
 \usage{
-sendQuery(utd_api_key = "", table_name = "", query = list(),
+sendQuery(utd_api_key = NULL, table_name = "", query = list(),
   citation = TRUE)
 }
 \arguments{

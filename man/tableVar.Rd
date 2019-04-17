@@ -4,12 +4,12 @@
 \alias{tableVar}
 \title{Searching the variables in a particular data table}
 \usage{
-tableVar(utd_api_key = "", table = "", lword = "")
+tableVar(table = "", utd_api_key = NULL, lword = "")
 }
 \arguments{
-\item{utd_api_key}{an API key from the developer at UTD}
-
 \item{table}{a specific data table a user wants to explore its variables}
+
+\item{utd_api_key}{an API key from the developer at UTD}
 
 \item{lword}{a look-up word for a particular variable name you need}
 }
@@ -23,18 +23,23 @@ You can also look up a particular word of variabla names such as "day", "month",
 specified data table has the certain variables you need. \cr
 The API key can be obtained after submitting the form in the UTD event data sign-up website
 (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
-You can also use this function through the reference class, \code{Table()}.
-Please find the help document of the \code{Table()} function for more details of its usage.
+You can also use this function through the reference class, \code{Table()}. \cr
+The option of storing an API key in an environment variable is prepared to run the function without passing an API key every time. Please see the examples bellow.
 }
 \examples{
+\dontrun{
 # when searching the variables in Phoenix_RT
-tableVar(utd_api_key="...", table="phoenix_rt")
+tableVar(table="phoenix_rt", utd_api_key="...")
 
 # when searhing the variable which includes the word of "tar" in ICEWS
-tableVar(utd_api_key="...", table="icews", lword="tar")
+tableVar(table="icews", lword="tar", utd_api_key="...")
 
-# a simple way of applying an API key
+# method 1: passing a key as the first argument
 k <- "utd_api_key"
-tableVar(k, table="phoeni_rt")
-tableVar(k, table="icews", lword="tar")
+tableVar(table="phoenix_rt", utd_api_key = k)
+tableVar(table="icews", utd_api_key = k, lword="target")
+
+# Method 2: storing the key in an environment variable
+Sys.setenv(UTDAPIKEY = "...your API key...")
+tableVar(table = "icews", lword = "target")}
 }

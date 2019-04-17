@@ -4,19 +4,21 @@
 \alias{previewData}
 \title{Previewing a data structure and its variables which a user requests}
 \usage{
-previewData(utd_api_key = "", table_name = "")
+previewData(table_name = "", utd_api_key = NULL)
 }
 \arguments{
-\item{utd_api_key}{An API key provided by a server manager at UTD}
-
 \item{table_name}{A name of a data table a user specifies. Your input is NOT
 case-sensitive.}
+
+\item{utd_api_key}{An API key provided by a server manager at UTD}
 }
 \value{
 A data frame of a specified data table.
 }
 \description{
-This function retruns the e00 observations of a particular data table
+This function retruns the 100 observations of a particular data table.
+The option of storing an API key in an environment variable is prepared to run the function
+without passing an API key every time. Please see the examples bellow.
 }
 \note{
 The retrived data are invoked in a spreadsheet-style by `View()`, but the class of the variable, `_id`,
@@ -25,5 +27,8 @@ with `edit()`, the variable of `_id` needs to be dropped.
 }
 \examples{
 \dontrun{ data <- previewData(utd_api_key, "icews")
-View(data) # the 100 observations of ICEWS data are shown }
+View(data) # the 100 observations of ICEWS data are shown
+# using the option of storing an API key as an environmental variable
+Sys.setenv(UTDAPIKEY = "your utd_api_key")
+data <- previewData("icews") }
 }

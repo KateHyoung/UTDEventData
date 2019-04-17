@@ -4,7 +4,7 @@
 \alias{entireData}
 \title{Extracting the entire data of a specified data table}
 \usage{
-entireData(utd_api_key = "", table_name = "", citation = TRUE)
+entireData(utd_api_key = NULL, table_name = "", citation = TRUE)
 }
 \arguments{
 \item{utd_api_key}{An API key provided by a server manager at UTD}

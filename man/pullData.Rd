@@ -4,7 +4,7 @@
 \alias{pullData}
 \title{Extracting event data from the UTD real-time event data server.}
 \usage{
-pullData(utd_api_key = " ", table_name = " ", country = list(),
+pullData(utd_api_key = NULL, table_name = " ", country = list(),
   start = " ", end = " ", citation = TRUE)
 }
 \arguments{
@@ -21,7 +21,7 @@ the full country name is also working in this function.\cr
 \item{end}{The "YYYYMMDD" format of the end date of a data set}
 
 \item{citation}{logical; If \code{TRUE}, then a package citation will be printed at the end of data retrival.
-The defualt is TRUE, and you can trun it off by adding FALSE in the option.}
+The default is TRUE, and you can turn it off by adding FALSE in the option.}
 }
 \value{
 A list with components

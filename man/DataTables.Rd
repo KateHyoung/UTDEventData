@@ -4,7 +4,7 @@
 \alias{DataTables}
 \title{Searching data tables in the UTD event data server}
 \usage{
-DataTables(utd_api_key = "")
+DataTables(utd_api_key = NULL)
 }
 \arguments{
 \item{utd_api_key}{an API key provided by the UTD server manager}
@@ -13,12 +13,12 @@ DataTables(utd_api_key = "")
 A list of the data tables currently downloadable from the UTD server as a character format
 }
 \description{
-Searching available data tables in the event data server.
+Searching available data tables in the UTD data server.
 It returns the list of data tables in the UTD server and requires an API key.
 The API key can be obtained after filling out the form in the UTD event data sign-up website
 (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
-You can also use this function through the reference class, \code{Table()}.
-Please find the help document of the \code{Table()} function for more details on its usage.\cr
+You can also use this function through the reference class, \code{Table()}. \cr
+The option of storing an API key in an environment variable is prepared to run the function without passing an API key every time. Please see the examples bellow.
 
 The details of data tables are illustrated in the linked websites. \cr
 \itemize{
@@ -31,9 +31,12 @@ The details of data tables are illustrated in the linked websites. \cr
  }
 }
 \examples{
-\dontrun{DataTables(utd_api_key=" ")
- # "'PHOENIX_RT', 'CLINE_PHOENIX_SWB', 'CLINE_PHOENIX_FBIS', 'CLINE_PHOENIX_NYT', 'ICEWS'"
-
+\dontrun{DataTables(utd_api_key=' your API key')
+ # method 1: passing a key as the first argument
  k <- "utd_api_key"
- DataTables(k)}
+ DataTables(k)
+
+ # Method 2: storing the key in an environment variable
+ Sys.setenv(UTDAPIKEY = "...your API key...")
+ DataTables()}
 }

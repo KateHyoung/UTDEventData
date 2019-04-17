@@ -15,6 +15,6 @@ relabel(queryString, format)
 A hiden function for relabeling query strings of one data format to the other
 }
 \author{
-Micheal J. Shoemate
+Michael J. Shoemate
 }
 \keyword{internal}
