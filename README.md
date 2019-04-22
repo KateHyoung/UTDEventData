@@ -1,6 +1,8 @@
 
 # UTDEventData ver. 1.0.0
 
+[![DOI](https://zenodo.org/badge/113074713.svg)](https://zenodo.org/badge/latestdoi/113074713)
+
 The UTDEventData R package provides an interface to extract data from the UTD Event Data server. This package is stable and actively maintained/updated. Your comments, feedback and suggestions are welcome.   
 If you have any question regarding the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>), or open an issue (<https://github.com/KateHyoung/UTDEventData/issues>).
 
