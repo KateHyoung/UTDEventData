@@ -115,7 +115,7 @@ Alternatively, download the PDF version [here](https://github.com/KateHyoung/UTD
 
 
 ## Authors  
-Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)  
+HyoungAh (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)  
 Dr. Patrick T. Brandt <pbrandt@utdallas.edu>  
 Dr. Vito D'Orazio <dorazio@utdallas.edu>  
 Dr. Latifur Khan <lkhan@utdallas.edu>  
