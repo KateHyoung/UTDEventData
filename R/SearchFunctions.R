@@ -4,8 +4,7 @@
 ## this returns all data tables the UTD database has
 ####################################################################
 #' Searching data tables in the UTD event data server
-#' @description Searching available data tables in the UTD data server.
-#' It returns the list of data tables in the UTD server and requires an API key.
+#' @description This function returns the list of data tables in the UTD server and requires an API key.
 #' The API key can be obtained after filling out the form in the UTD event data sign-up website
 #' (http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
 #' You can also use this function through the reference class, \code{Table()}. \cr
@@ -24,11 +23,11 @@
 #' @param utd_api_key an API key provided by the UTD server manager
 #' @export
 #' @examples \dontrun{DataTables(utd_api_key=' your API key')
-#'  # method 1: passing a key as the first argument
+#'  # method 1: passing a UTD API KEY as the first argument
 #'  k <- "utd_api_key"
 #'  DataTables(k)
 #'
-#'  # Method 2: storing the key in an environment variable
+#'  # method 2: storing a UTD API KEY in an environment variable
 #'  Sys.setenv(UTDAPIKEY = "...your API key...")
 #'  DataTables()}
 
