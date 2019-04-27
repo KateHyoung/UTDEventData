@@ -7,7 +7,7 @@ tags:
   - data-intensive social research
   - big data
 authors:
-  - name: Hyoungah Kim
+  - name: HyoungAh Kim
     orcid: 0000-0002-0744-5884
     affiliation: 1
   - name: Vito D’Orazio

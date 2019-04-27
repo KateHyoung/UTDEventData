@@ -1,6 +1,10 @@
 
 # UTDEventData ver. 1.0.0
 
+[![DOI](https://zenodo.org/badge/113074713.svg)](https://zenodo.org/badge/latestdoi/113074713)
+[![DOI](http://joss.theoj.org/papers/10.21105/joss.01322/status.svg)](https://doi.org/10.21105/joss.01322)
+
+
 The UTDEventData R package provides an interface to extract data from the UTD Event Data server. This package is stable and actively maintained/updated. Your comments, feedback and suggestions are welcome.   
 If you have any question regarding the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>), or open an issue (<https://github.com/KateHyoung/UTDEventData/issues>).
 
@@ -115,7 +119,7 @@ Alternatively, download the PDF version [here](https://github.com/KateHyoung/UTD
 
 
 ## Authors  
-Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)  
+HyoungAh (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)  
 Dr. Patrick T. Brandt <pbrandt@utdallas.edu>  
 Dr. Vito D'Orazio <dorazio@utdallas.edu>  
 Dr. Latifur Khan <lkhan@utdallas.edu>  
