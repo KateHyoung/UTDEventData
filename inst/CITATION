@@ -18,6 +18,6 @@ citEntry(entry = "manual",
     textVersion  = paste("HyoungAh Kim,  Vito D'Orazio, Patrick T. Brandt,
     Michael Shoemate, Sayeed Salam, Latifur Khan, Jared Looper (2019).",
         "UTDEventDAta: Package to access political event data.",
-        "version 1.0.0. The University of Texas at Dallas",
+        "version 1.0.0. The University of Texas at Dallas.",
         "https://doi.org/10.5281/zenodo.2648644")
 )
