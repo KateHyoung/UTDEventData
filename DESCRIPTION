@@ -3,10 +3,10 @@ Type: Package
 Title: The University of Texas at Dallas Event Data Server  
 Version: 1.0.0
 Date: 2019-01-28 
-Author: Dr. Patrick T. Brandt <pbrandt@utdallas.edu>, 
-        Dr. Vito D'Orazio <dorazio@utdallas.edu>, 
+Author: Patrick T. Brandt <pbrandt@utdallas.edu>, 
+        Vito D'Orazio <dorazio@utdallas.edu>, 
         Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>,
-        Micheal J. Shoemate <michael.shoemate@utdallas.edu>, 
+        Michael J. Shoemate <michael.shoemate@utdallas.edu>, 
         Jared Looper <jrl140030@utdallas.edu>
 Maintainer: Hyoungah (Kate) Kim <hyoungah.kim@utdallas.edu>
 Description: Search, extract and format event data from the real-time event data server at the University Texas at Dallas. 

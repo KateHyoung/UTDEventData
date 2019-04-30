@@ -1,0 +1,23 @@
+citHeader("To cite reports in publications, please use:")
+
+citEntry(entry = "manual",
+    title = "{UTDEventData}: {P}ackage to access political event data",
+    author = personList(as.person("HyoungAh Kim"),
+                        as.person("Vito D’Orazio"),
+                        as.person("Patrick T. Brandt"),
+                        as.person("Michael Shoemate"),
+                        as.person("Jared Looper"),
+                        as.person("Sayeed Salam"),
+                        as.person("Latifur Khan")),
+    organization = "The University of Texas at Dallas",
+    address = "Richardson, Texas",
+    note = "version 1.0.0",
+    year = "2019",
+    url = "https://github.com/KateHyoung/UTDEventData",
+    doi = "https://doi.org/10.5281/zenodo.2648644",
+    textVersion  = paste("HyoungAh Kim,  Vito D'Orazio, Patrick T. Brandt,
+    Michael Shoemate, Sayeed Salam, Latifur Khan, Jared Looper (2019).",
+        "UTDEventDAta: Package to access political event data.",
+        "version 1.0.0. The University of Texas at Dallas",
+        "https://doi.org/10.5281/zenodo.2648644")
+)
