@@ -153,7 +153,7 @@ returnLatLon <- function(lat1, lat2, lon1, lon2) {
 #' myNYTdata <- sendQuery(utd_api_key, 'cline_phoenix_nyt', nytQuery, citation = F)}
 returnRegExp <- function(utd_api_key = "", table_name = "", pattern = "", field = "") {
   f = paste("",field, sep='')
-  if(is.element(f, tableVar(utd_api_key, table_name))) {
+  if(is.element(f, tableVar(table_name, utd_api_key))) {
     query = list('field'= list('$regex' = pattern))
     return(setNames(query,field))
   }
