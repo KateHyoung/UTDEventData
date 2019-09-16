@@ -41,6 +41,7 @@ The UTD API server contains the six different data tables; Real-time Phoenix, IC
 |Cline Phoenix FBIS | 1945 - 2005       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
 |Cline Phoenix SWB  | 1979 - 2015       | [Cline Center](http://www.clinecenter.illinois.edu/data/event/phoenix/)|
 |TERRIER            | 1979 - 2016       | [TERRIERDATA.org](http://terrierdata.org)|
+|Cline Phoenix LNNYT| 1979 - 2019       | [Cline Center](https://databank.illinois.edu/datasets/IDB-0647142)|
 
 The data, _Real-time Phoenix_, are real-time political conflict event data, extracted and processed from over 380 different English written news media on a daily basis since October 2017. As increasing the number of real-time news reports on the web, the UTD research team has developed an automated machine-coded system, titled "Spark-based Political Event Coding (SPEC)", in order to extract the political event data in a real time manner based on the Conflict Analysis and Mediation Event Ontology (CAMEO) event dictionary. Along with the other event data illustrated in Table 1, therefore, we expect that _Real-time Phoenix_ will be employed to explore immediate changes of international relations  and situations for academic and government communities. 
 

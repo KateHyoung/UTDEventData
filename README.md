@@ -6,7 +6,9 @@
 
 
 The UTDEventData R package provides an interface to extract data from the UTD Event Data server. This package is stable and actively maintained/updated. Your comments, feedback and suggestions are welcome.   
-If you have any question regarding the package, please contact Kate Kim (<hyoungah.kim@utdallas.edu>), or open an issue (<https://github.com/KateHyoung/UTDEventData/issues>).
+If you have any question regarding the package, please contact Kate Kim (<kate0550@gmail.com>), or open an issue (<https://github.com/KateHyoung/UTDEventData/issues>).
+
+Note: Our server now provides the access to *'CLINE_PHOENIX_LNNYT'* data that contains several million events from 17.5 million news stories from New York Times (1945 - 2019) that is provided by Open Event Data Alliance. You can find more information by clicking the link [here](https://databank.illinois.edu/datasets/IDB-0647142). 
 
 This package is part of the "Modernizing Political Event Data for Big Data Social Science Research" project. More information can be found on [the project webpage](http://eventdata.utdallas.edu/data.html).
 
