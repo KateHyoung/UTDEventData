@@ -121,10 +121,11 @@ Alternatively, download the PDF version [here](https://github.com/KateHyoung/UTD
 
 
 ## Authors  
-HyoungAh (Kate) Kim <hyoungah.kim@utdallas.edu> (Maintainer)  
+Marcus Sianan <Marcus.Sianan@UTDallas.edu> (Maintainer)
 Dr. Patrick T. Brandt <pbrandt@utdallas.edu>  
 Dr. Vito D'Orazio <dorazio@utdallas.edu>  
 Dr. Latifur Khan <lkhan@utdallas.edu>  
+Dr. HyoungAh(Kate) Kim <kate0550@gmail.com>   
 Michael J. Shoemate <michael.shoemate@utdallas.edu>   
 Sayeed Salam <sxs149331@utdallas.edu>  
 Jared Looper <jrl140030@utdallas.edu>    
