@@ -94,7 +94,7 @@ pullData<-function(utd_api_key=NULL, table_name=" ", country=list(), start=" ", 
     # Convert the data structure into a string
     # The gsub removes the backslashes, but they get visually re-added when printing to console
     query_string = gsub("\\", '', rjson::toJSON(query), fixed=TRUE)
-    url <- 'http://149.165.156.33:5002/api/data?api_key='
+    url <- 'https://ridir-dml.utdallas.edu:5002/api/data'
     url_submit = ''
     if (table_name=="phoenix_rt" ) {
       query_string = relabel(query_string, "phoenix_rt")
