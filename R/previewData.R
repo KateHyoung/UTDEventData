@@ -23,7 +23,7 @@ previewData <- function(table_name = "", utd_api_key = NULL){
   if (is.null(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
   if (is.null(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
 
-  url <- 'http://149.165.156.33:5002/api/data?api_key='
+  url <- 'https://eventdata.utdallas.edu/api/data?api_key='
   url_submit = ''
   table_name = tolower(table_name)
   url_submit = paste(url_submit,url, utd_api_key,'&query={}', '&limit=100', sep='','&datasource=',table_name)
