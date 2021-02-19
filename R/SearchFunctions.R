@@ -37,7 +37,7 @@ DataTables<-function (utd_api_key=NULL)
   if (is.null(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
 
   # constructing a url
-  url = 'http://149.165.156.33:5002/api/datasources?api_key='
+  url <- 'https://eventdata.utdallas.edu/api/datasources?api_key='
   url_submit = paste(url,utd_api_key,sep='')
   # getting table names
   TableList <- readLines(url_submit, warn=FALSE)
@@ -92,7 +92,7 @@ tableVar <-function(table='', utd_api_key=NULL, lword='')
   # searching variables in Terrier
   if (tb=='terrier'){
 
-  url = 'http://149.165.156.33:5002/api/fields?datasource='
+  url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
   url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
   # getting variables names
   VarList <- readLines(url_submit, warn=FALSE)
@@ -112,7 +112,7 @@ tableVar <-function(table='', utd_api_key=NULL, lword='')
   # searching variables in Phoenix-rt
   if (tb=='phoenix_rt'){
 
-    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
     url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
@@ -131,7 +131,7 @@ tableVar <-function(table='', utd_api_key=NULL, lword='')
   # searching variables in cline_Phoenix_nyt
   if (tb=='cline_phoenix_nyt'){
 
-    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
     url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
@@ -150,7 +150,7 @@ tableVar <-function(table='', utd_api_key=NULL, lword='')
   # searching variables in cline_Phoenix_fbis
   if (tb=='cline_phoenix_fbis'){
 
-    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
     url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
@@ -169,7 +169,7 @@ tableVar <-function(table='', utd_api_key=NULL, lword='')
   # searching variables in cline_Phoenix_swb
   if (tb=='cline_phoenix_swb'){
 
-    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
     url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
@@ -188,7 +188,7 @@ tableVar <-function(table='', utd_api_key=NULL, lword='')
   # searching variables in Icews
   if (tb=='icews'){
 
-    url = 'http://149.165.156.33:5002/api/fields?datasource='
+    url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
     url_submit = paste(url,tb,'&api_key=',utd_api_key,sep='')
     # getting variables names
     VarList <- readLines(url_submit, warn=FALSE)
