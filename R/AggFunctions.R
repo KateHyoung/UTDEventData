@@ -221,7 +221,7 @@ sendQuery <- function(utd_api_key = NULL, table_name = "", query = list(), citat
   }
   query_string = rjson::toJSON(query)
   query_string = gsub("\\", '', query_string, fixed=TRUE)
-  url <- 'http://149.165.156.33:5002/api/data?api_key='
+  url <- 'https://eventdata.utdallas.edu/api/data?api_key='
   url_submit = ''
   table_name = tolower(table_name)
   if (table_name=="phoenix_rt" ) {
@@ -281,7 +281,7 @@ getQuerySize <- function(utd_api_key = NULL, table_name = "", query = list()) {
   # if (is.null(utd_api_key)) utd_api_key <- Sys.getenv("UTDAPIKEY", unset=NA)
   # if (is.null(utd_api_key)) print("No API key set. Instructions on how to set the API key are available in the documentation.")
   table_name = tolower(table_name)
-  url <- 'http://149.165.156.33:5002/api/data?size_only=True&api_key='
+  url <- 'https://eventdata.utdallas.edu/api/data?size_only=True&api_key='
   url_submit = ''
 
   if(is.null(query)) {
@@ -346,7 +346,7 @@ entireData <- function(utd_api_key = NULL, table_name = "", citation = TRUE){
      || table_name=='cline_phoenix_fbis'||table_name == 'icews' ||
      table_name == "phoenix_rt" || table_name =="terrier"){
 
-    url <- 'http://149.165.156.33:5002/api/data?api_key='
+    url <- 'https://eventdata.utdallas.edu/api/data?api_key='
     url_submit = ''
     url_submit = paste(url_submit,url, utd_api_key,'&query={}', sep='','&datasource=',table_name)
     url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
