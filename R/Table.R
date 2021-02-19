@@ -68,7 +68,7 @@ Table <- setRefClass("Table",
                          # Convert the data structure into a string
                          # The gsub removes the backslashes, but they get visually re-added when printing to console
                          query_string = gsub("\\", '', rjson::toJSON(query), fixed=TRUE)
-                         url <- 'http://149.165.156.33:5002/api/data?api_key='
+                         url <- 'https://eventdata.utdallas.edu/api/data?api_key='
                          url_submit = ''
                          table_name = tolower(table_name)
                          if (table_name=="phoenix_rt" ) {
@@ -94,7 +94,7 @@ Table <- setRefClass("Table",
                          "This function returns the names of data tables.
                          \\subsection{Return Value}{a list of a data table}"
                          # constructing a url
-                         url = 'http://149.165.156.33:5002/api/datasources?api_key='
+                         url <- 'https://eventdata.utdallas.edu/api/datasources?api_key='
                          url_submit = paste(url,utd_api_key,sep='')
                          # getting table names
                          TableList <- readLines(url_submit, warn=FALSE)
@@ -115,7 +115,7 @@ Table <- setRefClass("Table",
                          # transfroming a string to lower cases
                          tb=tolower(table)
 
-                         url = 'http://149.165.156.33:5002/api/fields?datasource='
+                         url <- 'https://eventdata.utdallas.edu/api/fields?datasource='
 
                          # searching variables in different data tables
                          if (tb=='phoenix_rt' || tb=='icews' || tb=='cline_phoenix_swb' || tb=='cline_phoenix_fbis' || tb=='cline_phoenix_nyt' || tb=="terrier"){
