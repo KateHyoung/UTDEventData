@@ -109,7 +109,8 @@ pullData<-function(utd_api_key=NULL, table_name=" ", country=list(), start=" ", 
       query_string = relabel(query_string, "terrier")
     }
     # getting data from url formatting
-    url_submit = paste(url_submit,url, '?api_key=', utd_api_key, '&query=', query_string, sep='','&datasource=',table_name) url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
+    url_submit = paste(url_submit,url, '?api_key=', utd_api_key, '&query=', query_string, sep='','&datasource=',table_name) 
+    url_submit = gsub('"',"%22",url_submit, fixed=TRUE)
     url_submit = gsub(' ',"%20",url_submit, fixed=TRUE)
     # print(url_submit)
     retrieved_data <- readLines(curl::curl(url_submit), warn=FALSE)
