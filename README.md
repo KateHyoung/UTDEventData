@@ -10,7 +10,7 @@ If you have any question regarding the package, please contact Marcus Sianan <Ma
 
 Note: Our server now provides the access to *'CLINE_PHOENIX_LNNYT'* data that contains several million events from 17.5 million news stories from New York Times (1945 - 2019) that is provided by Open Event Data Alliance. You can find more information by clicking the link [here](https://databank.illinois.edu/datasets/IDB-0647142). 
 
-This package is part of the "Modernizing Political Event Data for Big Data Social Science Research" project. More information can be found on [the project webpage](http://eventdata.utdallas.edu/data.html).
+This package is part of the "Modernizing Political Event Data for Big Data Social Science Research" project. More information can be found on [the project webpage](https://eventdata.utdallas.edu).
 
 Several functions to preview and download data are listed below. More details of these methods are illustrated in the vignette. 
 
