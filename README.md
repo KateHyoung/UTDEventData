@@ -53,7 +53,7 @@ devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 
 ## Retrieve an API key
 
-Access to the UTD data server requires an API key. To obtain an API key, follow the link and fill the form: <https://eventdata.utdallas.edu/signup>.
+Access to the UTD data server requires an API key. To obtain an API key, follow the link and fill the form: <https://eventdata.utdallas.edu/signup>. Please check your spam and junk email if you do not receive the API key in your inbox.
 
 ## Using the API key
 #### Method 1: Pass the key as the first argument
