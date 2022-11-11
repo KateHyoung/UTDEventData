@@ -51,6 +51,15 @@ With the vignette:
 devtools::install_github("KateHyoung/UTDEventData", build_vignettes=TRUE)
 ```
 
+Users with newer versions of R may need to follow this format:
+```
+install.packages("devtools")
+library(remotes)
+install_github("KateHyoung/UTDEventData")
+library(devtools)
+library(UTDEventData)
+```
+
 ## Retrieve an API key
 
 Access to the UTD data server requires an API key. To obtain an API key, follow the link and fill the form: <https://eventdata.utdallas.edu/signup>. Please check your spam and junk email if you do not receive the API key in your inbox.
