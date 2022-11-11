@@ -2,18 +2,40 @@
 % Please edit documentation in R/SearchFunctions.R
 \name{DataTables}
 \alias{DataTables}
-\title{Searching data tables in the UTD Event data server}
+\title{Searching data tables in the UTD event data server}
 \usage{
-DataTables(api_key)
+DataTables(utd_api_key = NULL)
+}
+\arguments{
+\item{utd_api_key}{an API key provided by the UTD server manager}
 }
 \value{
-The name of data table the UTD server has
+A list of the data tables currently downloadable from the UTD server as a character format
 }
 \description{
-Searching data tables in the UTD server.
-It returns the list of data table in the UTD server.
-It requires an API key from the developer at UTD.
+This function returns the list of data tables in the UTD server and requires an API key.
+The API key can be obtained after filling out the form in the UTD event data sign-up website
+(http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+You can also use this function through the reference class, \code{Table()}. \cr
+The option of storing an API key in an environment variable is prepared to run the function without passing an API key every time. Please see the examples bellow.
+
+The details of data tables are illustrated in the linked websites. \cr
+\itemize{
+\item {Phoenix_RT:} {Real-time data from Oct. 2017 to today, please see more details in \href{http://openeventdata.org/}{Open Event Data Alliance}}.\cr
+\item {ICEWS:} {Integrated Crisis Early Warning System from Harvard Dataerse from 1995 to Oct. 2018. Please see more details in \href{https://dataverse.harvard.edu/dataverse/icews}{ICEWS Dataverse}.}
+\item {Phoenix NYT:} {accumulated from 1945 to 2005, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+\item {Phoenix FBIS:} {accumulated from 1995 to 2004, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+\item {Phoenix SWB:} {accumulated from 1979 to 2015, information of Phoenix Event Data is found at \href{http://www.clinecenter.illinois.edu/data/event/phoenix/}{the Cline Center}.}
+\item {TERRIER:} {accumulated from 1979 to 2016, information of TERRIER political event data is found at \href{http://terrierdata.org/}{Terrierdata.org}. }
+ }
 }
 \examples{
-> DataTables(api_key=" ")
+\dontrun{DataTables(utd_api_key=' your API key')
+ # method 1: passing a UTD API KEY as the first argument
+ k <- "utd_api_key"
+ DataTables(k)
+
+ # method 2: storing a UTD API KEY in an environment variable
+ Sys.setenv(UTDAPIKEY = "...your API key...")
+ DataTables()}
 }

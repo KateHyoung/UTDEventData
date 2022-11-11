@@ -4,26 +4,42 @@
 \alias{tableVar}
 \title{Searching the variables in a particular data table}
 \usage{
-tableVar(api_key = " ", table = "table_name", lword = " ")
+tableVar(table = "", utd_api_key = NULL, lword = "")
 }
 \arguments{
-\item{api_key}{an API key from the developer at UTD}
+\item{table}{a specific data table a user wants to explore its variables}
 
-\item{table}{a specific data table a user want to exploer its variables}
+\item{utd_api_key}{an API key from the developer at UTD}
 
-\item{lword}{a look-up word for a particular variable name in a data table}
+\item{lword}{a look-up word for a particular variable name you need}
 }
 \value{
-The variables list in a particular data table
+A list of variable names of the specified data table
 }
 \description{
-Searching the list of variablees in the data table a user specifies. It returns the list of variables.
+Searching the list of variables in the data table a user specifies.
+It returns variable names and requires an API key. \cr
+You can also look up a particular word of variabla names such as "day", "month", or "src" so that you can find whether or not a
+specified data table has the certain variables you need. \cr
+The API key can be obtained after submitting the form in the UTD event data sign-up website
+(http://eventdata.utdallas.edu/signup). Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}. \cr
+You can also use this function through the reference class, \code{Table()}. \cr
+The option of storing an API key in an environment variable is prepared to run the function without passing an API key every time. Please see the examples bellow.
 }
 \examples{
-> tableVar(api_key="...", table="phoenix_rt")
- # when searching the variables in Phoenix_RT
-[1] " code", "src_actor", "month", "tgt_actor", ....
-> tableVar(api_key="...", table="icews", lword="tar")
- # when searhing the variable which includes the word of "tar" in ICEWS
-[1] " Target Name"    " Target Sectors", ....
+\dontrun{
+# when searching the variables in Phoenix_RT
+tableVar(table="phoenix_rt", utd_api_key="...")
+
+# when searhing the variable which includes the word of "tar" in ICEWS
+tableVar(table="icews", lword="tar", utd_api_key="...")
+
+# method 1: passing a key as the first argument
+k <- "utd_api_key"
+tableVar(table="phoenix_rt", utd_api_key = k)
+tableVar(table="icews", utd_api_key = k, lword="target")
+
+# Method 2: storing the key in an environment variable
+Sys.setenv(UTDAPIKEY = "...your API key...")
+tableVar(table = "icews", lword = "target")}
 }

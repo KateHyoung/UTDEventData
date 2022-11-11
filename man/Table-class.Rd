@@ -4,20 +4,49 @@
 \name{Table-class}
 \alias{Table-class}
 \alias{Table}
-\title{A Reference class for applying an API key to all data extracting functions.}
+\title{A reference class to apply an API key to the other functions in this package}
 \description{
-Once a referece class is set, a user does not need to go through an API key
-to call searching functions
+Once a referece class is set, a user does not need to repeatedly put an API key into a function.
+An API key can be obtained after submitting an API request form in the sign-up website (\url{http://eventdata.utdallas.edu/signup}).
+Please follow the direction in the \href{http://149.165.156.33:5002/signup}{UTD sign-up webpage}.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{api_key}}{An API key from the developer at UTD}
+\item{\code{utd_api_key}}{A character vector}
 }}
 
+\section{Methods}{
+
+\describe{
+\item{\code{DataTables()}}{This function returns the names of data tables.
+\subsection{Return Value}{a list of a data table}}
+
+\item{\code{pullData(table_name, country, start, end)}}{This is the main function to extract subdata from
+the UTD Event data server by country names and time ranges.
+\subsection{Parameters}{\itemize{
+\item{\code{table_name} a name of data table.}
+\item{\code{country} a list of countires with the ISO code format or full names.}
+\item{\code{start} a string format of yyyymmdd as a starting date of a data set}
+\item{\code{end} a string format of yyymmdd as an end date of a data set}
+}}
+\subsection{Return Value}{real-time data or subseted data}}
+
+\item{\code{tableVar(table = "table_name", lword = " ")}}{This function returns the variable list a spcified data set.
+\subsection{Parameters}{\itemize{
+\item{\code{table} data table name a user wants.}
+\item{\code{lword} a look-up word of variable names.}
+}}
+\subsection{Return Value}{a list of variables in a data table}}
+}}
 
 \examples{
->obj<-Table$new() for creating an object
->obj$setAPIKey("....")
->obj$DataTable()
+\dontrun{# creating an object
+obj<-Table$new()
+# setting an object of an API key
+obj$setAPIKey("....")
+# once the object of an API is set, a user no need to repeat typing an API key
+obj$DataTable()  # returns the available data tables in the UTD server
+# to subset real-time data ('phoenix_rt') from 20171101 to 20171102 on MEX (Mexico)
+obj$pullData("Phoenix_rt", list("MEX"),start="20171101", end="20171102")}
 }
